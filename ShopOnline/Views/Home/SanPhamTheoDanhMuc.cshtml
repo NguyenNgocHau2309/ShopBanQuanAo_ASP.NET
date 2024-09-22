@@ -1,0 +1,43 @@
+﻿
+
+@{
+    ViewData["Title"] = "ChiTietSanPham";
+    Layout = "~/Views/Shared/_LayoutShop.cshtml";
+}
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<ShopOnline.ViewModels.SanPhamViewModel>
+
+@if (Model != null && Model.Any())
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            @await Html.PartialAsync("PartialSanPham", item)
+        }
+    </div>
+}
+else
+{
+    <p>Không có sản phẩm nào được tìm thấy trong danh mục này.</p>
+}
+
+@* Phân trang *@
+
+<ul class="pagination justify-content-center mb-3">
+    @Html.PagedListPager(Model, page => Url.Action("SanPhamTheoDanhMuc", new { page = page, madm = ViewBag.MadM }),
+            new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 3,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+        DisplayLinkToLastPage = PagedListDisplayMode.Never,
+        LinkToPreviousPageFormat = "<",
+        LinkToNextPageFormat = ">",
+        LinkToIndividualPageFormat = "{0}",
+        Display = PagedListDisplayMode.IfNeeded,
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" },
+        UlElementClasses = new[] { "pagination", "justify-content-center", "mb-3" }
+    })
+</ul>

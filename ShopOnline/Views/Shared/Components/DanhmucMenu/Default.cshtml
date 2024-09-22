@@ -1,0 +1,10 @@
+﻿@model IEnumerable<ShopOnline.Models.DanhMuc>
+
+<div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+    @foreach (var item in Model)
+    {
+        <a href="@Url.Action("SanPhamTheoDanhMuc", "Home", new { madm = item.MaDm })" class="nav-item nav-link">
+            @item.TenDm
+        </a>
+    }
+</div>

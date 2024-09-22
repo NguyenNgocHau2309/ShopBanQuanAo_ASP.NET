@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "DanhMucSanPham";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@using ShopOnline.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<ShopOnline.Models.DanhMuc>
+
+<h2>Danh mục các sản phẩm</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr class="table-success">
+            <th>
+                Tên DM
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="table-danger">
+            <td>
+                @Html.DisplayFor(modelItem => item.TenDm)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaDm">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaDm">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaDm">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<ul class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("DanhMucSanPham", new { page = page }),
+            new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 3,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+        LinkToPreviousPageFormat = "Previous",
+        LinkToNextPageFormat = "Next",
+        LinkToIndividualPageFormat = "{0}",
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+</ul>

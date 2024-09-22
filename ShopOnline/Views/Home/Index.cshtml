@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutShop.cshtml";
+}
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<ShopOnline.ViewModels.SanPhamViewModel>
+
+@foreach (var item in Model)
+{
+    @await Html.PartialAsync("PartialSanPham", item)
+}
+
+<ul class="pagination justify-content-center mb-3">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }),
+            new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 3, // Số trang hiển thị là 3
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded, // Hiển thị nút "Lui" nếu cần
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded, // Hiển thị nút "Tới" nếu cần
+        DisplayLinkToFirstPage = PagedListDisplayMode.Never, // Ẩn nút "Trang đầu"
+        DisplayLinkToLastPage = PagedListDisplayMode.Never, // Ẩn nút "Trang cuối"
+        LinkToPreviousPageFormat = "<", // Ký tự cho nút "Lui"
+        LinkToNextPageFormat = ">", // Ký tự cho nút "Tới"
+        LinkToIndividualPageFormat = "{0}", // Hiển thị số trang
+        Display = PagedListDisplayMode.IfNeeded, // Chỉ hiển thị nếu có phân trang
+        LiElementClasses = new[] { "page-item" }, // Class "page-item" cho mỗi <li>
+        PageClasses = new[] { "page-link" }, // Class "page-link" cho các link trang
+        UlElementClasses = new[] { "pagination", "justify-content-center", "mb-3" } // Class cho <ul>
+    })
+</ul>
