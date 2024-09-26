@@ -8279,7 +8279,7 @@ textarea.form-control-lg {
   padding: 1.5rem !important; }
 
 .p-5 {
-  padding: 3rem !important; }
+  padding: 1.5rem !important; }
 
 .px-0 {
   padding-right: 0 !important;
@@ -12559,7 +12559,7 @@ code {
   .btn-gradient-primary:not([disabled]):not(.disabled):active, .btn-gradient-primary:not([disabled]):not(.disabled).active,
   .show > .btn-gradient-primary.dropdown-toggle {
     background: -webkit-gradient(linear, left top, right top, from(#da8cff), to(#9a55ff));
-    background: linear-gradient(to right, #da8cff, #9a55ff); }
+    background: linear-gradient(to right, #610316 ,  #8c767a); }
   .btn-gradient-primary:hover {
     opacity: .8; }
   .btn-gradient-primary:not(.btn-gradient-light) {
@@ -13086,7 +13086,7 @@ code {
       width: 18px;
       height: 18px;
       border-radius: 2px;
-      border: solid #b66dff;
+      border: solid #a70727;
       border-width: 2px;
       -webkit-transition: all;
       transition: all;

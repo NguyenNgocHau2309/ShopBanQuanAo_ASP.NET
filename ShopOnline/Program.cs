@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ShopOnline.Models;
 using ShopOnline.Respository;
+using Microsoft.AspNetCore.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,12 @@ var connectionString = builder.Configuration.GetConnectionString("QuanLyShopOnli
 builder.Services.AddDbContext<QuanLyShopOnlineContext>(x => x.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<DanhMucRespository, DMRespository>();
+builder.Services.AddSession();
+
+// Thêm HttpContextAccessor ?? truy c?p HttpContext t? các class khác
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -27,6 +33,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

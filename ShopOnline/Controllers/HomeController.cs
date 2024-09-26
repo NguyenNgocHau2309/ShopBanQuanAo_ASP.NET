@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopOnline.Models;
+using ShopOnline.Models.Authentication;
 using ShopOnline.ViewModels;
 using System.Diagnostics;
 using System.Drawing.Printing;
@@ -13,10 +14,12 @@ namespace ShopOnline.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         QuanLyShopOnlineContext db = new QuanLyShopOnlineContext();
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         private async Task<List<SanPhamViewModel>> GetSanPhams()
@@ -38,9 +41,11 @@ namespace ShopOnline.Controllers
                           .OrderBy(x => x.TenSP)
                           .ToListAsync();
         }
-
+        //[Authentication]
         public async Task<IActionResult> IndexAsync(int ? page)
         {
+            var username = _httpContextAccessor.HttpContext.Session.GetString("Username");
+
             int pageSize = 12;
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var ListSanPham = await GetSanPhams();

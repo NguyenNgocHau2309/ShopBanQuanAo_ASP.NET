@@ -1,0 +1,149 @@
+﻿@{
+    Layout = null;
+}
+@model ShopOnline.ViewModels.RegisterViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Đăng ký tài khoản</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../LayoutAdmin/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../LayoutAdmin/assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../LayoutAdmin/assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../../LayoutAdmin/assets/images/favicon.ico" />
+</head>
+<body>
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            <div class="content-wrapper d-flex align-items-center auth">
+                <div class="row w-100 justify-content-center">
+                    <div class="auth-form-light text-left p-5" style="max-width: 600px; width: 100%;">
+                        @using (Html.BeginForm("Register", "Access", FormMethod.Post))
+                        {
+                            <div class="text-center mb-4">
+                                <img src="../../LayoutAdmin/assets/images/IconShop.png" style="max-width: 150px;" alt="Shop Icon" />
+                            </div>
+
+                            <!-- Full Name and Gender Fields -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.FullName, "Họ và tên", new { @class = "col-form-label" })
+                                        @Html.TextBoxFor(x => x.FullName, new { @class = "form-control", placeholder = "Họ và tên", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.FullName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        @Html.LabelFor(x => x.Gender, "Giới tính", new { @class = "col-sm-3 col-form-label", style = "width: 100%;" })
+                                        <div class="col-sm-4">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    @Html.RadioButtonFor(x => x.Gender, "M", new { @class = "form-check-input", id = "genderMale" })
+                                                    Nam
+                                                    <i class="input-helper"></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    @Html.RadioButtonFor(x => x.Gender, "F", new { @class = "form-check-input", id = "genderFemale" })
+                                                    Nữ
+                                                    <i class="input-helper"></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        @Html.ValidationMessageFor(x => x.Gender, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Date of Birth and Phone Number Fields -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.DateOfBirth, "Ngày sinh", new { @class = "col-form-label" })
+                                        @Html.TextBoxFor(x => x.DateOfBirth, new { @class = "form-control", placeholder = "dd/mm/yyyy", type = "date" })
+                                        @Html.ValidationMessageFor(x => x.DateOfBirth, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.PhoneNumber, "Số điện thoại", new { @class = "col-form-label" })
+                                        @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", placeholder = "Số điện thoại", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Email and Address Fields -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.Email, "Email", new { @class = "col-form-label" })
+                                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = "Email", required = "required", type = "email" })
+                                        @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.Address, "Địa chỉ", new { @class = "col-form-label" })
+                                        @Html.TextBoxFor(x => x.Address, new { @class = "form-control", placeholder = "Địa chỉ" })
+                                        @Html.ValidationMessageFor(x => x.Address, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Username and Password Fields -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.Username, "Tên người dùng", new { @class = "col-form-label" })
+                                        @Html.TextBoxFor(x => x.Username, new { @class = "form-control", placeholder = "Tên người dùng", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.Username, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(x => x.Password, "Mật khẩu", new { @class = "col-form-label" })
+                                        @Html.TextBoxFor(x => x.Password, new { @class = "form-control", type = "password", placeholder = "Mật khẩu", required = "required" })
+                                        @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="mt-3 text-center">
+                                <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="submit" style="background: linear-gradient(to right,#610316, #8c767a)">Đăng ký</button>
+                            </div>
+
+                            <!-- Login Link -->
+                            <div class="text-center mt-4 font-weight-light">
+                                Bạn đã có tài khoản? <a href="@Url.Action("Login", "Access")" class="text-primary">Đăng nhập</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- plugins:js -->
+    <script src="../../LayoutAdmin/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="../../LayoutAdmin/assets/js/off-canvas.js"></script>
+    <script src="../../LayoutAdmin/assets/js/misc.js"></script>
+</body>
+</html>
+
+
+
+
+

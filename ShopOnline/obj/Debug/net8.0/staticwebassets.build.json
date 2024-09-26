@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "QwT6oiEhW9XlIJ3OV6O+rf7/8oQsDxvcteG6swhXfko=",
+  "Hash": "n85GgvlZ5eUc7mYWpA42s00EKqTw1f8VCV+dUlvxNjQ=",
   "Source": "ShopOnline",
   "BasePath": "_content/ShopOnline",
   "Mode": "Default",
@@ -1212,6 +1212,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\LayoutAdmin\\assets\\images\\favicon.png"
+    },
+    {
+      "Identity": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutAdmin\\assets\\images\\IconShop.png",
+      "SourceId": "ShopOnline",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\",
+      "BasePath": "_content/ShopOnline",
+      "RelativePath": "LayoutAdmin/assets/images/IconShop.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\LayoutAdmin\\assets\\images\\IconShop.png"
     },
     {
       "Identity": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutAdmin\\assets\\images\\logo.svg",

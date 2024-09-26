@@ -26,8 +26,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\DoAn\ShopOnline\ShopOnline
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/AddDanhMuc.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEFkZERhbmhNdWMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/DanhMucSanPham.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXERhbmhNdWNTYW5QaGFtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/EditDanhMuc.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEVkaXREYW5oTXVjLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/Index.cshtml]
@@ -36,6 +44,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/Share/_LayoutAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVcX0xheW91dEFkbWluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Views/Access/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzXExvZ2luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Views/Access/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzXFJlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAn/ShopOnline/ShopOnline/Views/Home/ChiTietSanPham.cshtml]

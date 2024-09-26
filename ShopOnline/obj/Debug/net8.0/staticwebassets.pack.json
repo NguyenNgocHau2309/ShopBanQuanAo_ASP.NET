@@ -97,6 +97,10 @@
       "PackagePath": "staticwebassets\\LayoutAdmin\\assets\\fonts\\Ubuntu\\Ubuntu-Regular.woff2"
     },
     {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutAdmin\\assets\\images\\IconShop.png",
+      "PackagePath": "staticwebassets\\LayoutAdmin\\assets\\images\\IconShop.png"
+    },
+    {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutAdmin\\assets\\images\\dashboard\\circle.png",
       "PackagePath": "staticwebassets\\LayoutAdmin\\assets\\images\\dashboard\\circle.png"
     },
