@@ -23,7 +23,7 @@ public partial class QuanLyShopOnlineContext : DbContext
 
     public virtual DbSet<CtspSize> CtspSizes { get; set; }
 
-    public virtual DbSet<DanhGium> DanhGia { get; set; }
+    public virtual DbSet<DanhGia> DanhGia { get; set; }
 
     public virtual DbSet<DanhMuc> DanhMucs { get; set; }
 
@@ -42,20 +42,22 @@ public partial class QuanLyShopOnlineContext : DbContext
     public virtual DbSet<SanPham> SanPhams { get; set; }
 
     public virtual DbSet<Size> Sizes { get; set; }
+    public virtual DbSet<GioHang> GioHangs { get; set; }
 
     public virtual DbSet<VideoDanhGium> VideoDanhGia { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=LAPTOP-HAU03\\SQL2022;Initial Catalog=QuanLyShopOnline;Integrated Security=True;Connect Timeout=200;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        => optionsBuilder.UseSqlServer("Data Source=LAPTOP-HAU03\\SQL2022;Initial Catalog=QuanLyShopOnline;Integrated Security=True;Connect Timeout=100;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Ctdh>(entity =>
         {
             entity
-                .HasNoKey()
                 .ToTable("CTDH");
+
+            entity.HasKey(g => new { g.MaDh, g.MaCtspSize});
 
             entity.Property(e => e.GiaBan).HasColumnType("decimal(18, 3)");
             entity.Property(e => e.MaCtspSize)
@@ -68,10 +70,7 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("MaDH");
-            entity.Property(e => e.SoLuong)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .IsFixedLength();
+            entity.Property(e => e.SoLuong).HasColumnType("int"); // Thay đổi kiểu dữ liệu thành int
             entity.Property(e => e.TongTien).HasColumnType("decimal(18, 3)");
 
             entity.HasOne(d => d.MaCtspSizeNavigation).WithMany()
@@ -83,11 +82,75 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .HasConstraintName("FK__CTDH__MaDH__3864608B");
         });
 
+        modelBuilder.Entity<GioHang>(entity =>
+        {
+            entity
+                .ToTable("GioHang"); // Chỉ định tên bảng là GioHang
+
+            entity.HasKey(g => new { g.MaKH, g.MaSP, g.MaMS, g.MaS });
+
+            // Định nghĩa các thuộc tính
+            entity.Property(e => e.MaKH)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("MaKH");
+
+            entity.Property(e => e.MaSP)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("MaSP");
+
+            entity.Property(e => e.MaMS)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("MaMS");
+
+            entity.Property(e => e.MaS)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("MaS");
+
+            entity.Property(e => e.SoLuong)
+                .IsRequired()
+                .HasColumnName("SoLuong");
+
+            entity.Property(e => e.Gia).HasColumnType("decimal(18, 3)");
+
+            // Thiết lập các quan hệ khóa ngoại
+            entity.HasOne(d => d.MaKhNavigation)
+                .WithMany()
+                .HasForeignKey(d => d.MaKH)
+                .HasConstraintName("FK_GioHang_KhachHang");
+
+            entity.HasOne(d => d.MaSpNavigation)
+                .WithMany()
+                .HasForeignKey(d => d.MaSP)
+                .HasConstraintName("FK_GioHang_SanPham");
+
+            entity.HasOne(d => d.MaCtspNavigation)
+                .WithMany()
+                .HasForeignKey(d => d.MaMS)
+                .HasConstraintName("FK_GioHang_Ctsp");
+
+            entity.HasOne(d => d.MaCtspSizeNavigation)
+                .WithMany()
+                .HasForeignKey(d => d.MaS)
+                .HasConstraintName("FK_GioHang_CtspSize");
+        });
+
         modelBuilder.Entity<Ctkm>(entity =>
         {
             entity
-                .HasNoKey()
                 .ToTable("CTKM");
+            entity.HasKey(g => new { g.MaDh, g.MaKm});
+            entity.Property(e => e.Khac)
+                .HasMaxLength(255)
+                .IsUnicode(true)
+                .HasColumnName("Khac");
 
             entity.Property(e => e.MaDh)
                 .HasMaxLength(10)
@@ -157,7 +220,7 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("MaCTSP_Size");
-            entity.Property(e => e.Gia).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.Gia).HasColumnType("decimal(18, 3)");
             entity.Property(e => e.MaCtsp)
                 .HasMaxLength(10)
                 .IsUnicode(false)
@@ -178,7 +241,7 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .HasConstraintName("FK__CTSP_Size__MaSiz__22751F6C");
         });
 
-        modelBuilder.Entity<DanhGium>(entity =>
+        modelBuilder.Entity<DanhGia>(entity =>
         {
             entity.HasKey(e => e.MaDg).HasName("PK__DanhGia__27258660DE321D88");
 
@@ -290,21 +353,36 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .HasColumnName("MaDH");
             entity.Property(e => e.Dcgh)
                 .HasMaxLength(255)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("DCGH");
             entity.Property(e => e.MaKh)
                 .HasMaxLength(10)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .IsFixedLength()
                 .HasColumnName("MaKH");
+            entity.Property(e => e.MaCode)
+                .HasMaxLength(10)
+                .IsUnicode(true)
+                .IsFixedLength()
+                .HasColumnName("MaCode");
+            entity.Property(e => e.TenNguoiNhan)
+                .HasMaxLength(100)
+                .IsUnicode(true)
+                .IsFixedLength()
+                .HasColumnName("TenNguoiNhan");
+            entity.Property(e => e.SoDienThoai)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("SoDienThoai");
             entity.Property(e => e.NgayDh).HasColumnName("NgayDH");
             entity.Property(e => e.Ptgh)
                 .HasMaxLength(50)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("PTGH");
             entity.Property(e => e.Pttt)
                 .HasMaxLength(50)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("PTTT");
             entity.Property(e => e.TienGiam)
                 .HasColumnType("decimal(18, 3)")
@@ -403,7 +481,7 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .HasColumnName("MaKM");
             entity.Property(e => e.LoaiKm)
                 .HasMaxLength(50)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("Loai_KM");
             entity.Property(e => e.MaDm)
                 .HasMaxLength(10)
@@ -415,7 +493,9 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("MaSP");
-            entity.Property(e => e.MoTa).HasColumnType("text");
+            entity.Property(e => e.MoTa)
+                .IsUnicode(true)
+                .HasColumnType("text");
             entity.Property(e => e.NgayBd).HasColumnName("NgayBD");
             entity.Property(e => e.NgayKt).HasColumnName("NgayKT");
             entity.Property(e => e.SoTienPhanTram).HasColumnName("SoTien_PhanTram");
@@ -439,7 +519,7 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .HasColumnName("MaMS");
             entity.Property(e => e.TenMs)
                 .HasMaxLength(50)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("TenMS");
         });
 
@@ -467,6 +547,14 @@ public partial class QuanLyShopOnlineContext : DbContext
             entity.Property(e => e.TenSp)
                 .HasColumnType("text")
                 .HasColumnName("TenSP");
+            // Cấu hình cho MinGia và MaxGia
+            entity.Property(e => e.MinGia)  // Giả sử bạn đã thêm thuộc tính này vào lớp SanPham
+                .HasColumnType("decimal(18,3)")
+                .HasColumnName("MinGia");  // Nếu bạn có tên cột cụ thể, hãy sử dụng nó
+
+            entity.Property(e => e.MaxGia)  // Giả sử bạn đã thêm thuộc tính này vào lớp SanPham
+                .HasColumnType("decimal(18,3)")
+                .HasColumnName("MaxGia");  // Nếu bạn có tên cột cụ thể, hãy sử dụng nó
 
             entity.HasOne(d => d.MaDmNavigation).WithMany(p => p.SanPhams)
                 .HasForeignKey(d => d.MaDm)

@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_LayoutShop.cshtml";
 }
 @using X.PagedList.Mvc.Core;
-@model X.PagedList.IPagedList<ShopOnline.ViewModels.SanPhamViewModel>
+@model X.PagedList.IPagedList<ShopOnline.Models.SanPham>
 
 <div class="row px-xl-5">
     <!-- Shop Sidebar Start -->
@@ -126,7 +126,7 @@
         <div class="row pb-3">
             @foreach (var item in Model)
             {
-                @await Html.PartialAsync("PartialSanPham", item)
+                @Html.Partial("PartialSanPham", item)
             }
         </div>
     </div>

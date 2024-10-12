@@ -5,13 +5,15 @@ namespace ShopOnline.Models;
 
 public partial class Ctkm
 {
-    public string? MaDh { get; set; }
+    public string MaDh { get; set; }
 
-    public string? MaKm { get; set; }
+    public string MaKm { get; set; }
 
     public DateOnly NgaySd { get; set; }
 
-    public decimal? TienGiam { get; set; }
+    public decimal TienGiam { get; set; }
+
+    public string Khac {  get; set; }
 
     public virtual DonHang? MaDhNavigation { get; set; }
 

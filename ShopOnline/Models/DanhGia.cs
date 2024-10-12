@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ShopOnline.Models;
 
-public partial class DanhGium
+public partial class DanhGia
 {
     public string MaDg { get; set; } = null!;
 

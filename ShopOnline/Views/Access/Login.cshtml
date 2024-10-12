@@ -40,6 +40,12 @@
                                     @TempData["SuccessMessage"]
                                 </div>
                             }
+                            @if (TempData["ErrorMessage"] != null)
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    @TempData["ErrorMessage"]
+                                </div>
+                            }
                             @* <form class="pt-3"> *@
                                 @using (Html.BeginForm("Login", "Access", FormMethod.Post)){
                                 <div class="form-group">

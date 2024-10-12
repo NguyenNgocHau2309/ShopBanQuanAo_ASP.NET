@@ -797,6 +797,18 @@
       "PackagePath": "staticwebassets\\LayoutShop\\lib\\owlcarousel\\owl.carousel.min.js"
     },
     {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\mail\\contact.js",
+      "PackagePath": "staticwebassets\\LayoutShop\\mail\\contact.js"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\mail\\contact.php",
+      "PackagePath": "staticwebassets\\LayoutShop\\mail\\contact.php"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\mail\\jqBootstrapValidation.min.js",
+      "PackagePath": "staticwebassets\\LayoutShop\\mail\\jqBootstrapValidation.min.js"
+    },
+    {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

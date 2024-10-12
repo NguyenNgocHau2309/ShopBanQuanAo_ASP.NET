@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutShop.cshtml";
 }
 @using X.PagedList.Mvc.Core;
-@model X.PagedList.IPagedList<ShopOnline.ViewModels.SanPhamViewModel>
+@model X.PagedList.IPagedList<ShopOnline.Models.SanPham>
 
 <div class="row px-xl-5">
     <!-- Shop Sidebar Start -->
@@ -130,7 +130,7 @@
             {
                 @foreach (var item in Model)
                 {
-                    @await Html.PartialAsync("PartialSanPham", item)
+                    @Html.Partial("PartialSanPham", item);
                 }
             }
             else
@@ -143,7 +143,7 @@
 </div>
 
 @* Phân trang *@
-<ul class="pagination justify-content-center mb-3">
+@* <ul class="pagination justify-content-center mb-3">
     @Html.PagedListPager(Model, page => Url.Action("SanPhamTheoDanhMuc", new { page = page, madm = ViewBag.MadM }),
             new PagedListRenderOptions
     {
@@ -160,4 +160,18 @@
         PageClasses = new[] { "page-link" },
         UlElementClasses = new[] { "pagination", "justify-content-center", "mb-3" }
     })
+</ul> *@
+<ul class="pagination justify-content-center mb-3">
+    @Html.PagedListPager(Model, page => Url.Action("SanPhamTheoDanhMuc", new { page = page, madm = ViewBag.MadM }),
+            new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 3, // Giới hạn hiển thị 3 trang
+        LinkToPreviousPageFormat = "<", // Ký tự trang trước
+        LinkToNextPageFormat = ">", // Ký tự trang sau
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded, // Hiển thị nếu cần
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded, // Hiển thị nếu cần
+        LiElementClasses = new[] { "page-item" }, // Lớp CSS cho các phần tử trang
+        PageClasses = new[] { "page-link" } // Lớp CSS cho liên kết trang
+    }
+            )
 </ul>

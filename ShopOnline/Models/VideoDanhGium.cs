@@ -11,5 +11,5 @@ public partial class VideoDanhGium
 
     public string DuongDan { get; set; } = null!;
 
-    public virtual DanhGium? MaDgNavigation { get; set; }
+    public virtual DanhGia? MaDgNavigation { get; set; }
 }

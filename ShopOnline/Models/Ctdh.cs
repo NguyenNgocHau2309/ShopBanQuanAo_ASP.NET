@@ -9,11 +9,11 @@ public partial class Ctdh
 
     public string? MaCtspSize { get; set; }
 
-    public string SoLuong { get; set; } = null!;
+    public int SoLuong { get; set; }
 
-    public decimal? GiaBan { get; set; }
+    public decimal GiaBan { get; set; }
 
-    public decimal? TongTien { get; set; }
+    public decimal TongTien { get; set; }
 
     public virtual CtspSize? MaCtspSizeNavigation { get; set; }
 
