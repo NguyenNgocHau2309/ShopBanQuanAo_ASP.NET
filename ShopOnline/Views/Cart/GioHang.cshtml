@@ -91,8 +91,9 @@
                 </a>
                 <a class="btn border" asp-area="Cart" asp-controller="Cart" asp-action="GioHang" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
+                    <span class="badge" id="cartQuantity">0</span>
                 </a>
+
             </div>
         </div>
     </div>
@@ -139,7 +140,7 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a asp-area ="Home" asp-controller="Home" asp-action="Index" class="nav-item nav-link">
                                 Trang chủ</a>
-                            <a asp-area="MonitorInvoice" asp-controller="MonitorInvoice" asp-action="TheoDoiDonHang" class="nav-item nav-link">Theo dõi đơn hàng</a>
+                           @*  <a asp-area="MonitorInvoice" asp-controller="MonitorInvoice" asp-action="TheoDoiDonHang" class="nav-item nav-link">Theo dõi đơn hàng</a> *@
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             @if (HttpContextAccessor.HttpContext.Session.GetString("Username") != null)
@@ -274,17 +275,17 @@
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Giảm giá</h6>
-                            <h6 class="font-weight-medium">$10</h6>
+                            <h6 class="font-weight-medium" id="discountValue">0₫</h6> <!-- Thêm id để dễ dàng cập nhật -->
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Quà Tặng</h6>
-                            <h6 class="font-weight-medium">$10</h6>
+                            <h6 class="font-weight-medium" id="giftValue">Không có</h6> <!-- Thêm id để dễ dàng cập nhật -->
                         </div>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Tổng cộng</h5>
-                            <h5 class="font-weight-bold">$160</h5>
+                            <h5 class="font-weight-bold" id="finalTotal">0₫</h5>
                         </div>
                         <form asp-area="Checkout" asp-controller="Checkout" asp-action="ThanhToan" method="get">
                             <button type="submit" class="btn btn-block btn-primary my-3 py-3">Tiến hành thanh toán</button>
@@ -381,59 +382,62 @@
     <!-- Template Javascript -->
     <script src="~/LayoutShop/js/main.js"></script>
     <script>
-        //Total
-        function updateTotalPay() {
+        $(document).ready(function () {
+            const ship = 0; // Đặt giá trị ship cố định là 0
+
+            // Gọi hàm AJAX để cập nhật khuyến mãi và tổng tiền khi trang được tải
             $.ajax({
-                type: "POST",
-                url: '/Cart/GetTotalPay', // Phương thức tính tổng cộng trong controller
-                success: function (data) {
-                    // Cập nhật tổng cộng
-                    $('#totalPay').text(data.totalPay.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
-
-                    // Cập nhật giá Shipping nếu cần (đang mặc định là $10)
-                    var shippingFee = 10;
-                    $('#shippingFee').text('$' + shippingFee.toFixed(2));
-
-                    // Cập nhật tổng tiền cuối cùng (tổng cộng + shipping)
-                    var finalTotal = data.totalPay + shippingFee;
-                    $('#finalTotal').text('$' + finalTotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                type: 'POST',
+                url: '@Url.Action("Checkout", "hoadon")', // Đường dẫn chính xác tới action trong controller
+                data: {
+                    ship: ship
                 },
-                error: function (error) {
-                    console.error("Lỗi cập nhật tổng cộng: ", error);
+                success: function (data) {
+                    // Hiển thị thông tin giảm giá
+                    $('#discountValue').text(data.GiamGia.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+
+                    // Hiển thị thông tin quà tặng
+                    $('#giftValue').text(data.QuaTang.length > 0 ? data.QuaTang.join(', ') : 'Không có');
+
+                    // Cập nhật tổng tiền khi trang được tải
+                    updateTotalPay(data.GiamGia);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error); // Hiển thị lỗi trong console
                 }
             });
-        }
 
-        //Tăng giảm số lượng
-        $(document).ready(function () {
+            // Tăng/giảm số lượng sản phẩm trong giỏ hàng
             $('.btn-minus').click(function () {
-                var quantityInput = $(this).closest('.input-group').find('.form-control'); // Tìm ô input số lượng
-                var quantity = parseInt(quantityInput.val()); // Lấy giá trị hiện tại
-                var productId = quantityInput.data('product-id'); // Lấy productId từ data attribute
-                var mams = quantityInput.data('color'); // Lấy màu sắc từ data attribute
-                var masize = quantityInput.data('size'); // Lấy kích thước từ data attribute
+                const quantityInput = $(this).closest('.input-group').find('.form-control');
+                let quantity = parseInt(quantityInput.val());
+                const productId = quantityInput.data('product-id');
+                const mams = quantityInput.data('color');
+                const masize = quantityInput.data('size');
 
-                if (quantity > 1) { // Đảm bảo số lượng không nhỏ hơn 1
-                    quantityInput.val(quantity - 1); // Giảm số lượng
-                    updateQuantity(productId, mams, masize, quantity - 1); // Gọi hàm cập nhật số lượng
+                if (quantity > 1) {
+                    quantity -= 1;
+                    quantityInput.val(quantity);
+                    updateQuantity(productId, mams, masize, quantity);
                 }
             });
 
             $('.btn-plus').click(function () {
-                var quantityInput = $(this).closest('.input-group').find('.form-control'); // Tìm ô input số lượng
-                var quantity = parseInt(quantityInput.val()); // Lấy giá trị hiện tại
-                var productId = quantityInput.data('product-id'); // Lấy productId từ data attribute
-                var mams = quantityInput.data('color'); // Lấy màu sắc từ data attribute
-                var masize = quantityInput.data('size'); // Lấy kích thước từ data attribute
+                const quantityInput = $(this).closest('.input-group').find('.form-control');
+                let quantity = parseInt(quantityInput.val());
+                const productId = quantityInput.data('product-id');
+                const mams = quantityInput.data('color');
+                const masize = quantityInput.data('size');
 
-                quantityInput.val(quantity + 1); // Tăng số lượng
-                updateQuantity(productId, mams, masize, quantity + 1); // Gọi hàm cập nhật số lượng
+                quantity += 1;
+                quantityInput.val(quantity);
+                updateQuantity(productId, mams, masize, quantity);
             });
 
-            // Hàm gửi yêu cầu AJAX để cập nhật số lượng
+            // Hàm cập nhật số lượng sản phẩm trong giỏ hàng
             function updateQuantity(productId, mams, masize, quantity) {
                 $.ajax({
-                    url: '@Url.Action("In_Decrease_Quantity", "Cart")', // Đường dẫn đến phương thức In_Decrease_Quantity
+                    url: '@Url.Action("In_Decrease_Quantity", "Cart")',
                     type: 'POST',
                     data: {
                         productId: productId,
@@ -443,27 +447,24 @@
                     },
                     success: function (response) {
                         updateTotalPay();
-                        alert(response.message); // Hiển thị thông báo
+                        alert(response.message); // Hiển thị thông báo sau khi cập nhật thành công
                     },
                     error: function () {
-                        alert('Có lỗi xảy ra, vui lòng thử lại.'); // Thông báo lỗi
+                        alert('Có lỗi xảy ra, vui lòng thử lại.'); // Thông báo khi có lỗi
                     }
                 });
             }
-        });
 
-
-
-        $(document).ready(function () {
+            // Xóa sản phẩm khỏi giỏ hàng
             $('.delete-cart').click(function (e) {
                 e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit
 
-                var productId = $(this).data('product-id'); // Lấy mã sản phẩm từ thuộc tính data
-                var mams = $(this).data('mams'); // Lấy mã màu sắc từ thuộc tính data
-                var masize = $(this).data('masize'); // Lấy mã kích thước từ thuộc tính data
+                const productId = $(this).data('product-id');
+                const mams = $(this).data('color');
+                const masize = $(this).data('size');
 
                 $.ajax({
-                    url: '@Url.Action("DeleteToCart", "Cart")',
+                    url: '@Url.Action("DeleteFromCart", "Cart")',
                     type: 'POST',
                     data: {
                         productId: productId,
@@ -471,17 +472,50 @@
                         masize: masize
                     },
                     success: function (response) {
-                        alert(response.message);
-                        // Cập nhật lại giỏ hàng hoặc xóa dòng sản phẩm khỏi giao diện nếu cần
-                        updateTotalPay();
-                        location.reload(); // Tải lại trang để cập nhật giỏ hàng
+                        location.reload(); // Tải lại trang sau khi xóa thành công
                     },
                     error: function () {
-                        alert('Có lỗi xảy ra, vui lòng thử lại.');
+                        alert('Có lỗi xảy ra, vui lòng thử lại.'); // Thông báo khi có lỗi
                     }
                 });
             });
+
+            // Cập nhật số lượng giỏ hàng khi trang được tải
+            $.ajax({
+                url: '@Url.Action("GetQuantityCart", "Cart")', // Gọi đến action trong controller
+                type: 'GET',
+                success: function (data) {
+                    // Cập nhật số lượng giỏ hàng vào thẻ span
+                    $('#cartQuantity').text(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log('Lỗi khi lấy số lượng giỏ hàng: ', error);
+                }
+            });
         });
+
+        // Hàm cập nhật tổng tiền sau khi khuyến mãi
+        function updateTotalPay(discount = 0) {
+            $.ajax({
+                type: "POST",
+                url: '/Cart/GetTotalPay',
+                success: function (data) {
+                    let totalPay = data.totalPay * 1000; // Giả sử tổng tiền trả về tính bằng đơn vị ngàn
+
+                    // Cập nhật tổng tiền ban đầu (chưa trừ giảm giá)
+                    $('#totalPay').text(totalPay.toLocaleString('vi-VN') + '₫');
+
+                    // Tính tổng cộng sau khi trừ giảm giá
+                    let finalTotal = totalPay - discount;
+
+                    // Cập nhật tổng cộng sau giảm giá vào finalTotal
+                    $('#finalTotal').text(finalTotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
+                },
+                error: function (error) {
+                    console.error("Lỗi cập nhật tổng cộng:", error); // Hiển thị lỗi trong console
+                }
+            });
+        }
 
     </script>
 </body>

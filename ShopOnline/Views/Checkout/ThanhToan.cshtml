@@ -140,7 +140,7 @@
                             <a asp-area="Home" asp-controller="Home" asp-action="Index" class="nav-item nav-link">
                                 Trang chủ
                             </a>
-                            <a asp-area="MonitorInvoice" asp-controller="MonitorInvoice" asp-action="TheoDoiDonHang" class="nav-item nav-link">Theo dõi đơn hàng</a>
+                            @* <a asp-area="MonitorInvoice" asp-controller="MonitorInvoice" asp-action="TheoDoiDonHang" class="nav-item nav-link">Theo dõi đơn hàng</a> *@
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             @if (HttpContextAccessor.HttpContext.Session.GetString("Username") != null)
@@ -293,25 +293,25 @@
                         </div>
                         <div class="card-body">
                             <h5 class="font-weight-medium mb-3">Sản Phẩm</h5>
-                            @foreach (var item in Model.SanPham)
-                            {
-                                <div class="d-flex justify-content-between">
-                                    <p>@item.TenSp</p>
-                                    @if (item.GiaGiam < item.GiaGoc)
-                                    {
-                                        <div style="margin-Left: 25px !important;">
-                                            <p><del>₫@String.Format("{0:#,0.000}", item.GiaGoc)</del></p>
-                                            <p>₫@String.Format("{0:#,0.000}", item.GiaGiam)</p>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div style="margin-Left: 25px !important;">
-                                            <p>₫@String.Format("{0:#,0.000}", item.GiaGiam)</p>
-                                        </div>
-                                    }
-                                </div>
-                            }
+                        @foreach (var item in Model.SanPham)
+                        {
+                            <div class="d-flex justify-content-between">
+                                <p>@item.TenSp</p>
+                                @if (item.GiaGiam < item.GiaGoc)
+                                {
+                                    <div style="margin-Left: 25px !important;">
+                                        <p><del>₫@String.Format("{0:#,0.000}", item.GiaGoc)</del></p>
+                                        <p>₫@String.Format("{0:#,0.000}", item.GiaGiam)</p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div style="margin-Left: 25px !important;">
+                                        <p>₫@String.Format("{0:#,0.000}", item.GiaGiam)</p>
+                                    </div>
+                                }
+                            </div>
+                        }
                             <hr class="mt-0">
                             <div class="d-flex justify-content-between mb-3 pt-1">
                                 <h6 class="font-weight-medium">Tổng phụ</h6>
@@ -323,8 +323,12 @@
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h6 class="font-weight-medium">Phí vận chuyển</h6>
-                                <h6 id="shippingFeeDisplay" class="font-weight-medium">₫20.000</h6> <!-- Use this ID -->
+                                <h6 id="shippingFeeDisplay" class="font-weight-medium">₫@String.Format("{0:#,0.000}", Model.TienShip)</h6>
                             </div>
+
+                            <!-- Input ẩn lưu giá trị phí vận chuyển để gửi về server -->
+                            <input type="hidden" id="ship" name="TienShip" value="@Model.TienShip" />
+
                             <div class="d-flex justify-content-between">
                                 <h6 class="font-weight-medium">Quà Tặng</h6>
                                 <h6 class="font-weight-medium" style="color: #da6d95; font-weight: 300;">
@@ -607,21 +611,32 @@
 
 
         function updateShippingFee() {
-            var shippingOptions = document.querySelectorAll('input[name="PhucThucGH"]');
-            var hiddenInput = document.getElementById('ship');
-            var homeDelivery = document.getElementById('homeDelivery');
+            // Lấy các phần tử liên quan
+            var shippingFeeDisplay = document.getElementById('shippingFeeDisplay'); // Nơi hiển thị phí vận chuyển
+            var shippingFeeInput = document.getElementById('ship'); // Input ẩn lưu giá trị phí vận chuyển
+            var homeDelivery = document.getElementById('homeDelivery'); // Radio button "Giao hàng tận nơi"
+            var initialShippingFee = parseInt(shippingFeeInput.value); // Lấy giá trị ban đầu của phí vận chuyển
 
-            if (homeDelivery.checked) {
-                shippingFeeInput.value = 20000;
-                shippingFeeDisplay.innerText = "₫" + new Intl.NumberFormat('en-US').format(shippingFeeInput.value);
-                hiddenInput.value ='20';
-            } else {
-                shippingFeeInput.value = 0000; 
-                shippingFeeDisplay.innerText = "₫" + new Intl.NumberFormat('en-US').format(shippingFeeInput.value); 
-                hiddenInput.value = '0';
+            // Kiểm tra nếu phí vận chuyển ban đầu là 0, không thay đổi khi người dùng chọn bất kỳ lựa chọn nào
+            if (initialShippingFee === 0) {
+                shippingFeeDisplay.innerText = "₫" + new Intl.NumberFormat('vi-VN').format(0);
+                shippingFeeInput.value = 0;
+                console.log("Phí vận chuyển cố định là 0.");
+                return; // Không thực hiện thay đổi nào khác
             }
-            console.log("Phí giao hàng:", shippingFeeInput.value);
-            console.log("Phí giao hàng csdl:", hiddenInput.value);
+
+            // Nếu phí vận chuyển ban đầu khác 0, cho phép thay đổi dựa trên lựa chọn
+            if (homeDelivery.checked) {
+                shippingFeeInput.value = 20000; // Cập nhật giá trị ẩn
+                shippingFeeDisplay.innerText = "₫" + new Intl.NumberFormat('vi-VN').format(shippingFeeInput.value); // Hiển thị phí
+            } else {
+                shippingFeeInput.value = 0; // Miễn phí khi chọn nhận tại cửa hàng
+                shippingFeeDisplay.innerText = "₫" + new Intl.NumberFormat('vi-VN').format(shippingFeeInput.value); // Hiển thị 0
+            }
+
+            // Kiểm tra kết quả trong console
+            console.log("Phí giao hàng hiển thị:", shippingFeeDisplay.innerText);
+            console.log("Phí giao hàng lưu trữ:", shippingFeeInput.value);
         }
         
     </script>

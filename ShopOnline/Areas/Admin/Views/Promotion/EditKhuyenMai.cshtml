@@ -1,0 +1,93 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ShopOnline.Models.KhuyenMai
+@{
+    ViewData["Title"] = "AddKhuyenMai";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+
+<h1>Edit khuyến mãi</h1>
+
+<h4>Khuyến mãi</h4>
+<hr />
+<p style="color:red;"> @TempData["Message"]</p>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <!-- Form chỉnh sửa Khuyến Mãi -->
+        <form method="post" asp-action="EditKhuyenMai">
+            <!-- Hiển thị lỗi tổng quát -->
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Trường ẩn MaKm -->
+            <input type="hidden" asp-for="MaKm" />
+
+            <!-- Mã Danh Mục -->
+            <div class="form-group">
+                <label asp-for="MaDm" class="control-label"></label>
+                <input asp-for="MaDm" class="form-control" />
+                <span asp-validation-for="MaDm" class="text-danger"></span>
+            </div>
+
+            <!-- Mã Sản Phẩm -->
+            <div class="form-group">
+                <label asp-for="MaSp" class="control-label"></label>
+                <input asp-for="MaSp" class="form-control" />
+                <span asp-validation-for="MaSp" class="text-danger"></span>
+            </div>
+
+
+            <!-- Mô Tả -->
+            <div class="form-group">
+                <label asp-for="MoTa" class="control-label"></label>
+                <input asp-for="MoTa" class="form-control" />
+                <span asp-validation-for="MoTa" class="text-danger"></span>
+            </div>
+
+            <!-- Loại Khuyến Mãi -->
+            <div class="form-group">
+                <label asp-for="LoaiKm" class="control-label"></label>
+                <input asp-for="LoaiKm" class="form-control" />
+                <span asp-validation-for="LoaiKm" class="text-danger"></span>
+            </div>
+
+            <!-- Số Tiền / Phần Trăm -->
+            <div class="form-group">
+                <label asp-for="SoTienPhanTram" class="control-label"></label>
+                <input asp-for="SoTienPhanTram" class="form-control" />
+                <span asp-validation-for="SoTienPhanTram" class="text-danger"></span>
+            </div>
+
+            <!-- Ngày Bắt Đầu -->
+            <div class="form-group">
+                <label asp-for="NgayBd" class="control-label"></label>
+                <input asp-for="NgayBd" class="form-control" type="date" />
+                <span asp-validation-for="NgayBd" class="text-danger"></span>
+            </div>
+
+            <!-- Ngày Kết Thúc -->
+            <div class="form-group">
+                <label asp-for="NgayKt" class="control-label"></label>
+                <input asp-for="NgayKt" class="form-control" type="date" />
+                <span asp-validation-for="NgayKt" class="text-danger"></span>
+            </div>
+
+            <!-- Số Tiền Tối Thiểu -->
+            <div class="form-group">
+                <label asp-for="TienToiThieu" class="control-label"></label>
+                <input asp-for="TienToiThieu" class="form-control" />
+                <span asp-validation-for="TienToiThieu" class="text-danger"></span>
+            </div>
+
+            <!-- Nút Submit -->
+            <div class="form-group text-center">
+                <input type="submit" value="Cập nhật" class="btn btn-primary" />
+            </div>
+        </form>
+
+        <!-- Link quay lại danh sách -->
+        <div class="text-center">
+            <a asp-action="KhuyenMai" class="btn btn-secondary">Quay lại danh sách</a>
+        </div>
+    </div>
+</div>
+

@@ -5,6 +5,9 @@ using ShopOnline.ViewModels;
 using System.Drawing;
 using ShopOnline.Extensions;
 using System.Drawing.Imaging;
+using Microsoft.CodeAnalysis;
+using System.Security.Policy;
+using System;
 
 namespace ShopOnline.Controllers
 {
@@ -12,6 +15,7 @@ namespace ShopOnline.Controllers
     {
         QuanLyShopOnlineContext db = new QuanLyShopOnlineContext();
 
+        public string MaKH { get; private set; }
 
         [HttpPost]
         public IActionResult AddToCart(string productId, string mams, string masize, int quantity, decimal Gia)
@@ -29,51 +33,72 @@ namespace ShopOnline.Controllers
                 var tempCart = HttpContext.Session.GetObjectFromJson<List<CartItemViewModel>>("TempCart") ?? new List<CartItemViewModel>();
 
                 //Kiểm tra xem sản phẩm đã có trong giỏ hàng tạm thời chưa
-               var existingItem = tempCart.FirstOrDefault(c => c.ProductId == productId && c.Color == GetColorName(mams) && c.Size == GetSizeName(masize));
+                var existingItem = tempCart.FirstOrDefault(c => c.ProductId == productId && c.Color == LayTenMS(mams) && c.Size == LayTenSize(masize));
 
                 if (existingItem != null)
                 {
                     //Nếu sản phẩm đã có, cập nhật số lượng
-                        existingItem.Quantity += quantity;
+                    existingItem.Quantity += quantity;
                 }
                 else
                 {
                     //Nếu sản phẩm chưa có, thêm mới vào giỏ hàng tạm
-                        tempCart.Add(new CartItemViewModel
-                        {
-                            ProductId = productId,
-                            Color = GetColorName(mams),
-                            Size = GetSizeName(masize),
-                            ProductName = GetProductName(productId),
-                            AnhSP = GetProductImage(productId),
-                            Quantity = quantity,
-                            UnitPrice = Gia
-                        });
+                    tempCart.Add(new CartItemViewModel
+                    {
+                        ProductId = productId,
+                        Color = LayTenMS(mams),
+                        Size = LayTenSize(masize),
+                        ProductName = LayTenSP(productId),
+                        AnhSP = LayHaSP(productId),
+                        Quantity = quantity,
+                        UnitPrice = Gia
+                    });
                 }
                 HttpContext.Session.SetObjectAsJson("TempCart", tempCart);
 
                 return Json(new { success = true, message = "Sản phẩm đã được thêm vào giỏ hàng tạm thời." });
             }
         }
+        //đây chỉ sử dụng cho add giỏ hàng tạm thôi
+        private string LayTenSP(string productId)
+        {
+            return db.SanPhams.FirstOrDefault(p => p.MaSp == productId)?.TenSp ?? "Unknown Product";
+        }
+        private string LayHaSP(string productId)
+        {
+            return db.SanPhams.FirstOrDefault(p => p.MaSp == productId)?.HinhAnhDd ?? "Unknown Image";
+        }
+        private string LayTenMS(string colorId)
+        {
+            return db.MauSacs.FirstOrDefault(p => p.MaMs == colorId)?.TenMs ?? "Unknown Color";
+        }
+
+        private string LayTenSize(string SizeId)
+        {
+            return db.Sizes.FirstOrDefault(p => p.MaSize == SizeId)?.TenSize ?? "Unknown Size";
+        }
 
         private void AddItemToCart(string customerID, string productId, int quantity, string colorCode, string sizeCode, decimal gia)
         {
-
-            var cartItem = db.GioHangs.FirstOrDefault(c => c.MaSP == productId && c.MaMS == colorCode && c.MaS == sizeCode && c.MaKH == customerID);
+            string CartID = db.GioHangs.Where(x => x.MaKH == customerID).Select(x=> x.MaGH).FirstOrDefault();
+            var ctsp = db.Ctsps.Where(x => x.MaSp == productId && x.MaMs == colorCode).ToList();
+            string ctsps = null;
+            foreach (var item in ctsp)
+            {
+                ctsps = db.CtspSizes.Where(x => x.MaCtsp == item.MaCtsp && x.MaSize == sizeCode).Select(x => x.MaCtspSize).FirstOrDefault();
+            }
+            var cartItem = db.Ctghs.Where(x => x.MaGH == CartID && x.MaCTSP_Size == ctsps).FirstOrDefault();
+            
 
             if (cartItem == null)
             {
-                var newCartItem = new GioHang
+                var newCartItem = new Ctgh
                 {
-                    MaKH = customerID,
-                    MaSP = productId,
-                    MaMS = colorCode,
-                    MaS = sizeCode,
-                    SoLuong = quantity,
-                    Gia = gia
+                    MaGH = CartID,
+                    MaCTSP_Size = ctsps,
+                    SoLuong = quantity
                 };
-
-                db.GioHangs.Add(newCartItem);
+                db.Ctghs.Add(newCartItem);
                 db.SaveChanges();
             }
             else
@@ -81,7 +106,7 @@ namespace ShopOnline.Controllers
                 cartItem.SoLuong += quantity;
 
                 //Cập nhật sản phẩm trong cơ sở dữ liệu
-                db.GioHangs.Update(cartItem);
+                db.Ctghs.Update(cartItem);
                 db.SaveChanges();
             }
 
@@ -112,62 +137,91 @@ namespace ShopOnline.Controllers
         public IActionResult GioHang()
         {
             var username = HttpContext.Session.GetString("Username");
-            List<CartItemViewModel> cartItems;
+            List<CartItemViewModel> cartItems = new List<CartItemViewModel>(); 
             var tempCart = HttpContext.Session.GetObjectFromJson<List<CartItemViewModel>>("TempCart") ?? new List<CartItemViewModel>();
+
             if (username == null)
             {
                 if (!tempCart.Any())
                 {
                     ViewBag.Message = "Giỏ hàng tạm của bạn đang trống.";
                 }
-
-                cartItems = tempCart;
+                else
+                {
+                    cartItems = tempCart; 
+                }
             }
             else
             {
                 string maKH = db.KhachHangs.Where(x => x.Username == username).Select(x => x.MaKh).FirstOrDefault();
+
                 if (tempCart.Any())
                 {
                     TransferTempCartToDatabase(maKH);
-
                 }
 
-                //Lấy giỏ hàng của khách hàng
-                    var customerCart = db.GioHangs.Where(item => item.MaKH == maKH).ToList();
-
-                cartItems = customerCart.Select(item => new CartItemViewModel
+                var customerCart = db.GioHangs.FirstOrDefault(item => item.MaKH == maKH);
+                if (customerCart != null)
                 {
-                    ProductId = item.MaSP,
-                    ProductName = GetProductName(item.MaSP),
-                    AnhSP = GetProductImage(item.MaSP),
-                    Color = GetColorName(item.MaMS),
-                    Size = GetSizeName(item.MaS),
-                    Quantity = item.SoLuong,
-                    UnitPrice = item.Gia
-                }).ToList();
-                if (!cartItems.Any())
-                {
-                    ViewBag.Message = "Giỏ hàng của bạn đang trống.";
+                    var cartItemList = db.Ctghs.Where(x => x.MaGH == customerCart.MaGH).ToList();
+                    if (cartItemList.Any())
+                    {
+                        foreach (var item in cartItemList)
+                        {
+                            var cartItemViewModel = new CartItemViewModel
+                            {
+                                ProductId = GetProductID(item.MaCTSP_Size),
+                                ProductName = GetProductName(item.MaCTSP_Size),
+                                AnhSP = GetProductImage(item.MaCTSP_Size),
+                                Color = GetColorName(item.MaCTSP_Size),
+                                Size = GetSizeName(item.MaCTSP_Size),
+                                Quantity = item.SoLuong,
+                                UnitPrice = Gia(item.MaCTSP_Size)
+                            };
+                            cartItems.Add(cartItemViewModel);
+                        }
+                    }
+                    if (!cartItems.Any())
+                    {
+                        ViewBag.Message = "Giỏ hàng của bạn đang trống.";
+                    }
                 }
             }
             return View(cartItems);
         }
-        private string GetProductName(string productId)
+        private string GetProductID (string mactsps)
         {
-            return db.SanPhams.FirstOrDefault(p => p.MaSp == productId)?.TenSp ?? "Unknown Product";
+            string mactsp = db.CtspSizes.FirstOrDefault(x => x.MaCtspSize == mactsps).MaCtsp;
+            return db.Ctsps.FirstOrDefault(p => p.MaCtsp == mactsp).MaSp;
         }
-        private string GetProductImage(string productId)
+        private string GetProductName(string mactsps)
         {
-            return db.SanPhams.FirstOrDefault(p => p.MaSp == productId)?.HinhAnhDd ?? "Unknown Image";
+            string mactsp = db.CtspSizes.FirstOrDefault(x => x.MaCtspSize == mactsps).MaCtsp;
+            string masp = db.Ctsps.FirstOrDefault(p => p.MaCtsp == mactsp).MaSp;
+            return db.SanPhams.FirstOrDefault(p => p.MaSp == masp).TenSp;
         }
-        private string GetColorName(string colorId)
+        private string GetProductImage(string mactsps)
         {
-            return db.MauSacs.FirstOrDefault(p => p.MaMs == colorId)?.TenMs ?? "Unknown Color";
+            string mactsp = db.CtspSizes.FirstOrDefault(x => x.MaCtspSize == mactsps).MaCtsp;
+            string masp = db.Ctsps.FirstOrDefault(p => p.MaCtsp == mactsp).MaSp ;
+            return db.SanPhams.FirstOrDefault(p => p.MaSp == masp).HinhAnhDd;
+        }
+        private string GetColorName(string mactsps)
+        {
+            string mactsp = db.CtspSizes.FirstOrDefault(x => x.MaCtspSize == mactsps).MaCtsp;
+            string mams = db.Ctsps.FirstOrDefault(p => p.MaCtsp == mactsp).MaMs ;
+            return db.MauSacs.FirstOrDefault(p => p.MaMs == mams).TenMs;
         }
 
-        private string GetSizeName(string SizeId)
+        private string GetSizeName(string mactsps)
         {
-            return db.Sizes.FirstOrDefault(p => p.MaSize == SizeId)?.TenSize ?? "Unknown Size";
+            string mas = db.CtspSizes.FirstOrDefault(p => p.MaCtspSize== mactsps).MaSize;
+            return db.Sizes.FirstOrDefault(p => p.MaSize == mas).TenSize;
+        }
+        private decimal Gia(string mactsps)
+        {
+            var ctspSize = db.CtspSizes.FirstOrDefault(p => p.MaCtspSize == mactsps);
+            return ctspSize?.Gia ?? 0; 
         }
 
 
@@ -177,16 +231,17 @@ namespace ShopOnline.Controllers
         public IActionResult DeleteToCart(string productId, string mams, string masize)
         {
             var username = HttpContext.Session.GetString("Username");
-            var selectedColor = db.MauSacs.FirstOrDefault(c => c.TenMs == mams);
-            var selectedSize = db.Sizes.FirstOrDefault(c => c.TenSize == masize);
+            string colorid = db.MauSacs.FirstOrDefault(c => c.TenMs == mams).MaMs;
+            string sizeid = db.Sizes.FirstOrDefault(c => c.TenSize == masize).MaSize;
 
-            string color = selectedColor.MaMs;
-            string size = selectedSize.MaSize;
+            string mactsp = db.Ctsps.FirstOrDefault(x => x.MaSp == productId && x.MaMs == colorid).MaCtsp;
+            string mactsps = db.CtspSizes.FirstOrDefault(x => x.MaCtsp == mactsp && x.MaSize == sizeid).MaCtspSize;
 
             if (username != null)
             {
                 string makh = db.KhachHangs.Where(x => x.Username == username).Select(x => x.MaKh).FirstOrDefault();
-                bool result = DeleteItemFromCart(makh, productId,color, size);
+                string magh = db.GioHangs.FirstOrDefault(x => x.MaKH == makh).MaGH;
+                bool result = DeleteItemFromCart(magh, mactsps);
                 if (result)
                 {
                     return Json(new { success = true, message = "Sản phẩm trong giỏ hàng của bạn đã được xóa." });
@@ -215,22 +270,48 @@ namespace ShopOnline.Controllers
             }
         }
 
-        private bool DeleteItemFromCart(string customerID, string productId, string colorCode, string sizeCode)
+        private bool DeleteItemFromCart(string magh, string mactsps)
         {
             // Tìm sản phẩm trong giỏ hàng của khách hàng
-            var cartItem = db.GioHangs.FirstOrDefault(c =>
-                c.MaKH == customerID &&
-                c.MaSP == productId &&
-                c.MaMS == colorCode &&
-                c.MaS == sizeCode);
+            var cartItem = db.Ctghs.FirstOrDefault(c =>
+                c.MaGH == magh &&
+                c.MaCTSP_Size == mactsps);
 
             if (cartItem != null)
             {
-                db.GioHangs.Remove(cartItem);
+                db.Ctghs.Remove(cartItem);
                 db.SaveChanges();
                 return true;
             }
             return false; // Trả về false nếu không tìm thấy sản phẩm
+        }
+        // Xử lý mã Giỏ hàng
+        public string GetMaxCartCode()
+        {
+            // Lấy mã khách hàng lớn nhất, nếu không có sẽ trả về null
+            var maxInvoiceCode = db.GioHangs
+                .OrderByDescending(c => c.MaGH)
+                .Select(c => c.MaGH)
+                .FirstOrDefault();
+
+            return maxInvoiceCode;
+        }
+
+        private string GenerateUniqueCartCode()
+        {
+            var maxInvoiceCode = GetMaxCartCode();
+
+            if (maxInvoiceCode == null)
+            {
+                // Nếu không có mã nào, bắt đầu từ DH001
+                return "GH001";
+            }
+
+            // Lấy phần số từ mã đơn hàng lớn nhất
+            string numericPart = maxInvoiceCode.Substring(2);
+            int newNumber = int.Parse(numericPart) + 1;
+
+            return "GH" + newNumber.ToString().PadLeft(3, '0');
         }
 
 
@@ -240,22 +321,24 @@ namespace ShopOnline.Controllers
         public IActionResult In_Decrease_Quantity(string productId, string mams, string masize, int quantity)
         {
             var username = HttpContext.Session.GetString("Username");
-            var selectedColor = db.MauSacs.FirstOrDefault(c => c.TenMs == mams);
-            var selectedSize = db.Sizes.FirstOrDefault(c => c.TenSize == masize);
-
-            string color = selectedColor.MaMs;
-            string size = selectedSize.MaSize;
-
-            // Tìm sản phẩm trong giỏ hàng
-            var cartItem = db.GioHangs.FirstOrDefault(c => c.MaSP == productId && c.MaMS == color && c.MaS == size);
-
             if (username != null)
             {
+                string makh = db.KhachHangs.Where(x => x.Username == username).Select(x => x.MaKh).FirstOrDefault();
+                string magh = db.GioHangs.FirstOrDefault(x => x.MaKH == makh).MaGH;
+
+                string colorid = db.MauSacs.FirstOrDefault(c => c.TenMs == mams).MaMs;
+                string sizeid = db.Sizes.FirstOrDefault(c => c.TenSize == masize).MaSize;
+
+                string mactsp = db.Ctsps.FirstOrDefault(x => x.MaSp == productId && x.MaMs == colorid).MaCtsp;
+                string mactsps = db.CtspSizes.FirstOrDefault(x => x.MaCtsp == mactsp && x.MaSize == sizeid).MaCtspSize;
+
+                // Tìm sản phẩm trong giỏ hàng
+                var cartItem = db.Ctghs.FirstOrDefault(c => c.MaGH == magh && c.MaCTSP_Size == mactsps);
                 // Người dùng đã đăng nhập
                 if (cartItem != null)
                 {
                     cartItem.SoLuong = quantity; // Cập nhật số lượng
-                    db.GioHangs.Update(cartItem);
+                    db.Ctghs.Update(cartItem);
                     db.SaveChanges();
                     return Json(new { success = true, message = "Số lượng sản phẩm đã được cập nhật." });
                 }
@@ -266,7 +349,6 @@ namespace ShopOnline.Controllers
             }
             else
             {
-                // Người dùng chưa đăng nhập, sử dụng giỏ hàng tạm thời
                 var tempCart = HttpContext.Session.GetObjectFromJson<List<CartItemViewModel>>("TempCart") ?? new List<CartItemViewModel>();
                 var existingItem = tempCart.FirstOrDefault(c => c.ProductId == productId && c.Color == mams && c.Size == masize);
 
@@ -290,6 +372,8 @@ namespace ShopOnline.Controllers
             var tempTotal = HttpContext.Session.GetObjectFromJson<List<CartSummaryViewModel>>("TempTotal") ?? new List<CartSummaryViewModel>();
             decimal totalAmount = 0;
             var username = HttpContext.Session.GetString("Username");
+            string makh = db.KhachHangs.Where(x => x.Username == username).Select(x => x.MaKh).FirstOrDefault();
+            
 
             if (username == null)
             {
@@ -301,44 +385,46 @@ namespace ShopOnline.Controllers
             }
             else
             {
-                var cartItems = db.GioHangs.Where(c => c.MaKH == username).ToList();
+                string magh = db.GioHangs.FirstOrDefault(x => x.MaKH == makh).MaGH;
+                var cartItems = db.Ctghs.Where(c => c.MaGH == magh).ToList();
                 if (cartItems.Count > 0)
                 {
-                    totalAmount = cartItems.Sum(c => c.SoLuong * c.Gia);
+                    foreach(var item in cartItems)
+                    {
+                        decimal gia = Gia(item.MaCTSP_Size);
+                        totalAmount += item.SoLuong * gia;
+                    }
                 }
             }
 
             return Json(new { totalPay = totalAmount });
         }
 
-
-        [HttpPost]
+        [HttpGet]
         public JsonResult GetQuantityCart()
         {
-            decimal quantity = 0;
+            int quantity = 0;
             var username = HttpContext.Session.GetString("Username");
 
-            if (username == null)
+            if (string.IsNullOrEmpty(username)) // Nếu chưa đăng nhập
             {
                 var tempCart = HttpContext.Session.GetObjectFromJson<List<CartItemViewModel>>("TempCart") ?? new List<CartItemViewModel>();
-               
-                foreach (var item in tempCart)
-                {
-                    quantity += 1;
-                }
-
+                quantity = tempCart.Count;
             }
-            else
+            else // Nếu đã đăng nhập
             {
-                var cartItems = db.GioHangs.Where(c => c.MaKH == username).ToList();
-                foreach (var item in cartItems)
+                string makh = db.KhachHangs.Where(x => x.Username == username).Select(x => x.MaKh).FirstOrDefault();
+                if (!string.IsNullOrEmpty(makh))
                 {
-                    quantity += 1;
+                    string magh = db.GioHangs.Where(c => c.MaKH == makh).Select(x => x.MaGH).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(magh))
+                    {
+                        quantity = db.Ctghs.Where(c => c.MaGH == magh).Count();
+                    }
                 }
             }
 
-            return Json(new {quantityCart = quantity });
+            return Json(quantity); // Trả về kết quả dạng JSON
         }
-
     }
 }

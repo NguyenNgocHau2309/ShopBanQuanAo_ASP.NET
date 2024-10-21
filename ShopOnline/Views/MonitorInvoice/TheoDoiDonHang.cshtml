@@ -4,7 +4,6 @@
     Layout = null;
     ViewBag.Title = "NHShop - Thanh Dõi Đơn Hàng";
 }
-@using X.PagedList.Mvc.Core;
 @model ShopOnline.ViewModels.MonitorInvoiceListViewModel
 
 <!DOCTYPE html>
@@ -141,12 +140,12 @@
                             <a asp-area="Home" asp-controller="Home" asp-action="Index" class="nav-item nav-link">
                                 Trang chủ
                             </a>
-                            <a asp-area="MonitorInvoice" asp-controller="MonitorInvoice" asp-action="TheoDoiDonHang" class="nav-item nav-link">Theo dõi đơn hàng</a>
+                           @*  <a asp-area="MonitorInvoice" asp-controller="MonitorInvoice" asp-action="TheoDoiDonHang" class="nav-item nav-link">Theo dõi đơn hàng</a> *@
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             @if (HttpContextAccessor.HttpContext.Session.GetString("Username") != null)
                             {
-                                <a class="nav-item nav-link" asp-area="" asp-controller="" asp-action="">Trang cá nhân</a>
+                                <a class="nav-item nav-link" asp-controller="Personal" asp-action="ThongTinCaNhan">Trang cá nhân</a>
                                 <a class="nav-item nav-link" asp-controller="Access" asp-action="Logout">Đăng xuất</a>
                             }
                             else
@@ -204,33 +203,46 @@
             <div class="order-list" style="margin-bottom: 20px;">
                 <div class="order-item" style="border: 1px solid #ddd; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff;">
                     <table class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
-                        <thead>
-                            <tr style="background-color: #f7f7f7;">
-                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Hình Ảnh</th>
-                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Tên Sản Phẩm</th>
-                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Màu Sắc</th>
-                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Size</th>
-                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Số Lượng</th>
-                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Giá</th>
-                                <th style="padding: 10px; border-bottom: 1px solid #ddd;">Tổng</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in donhang.SanPham)
-                            {
-                                <tr>
-                                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                        <img src="@item.AnhSP" alt="Product Image" style="width: 50px; height: 50px; border-radius: 5px; border: 1px solid #ccc;">
-                                    </td>
-                                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">@item.TenSP</td>
-                                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">@item.Mausac</td>
-                                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">@item.Size</td>
-                                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">@item.Soluong</td>
-                                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">₫@String.Format("{0:#,0.000}", item.Gia)</td>
-                                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">₫@String.Format("{0:#,0.000}", item.Tong)</td>
+                            <thead>
+                                <tr style="background-color: #f7f7f7;">
+                                    <th style="padding: 10px; border-bottom: 1px solid #ddd;">Hình Ảnh</th>
+                                    <th style="padding: 10px; border-bottom: 1px solid #ddd;">Tên Sản Phẩm</th>
+                                    <th style="padding: 10px; border-bottom: 1px solid #ddd;">Màu Sắc</th>
+                                    <th style="padding: 10px; border-bottom: 1px solid #ddd;">Size</th>
+                                    <th style="padding: 10px; border-bottom: 1px solid #ddd;">Số Lượng</th>
+                                    <th style="padding: 10px; border-bottom: 1px solid #ddd;">Giá</th>
+                                    <th style="padding: 10px; border-bottom: 1px solid #ddd;">Tổng</th>
+                                    @if (donhang.TrangThai == "Đã giao hàng")
+                                    {
+                                        <th style="padding: 10px; border-bottom: 1px solid #ddd;">Đánh Giá</th> <!-- Cột mới cho nút Đánh giá -->
+                                    }
                                 </tr>
-                            }
-                        </tbody>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in donhang.SanPham)
+                                {
+                                    <tr onclick="location.href='@Url.Action("ChiTietSP", "DetailProduct", new { masp = item.MaSP })'">
+                                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                                            <img src="@item.AnhSP" alt="Product Image" style="width: 50px; height: 50px; border-radius: 5px; border: 1px solid #ccc;">
+                                        </td>
+                                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">@item.TenSP</td>
+                                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">@item.Mausac</td>
+                                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">@item.Size</td>
+                                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">@item.Soluong</td>
+                                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">₫@String.Format("{0:#,0.000}", item.Gia)</td>
+                                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">₫@String.Format("{0:#,0.000}", item.Tong)</td>
+                                        @if (donhang.TrangThai == "Đã giao hàng" && !item.IsDanhGia) // Kiểm tra nếu sản phẩm chưa được đánh giá
+                                        {
+                                            <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                                                <a href="@Url.Action("DanhGia", "Evaluate", new { macts = item.MaCTSPS, madh = donhang.MaDH})"
+                                                   class="btn btn-primary"
+                                                   style="width: 100px; padding: 10px; font-size: 14px;">Đánh giá</a> <!-- Nút Đánh giá -->
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+
                         <tfoot>
                             <tr>
                                 <td colspan="6" style="padding: 10px; text-align: right; border-top: 2px solid #007bff; font-weight: bold;">Tổng Giá:</td>
@@ -254,7 +266,7 @@
             </div>
         </div>
         }
-        <div class="pagination-container">
+        @* <div class="pagination-container">
             @Html.PagedListPager(Model.DonHangs, page => Url.Action("TheoDoiDonHang", new { page }),
                      new PagedListRenderOptions
         {
@@ -268,16 +280,16 @@
             UlElementClasses = new[] { "pagination", "justify-content-center", "mb-3" } // Thêm class cho phần tử <ul> nếu cần
         }
                      )
-        </div>
+        </div> *@
 
-    }
+    }@* 
     else
     {
         <div style="height:500px">
             <h3 style="text-align:center; color: blue; padding-top:50px">Hãy theo dõi đơn hàng của bạn dựa trên mã code của đơn hàng bạn</h3>
         </div>
         
-    }
+    } *@
 
 
     <!-- Footer Start -->

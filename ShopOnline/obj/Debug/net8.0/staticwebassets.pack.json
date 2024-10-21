@@ -141,6 +141,10 @@
       "PackagePath": "staticwebassets\\LayoutAdmin\\assets\\images\\faces-clipart\\pic-4.png"
     },
     {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutAdmin\\assets\\images\\faces\\admin.png",
+      "PackagePath": "staticwebassets\\LayoutAdmin\\assets\\images\\faces\\admin.png"
+    },
+    {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutAdmin\\assets\\images\\faces\\face1.jpg",
       "PackagePath": "staticwebassets\\LayoutAdmin\\assets\\images\\faces\\face1.jpg"
     },
@@ -627,6 +631,30 @@
     {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\css\\style.min.css",
       "PackagePath": "staticwebassets\\LayoutShop\\css\\style.min.css"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\Screenshot 2024-07-28 231324.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\Screenshot 2024-07-28 231324.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\Screenshot 2024-07-28 231459.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\Screenshot 2024-07-28 231459.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\Screenshot 2024-07-30 224428.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\Screenshot 2024-07-30 224428.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\Screenshot 2024-08-12 001249.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\Screenshot 2024-08-12 001249.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\Screenshot 2024-08-12 001301.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\Screenshot 2024-08-12 001301.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\Screenshot 2024-08-12 001312.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\Screenshot 2024-08-12 001312.png"
     },
     {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\carousel-1.jpg",

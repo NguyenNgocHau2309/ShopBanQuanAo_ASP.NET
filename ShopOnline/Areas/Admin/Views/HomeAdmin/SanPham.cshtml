@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "DanhMucSanPham";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@using ShopOnline.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<ShopOnline.Models.SanPham>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h2>Sản phẩm</h2>
+
+<p>
+    <a asp-action="AddSanPham">Create New</a>
+</p>
+<p>@TempData["Message"]</p>
+
+<div class="table-responsive" style="overflow-x: auto;">
+    <table class="table" style="width: 100%; table-layout: fixed;">
+        <thead>
+            <tr class="table-success">
+                <th style="width: 10%;">Hình ảnh SP</th>
+                <th style="width: 20%;">Tên SP</th>
+                <th style="width: 30%;">Mô tả</th>
+                <th style="width: 10%;">Giá nhỏ nhất</th>
+                <th style="width: 10%;">Giá lớn nhất</th>
+                <th style="width: 20%;">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="table-danger">
+                    <td>
+                        <img src="@Html.DisplayFor(modelItem => item.HinhAnhDd)" alt="Image" style="max-height: 100px; max-width: 100px;">
+                    </td>
+                    <td style="overflow: hidden; text-overflow: ellipsis; white-space: normal; max-width: 200px;">
+                        @Html.DisplayFor(modelItem => item.TenSp)</td>
+                    <td style="overflow: hidden; text-overflow: ellipsis; white-space: normal; max-width: 200px;">
+                        @Html.DisplayFor(modelItem => item.MoTa)
+                    </td>
+                    <td>@String.Format("{0:#,0.000} ₫", item.MinGia)</td>
+                    <td>@String.Format("{0:#,0.000} ₫", item.MaxGia)</td>
+                    <td>
+                        <a asp-action="ChiTietSanPham" asp-route-id="@item.MaDm">Edit</a> |
+                        <a asp-action="DeleteDanhMuc" asp-route-MaDM="@item.MaDm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<ul class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("SanPham", new { page = page }),
+            new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 3,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+        LinkToPreviousPageFormat = "Previous",
+        LinkToNextPageFormat = "Next",
+        LinkToIndividualPageFormat = "{0}",
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+</ul>

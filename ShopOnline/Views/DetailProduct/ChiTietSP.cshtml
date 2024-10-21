@@ -2,7 +2,7 @@
     Layout = null;
     ViewBag.Title = "NHShop - Chi Tiết Sản Phẩm";
 }
-@model ShopOnline.ViewModels.DetailViewModel
+@model ShopOnline.ViewModels.DetailEvaluateProductViewModel
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
@@ -93,7 +93,7 @@
                 </a>
                 <a class="btn border" asp-area="Cart" asp-controller="Cart" asp-action="GioHang" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
+                    <span class="badge" id="cartQuantity">0</span>
                 </a>
             </div>
         </div>
@@ -124,12 +124,12 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a asp-area="Home" asp-controller="Home" asp-action="Index" class="nav-item nav-link active">Trang chủ</a>
-                            <a asp-area="MonitorInvoice" asp-controller="MonitorInvoice" asp-action="TheoDoiDonHang" class="nav-item nav-link">Theo dõi đơn hàng</a>
+                            @* <a asp-area="MonitorInvoice" asp-controller="MonitorInvoice" asp-action="TheoDoiDonHang" class="nav-item nav-link">Theo dõi đơn hàng</a> *@
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             @if (HttpContextAccessor.HttpContext.Session.GetString("Username") != null)
                             {
-                                <a class="nav-item nav-link" asp-area="" asp-controller="" asp-action="">Trang cá nhân</a>
+                                <a class="nav-item nav-link" asp-area="Personal" asp-controller="ThongTinCaNhan" asp-action="">Trang cá nhân</a>
                                 <a class="nav-item nav-link" asp-controller="Access" asp-action="Logout">Đăng xuất</a>
                             }
                             else
@@ -169,9 +169,9 @@
             <div class="col-lg-5 pb-5">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
                     <div class="carousel-inner border">
-                        @foreach (var anh in Model.ChiTietSanPham)
+                        @foreach (var anh in Model.DetailViewModel.ChiTietSanPham)
                         {
-                            <div class="carousel-item @(Model.ChiTietSanPham.IndexOf(anh) == 0 ? "active" : "")">
+                            <div class="carousel-item @(Model.DetailViewModel.ChiTietSanPham.IndexOf(anh) == 0 ? "active" : "")">
                                 <img class="w-100 h-100" src="@anh.Hinhanh" alt="Image">
                             </div>
                         }
@@ -186,7 +186,7 @@
             </div>
 
             <div class="col-lg-7 pb-5">
-                <h3 class="font-weight-semi-bold">@Model.SanPham.TenSp</h3>
+                <h3 class="font-weight-semi-bold">@Model.DetailViewModel.SanPham.TenSp</h3>
                 <div class="d-flex mb-3">
                     <div class="text-primary mr-2">
                         @for (int i = 0; i < 5; i++)
@@ -198,25 +198,25 @@
                 </div>
                 <h3 class="font-weight-semi-bold mb-4">
                     <div id="product-price">
-                        @if (Model.GiaThapNhat == Model.GiaCaoNhat)
+                        @if (Model.DetailViewModel.GiaThapNhat == Model.DetailViewModel.GiaCaoNhat)
                         {
-                            <h6 style="font-size: 1em;">₫@String.Format("{0:#,0.000}", Model.GiaThapNhat)</h6>
+                            <h6 style="font-size: 1em;">₫@String.Format("{0:#,0.000}", Model.DetailViewModel.GiaThapNhat)</h6>
                         }
                         else
                         {
                             <h6 style="font-size: 1em;">
-                                <span>₫@String.Format("{0:#,0.000}", Model.GiaThapNhat)</span>
+                                <span>₫@String.Format("{0:#,0.000}", Model.DetailViewModel.GiaThapNhat)</span>
                                 <span> - </span>
-                                <span>₫@String.Format("{0:#,0.000}", Model.GiaCaoNhat)</span>
+                                <span>₫@String.Format("{0:#,0.000}", Model.DetailViewModel.GiaCaoNhat)</span>
                             </h6>
                         }
                     </div>
                 </h3>
                <div class="d-flex mb-3">
                         <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>
-                            @if (Model.ChiTietSanPhamSize != null && Model.ChiTietSanPhamSize.Any())
+                            @if (Model.DetailViewModel.ChiTietSanPhamSize != null && Model.DetailViewModel.ChiTietSanPhamSize.Any())
                             {
-                                var uniqueSizes = Model.ChiTietSanPhamSize
+                                var uniqueSizes = Model.DetailViewModel.ChiTietSanPhamSize
                                 .GroupBy(size => size.MaSize)
                                 .Select(g => g.First()) // Chọn phần tử đầu tiên trong mỗi nhóm
                                 .ToList();
@@ -236,12 +236,12 @@
                     </div>
                     <div class="d-flex mb-4">
                         <p class="text-dark font-weight-medium mb-0 mr-3">Colors:</p>
-                            @if (Model.ChiTietSanPham != null && Model.ChiTietSanPham.Any())
+                            @if (Model.DetailViewModel.ChiTietSanPham != null && Model.DetailViewModel.ChiTietSanPham.Any())
                             {
-                                foreach (var color in Model.ChiTietSanPham)
+                                foreach (var color in Model.DetailViewModel.ChiTietSanPham)
                                 {
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" id="color-@color.MaCtsp" name="color" value="@color.MaMS" data-image="@color.Hinhanh" data-masp="@Model.SanPham.MaSp" data-mams="@color.MaMS">
+                                        <input type="radio" class="custom-control-input" id="color-@color.MaCtsp" name="color" value="@color.MaMS" data-image="@color.Hinhanh" data-masp="@Model.DetailViewModel.SanPham.MaSp" data-mams="@color.MaMS">
                                         <label class="custom-control-label" for="color-@color.MaCtsp">@color.Mausac</label>
                                     </div>
                                 }
@@ -294,109 +294,83 @@
             <div class="col">
                 <div class="nav nav-tabs justify-content-center border-secondary mb-4">
                     <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Mô tả</a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Thông tin</a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Đánh gía</a>
+                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Đánh giá</a>
                 </div>
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="tab-pane-1">
+                    <div class="tab-pane fade @(ViewData["ActiveTab"].ToString() == "tab-pane-1" ? "show active" : "")" id="tab-pane-1">
                         <h4 class="mb-3">Mô tả chi tiết</h4>
-                        @if (Model.SanPham != null)
+                        @if (Model.DetailViewModel.SanPham != null)
                         {
-                            <p>@Model.SanPham.MoTa</p>
+                            <p>@Model.DetailViewModel.SanPham.MoTa</p>
                         }
                         else
                         {
                             <p>Không có mô tả.</p>
                         }
                     </div>
-                    <div class="tab-pane fade" id="tab-pane-2">
-                        <h4 class="mb-3">Additional Information</h4>
-                        <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
+                    <div class="tab-pane fade @(ViewData["ActiveTab"].ToString() == "tab-pane-3" ? "show active" : "")" id="tab-pane-3">
                         <div class="row">
                             <div class="col-md-6">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item px-0">
-                                        Sit erat duo lorem duo ea consetetur, et eirmod takimata.
-                                    </li>
-                                    <li class="list-group-item px-0">
-                                        Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
-                                    </li>
-                                    <li class="list-group-item px-0">
-                                        Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                    </li>
-                                    <li class="list-group-item px-0">
-                                        Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item px-0">
-                                        Sit erat duo lorem duo ea consetetur, et eirmod takimata.
-                                    </li>
-                                    <li class="list-group-item px-0">
-                                        Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
-                                    </li>
-                                    <li class="list-group-item px-0">
-                                        Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                    </li>
-                                    <li class="list-group-item px-0">
-                                        Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="tab-pane-3">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
-                                <div class="media mb-4">
-                                    <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                    <div class="media-body">
-                                        <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                        <div class="text-primary mb-2">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <i class="far fa-star"></i>
+                                @if (Model.DanhGia != null && Model.DanhGia.Count > 0)
+                                {
+                                    <h4 class="mb-4">@Model.DanhGia.Count đánh giá cho sản phẩm</h4>
+
+                                    @foreach (var review in Model.DanhGia)
+                                    {
+                                        <div class="media mb-4">
+                                            <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                            <div class="media-body">
+                                                <h6>@review.tenkh<small> - <i>@review.ngaydg.ToString("dd MMM yyyy")</i></small></h6>
+                                                <div class="text-primary mb-2">
+                                                    @for (int i = 1; i <= 5; i++)
+                                                    {
+                                                        if (i <= review.diem)
+                                                        {
+                                                            <i class="fas fa-star"></i> <!-- Ngôi sao đầy màu vàng -->
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="far fa-star"></i> <!-- Ngôi sao rỗng -->
+                                                        }
+                                                    }
+                                                </div>
+                                                <p>@review.noidung</p>
+
+                                                @if (review.hinhanh != null && review.hinhanh.Count > 0)
+                                                {
+                                                    <strong>Hình ảnh đánh giá:</strong>
+
+                                                    <br>
+                                                    @foreach (var image in review.hinhanh)
+                                                    {
+                                                        <img src="@image" alt="Hình ảnh đánh giá" style="max-width: 100px; margin-right: 10px;" />
+                                                    }
+                                                }
+
+                                                @if (review.video != null && review.video.Count > 0)
+                                                {
+                                                    <strong>Video đánh giá:</strong>
+
+                                                    <br>
+                                                    @foreach (var video in review.video)
+                                                    {
+                                                        <video width="200" controls>
+                                                            <source src="@video" type="video/mp4">
+                                                            Trình duyệt của bạn không hỗ trợ video.
+                                                        </video>
+                                                    }
+                                                }
+                                            </div>
                                         </div>
-                                        <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
-                                    </div>
-                                </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <h4 class="mb-4">Chưa có đánh giá nào cho sản phẩm này.</h4>
+                                }
                             </div>
-                            <div class="col-md-6">
-                                <h4 class="mb-4">Leave a review</h4>
-                                <small>Your email address will not be published. Required fields are marked *</small>
-                                <div class="d-flex my-3">
-                                    <p class="mb-0 mr-2">Your Rating * :</p>
-                                    <div class="text-primary">
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                </div>
-                                <form>
-                                    <div class="form-group">
-                                        <label for="message">Your Review *</label>
-                                        <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Your Name *</label>
-                                        <input type="text" class="form-control" id="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Your Email *</label>
-                                        <input type="email" class="form-control" id="email">
-                                    </div>
-                                    <div class="form-group mb-0">
-                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
-                                    </div>
-                                </form>
-                            </div>
+
+                            
                         </div>
                     </div>
                 </div>
@@ -489,10 +463,30 @@
     <!-- Template Javascript -->
     <script src="~/LayoutShop/js/main.js"></script>
     <script>
+       
+
+
+        //Cập nhập số lượng sp trong giỏ hàng
+        $(document).ready(function () {
+            // Gọi API để lấy số lượng giỏ hàng
+            $.ajax({
+                url: '@Url.Action("GetQuantityCart", "Cart")', // Gọi đến action trong controller
+                type: 'GET',
+                success: function (data) {
+                    // Cập nhật số lượng giỏ hàng vào thẻ span
+                    $('#cartQuantity').text(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log('Lỗi khi lấy số lượng giỏ hàng: ', error);
+                }
+            });
+        });
+
+
     $(document).ready(function() {
         $('.addtocart').click(function(e) {
             e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit
-            var productId = '@Model.SanPham.MaSp'; // Mã sản phẩm
+            var productId = '@Model.DetailViewModel.SanPham.MaSp'; // Mã sản phẩm
             var mams = $('input[name="color"]:checked').val(); // Mã màu sắc
             var masize = $('input[name="size"]:checked').val(); // Mã kích thước
             var quantity = parseInt($('.form-control.bg-secondary.text-center').val());

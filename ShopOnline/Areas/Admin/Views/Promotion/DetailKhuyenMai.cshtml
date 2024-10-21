@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "DetailKhuyenMai";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@using ShopOnline.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<ShopOnline.Models.Ctkm>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<h2>Chi tiết khuyến mãi</h2>
+<p style="color: red">@TempData["Message"]</p>
+@{
+    decimal sumTienGiam = 0;
+}
+<div class="table-responsive" style="overflow-x: auto;">
+    <table class="table" style="width: 100%; table-layout: fixed;">
+        <thead>
+            <tr class="table-success">
+                <th style="width: 10%;">Mã DH</th>
+                <th style="width: 10%;">Mã KM</th>
+                <th style="width: 15%;">Ngày sử dụng</th>
+                <th style="width: 15%;">Tiền giảm</th>
+                <th style="width: 50%;">Khác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="table-danger">
+                    <td>@Html.DisplayFor(modelItem => item.MaDh)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MaKm)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NgaySd)</td>
+                    <td>₫@String.Format("{0:#,0.000}", item.TienGiam)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Khac)</td>
+                </tr>
+                sumTienGiam += item.TienGiam;
+            }
+        </tbody>
+    </table>
+
+    <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+        <div style="width: 25%; border: 2px solid #28a745; padding: 15px; text-align: ce; font-weight: bold; background-color: #f9f9f9;">
+            Tổng tiền giảm: ₫@String.Format("{0:#,0.000}", sumTienGiam)
+        </div>
+    </div>
+</div>
+
+<ul class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("DetailKhuyenMai", new { page = page, makm = ViewBag.Makm }),
+            new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 3,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+        LinkToPreviousPageFormat = "Previous",
+        LinkToNextPageFormat = "Next",
+        LinkToIndividualPageFormat = "{0}",
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+</ul>
+

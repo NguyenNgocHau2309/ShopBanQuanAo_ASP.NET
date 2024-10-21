@@ -1,9 +1,8 @@
-﻿using X.PagedList;
-
+﻿
 namespace ShopOnline.ViewModels
 {
     public class MonitorInvoiceListViewModel
     {
-        public IPagedList<MonitorInvoiceViewModel> DonHangs { get; set; }
+        public List<MonitorInvoiceViewModel> DonHangs { get; set; }
     }
 }

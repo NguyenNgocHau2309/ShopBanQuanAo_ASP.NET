@@ -43,7 +43,7 @@ public partial class QuanLyShopOnlineContext : DbContext
 
     public virtual DbSet<Size> Sizes { get; set; }
     public virtual DbSet<GioHang> GioHangs { get; set; }
-
+    public virtual DbSet<Ctgh> Ctghs { get; set; }
     public virtual DbSet<VideoDanhGium> VideoDanhGia { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -87,7 +87,7 @@ public partial class QuanLyShopOnlineContext : DbContext
             entity
                 .ToTable("GioHang"); // Chỉ định tên bảng là GioHang
 
-            entity.HasKey(g => new { g.MaKH, g.MaSP, g.MaMS, g.MaS });
+            entity.HasKey(e => e.MaGH).HasName("PK__GioHang");
 
             // Định nghĩa các thuộc tính
             entity.Property(e => e.MaKH)
@@ -95,52 +95,44 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("MaKH");
-
-            entity.Property(e => e.MaSP)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .IsFixedLength()
-                .HasColumnName("MaSP");
-
-            entity.Property(e => e.MaMS)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .IsFixedLength()
-                .HasColumnName("MaMS");
-
-            entity.Property(e => e.MaS)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .IsFixedLength()
-                .HasColumnName("MaS");
-
-            entity.Property(e => e.SoLuong)
-                .IsRequired()
-                .HasColumnName("SoLuong");
-
-            entity.Property(e => e.Gia).HasColumnType("decimal(18, 3)");
-
             // Thiết lập các quan hệ khóa ngoại
             entity.HasOne(d => d.MaKhNavigation)
                 .WithMany()
                 .HasForeignKey(d => d.MaKH)
                 .HasConstraintName("FK_GioHang_KhachHang");
+        });
 
-            entity.HasOne(d => d.MaSpNavigation)
-                .WithMany()
-                .HasForeignKey(d => d.MaSP)
-                .HasConstraintName("FK_GioHang_SanPham");
+        modelBuilder.Entity<Ctgh>(entity =>
+        {
+            entity
+                .ToTable("CTGH"); // Set the table name
 
-            entity.HasOne(d => d.MaCtspNavigation)
-                .WithMany()
-                .HasForeignKey(d => d.MaMS)
-                .HasConstraintName("FK_GioHang_Ctsp");
+            // Composite primary key
+            entity.HasKey(g => new { g.MaGH, g.MaCTSP_Size });
 
+            entity.Property(e => e.SoLuong)
+               .IsRequired()
+               .HasColumnName("SoLuong");
+
+            entity.Property(e => e.MaCTSP_Size)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .IsFixedLength()
+                .HasColumnName("MaCTSP_Size");
+
+            // Foreign key relation to GioHang
+            entity.HasOne(d => d.GioHang) // Navigation to GioHang
+                .WithMany(g => g.Ctgh) // Assuming GioHang has a collection of Ctgh
+                .HasForeignKey(d => d.MaGH) // Use MaGH as the foreign key
+                .HasConstraintName("FK_Ctgh_GioHang");
+
+            // Foreign key relation to CTSP_Size
             entity.HasOne(d => d.MaCtspSizeNavigation)
                 .WithMany()
-                .HasForeignKey(d => d.MaS)
-                .HasConstraintName("FK_GioHang_CtspSize");
+                .HasForeignKey(d => d.MaCTSP_Size)
+                .HasConstraintName("FK_Ctgh_CTSP_Size");
         });
+
 
         modelBuilder.Entity<Ctkm>(entity =>
         {
@@ -251,9 +243,7 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .IsFixedLength()
                 .HasColumnName("MaDG");
             entity.Property(e => e.DiemSao)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .IsFixedLength();
+                .HasColumnType("int");
             entity.Property(e => e.MaCtspSize)
                 .HasMaxLength(10)
                 .IsUnicode(false)
@@ -264,8 +254,12 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("MaDH");
-            entity.Property(e => e.NoiDung).HasColumnType("text");
-
+            entity.Property(e => e.NoiDung)
+                .HasMaxLength(1000)
+                .IsUnicode(true)
+                .IsFixedLength()
+                .HasColumnName("NoiDung");
+            entity.Property(e => e.NgayDg).HasColumnName("NgayDG");
             entity.HasOne(d => d.MaCtspSizeNavigation).WithMany(p => p.DanhGia)
                 .HasForeignKey(d => d.MaCtspSize)
                 .HasConstraintName("FK__DanhGia__MaCTSP___58D1301D");
@@ -394,7 +388,7 @@ public partial class QuanLyShopOnlineContext : DbContext
             entity.Property(e => e.TongTien).HasColumnType("decimal(18, 3)");
             entity.Property(e => e.TrangThai)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             entity.HasOne(d => d.MaKhNavigation).WithMany(p => p.DonHangs)
                 .HasForeignKey(d => d.MaKh)
@@ -419,7 +413,6 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("MaDG");
-
             entity.HasOne(d => d.MaDgNavigation).WithMany(p => p.HinhAnhDanhGia)
                 .HasForeignKey(d => d.MaDg)
                 .OnDelete(DeleteBehavior.Cascade)
@@ -495,7 +488,7 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .HasColumnName("MaSP");
             entity.Property(e => e.MoTa)
                 .IsUnicode(true)
-                .HasColumnType("text");
+                .HasColumnType("nvarchar(max)");
             entity.Property(e => e.NgayBd).HasColumnName("NgayBD");
             entity.Property(e => e.NgayKt).HasColumnName("NgayKT");
             entity.Property(e => e.SoTienPhanTram).HasColumnName("SoTien_PhanTram");

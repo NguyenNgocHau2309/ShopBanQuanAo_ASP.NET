@@ -30,6 +30,14 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEFkZERhbmhNdWMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/AddSanPham.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEFkZFNhblBoYW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/ChiTietSanPham.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXENoaVRpZXRTYW5QaGFtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/DanhMucSanPham.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXERhbmhNdWNTYW5QaGFtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -40,6 +48,34 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/SanPham.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXFNhblBoYW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/Order/DanhGia.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJcRGFuaEdpYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/Order/HoaDon.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJcSG9hRG9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/Promotion/AddKhuyenMai.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvbW90aW9uXEFkZEtodXllbk1haS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/Promotion/DetailKhuyenMai.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvbW90aW9uXERldGFpbEtodXllbk1haS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/Promotion/EditKhuyenMai.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvbW90aW9uXEVkaXRLaHV5ZW5NYWkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/Promotion/KhuyenMai.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvbW90aW9uXEtodXllbk1haS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/Share/_LayoutAdmin.cshtml]
@@ -66,6 +102,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGV0YWlsUHJvZHVjdFxDaGlUaWV0U1AuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/DoAn/ShopOnline/ShopOnline/Views/Evaluate/DanhGia.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZhbHVhdGVcRGFuaEdpYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Views/Evaluate/EditDanhGia.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZhbHVhdGVcRWRpdERhbmhHaWEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/DoAn/ShopOnline/ShopOnline/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -76,6 +120,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/DoAn/ShopOnline/ShopOnline/Views/MonitorInvoice/TheoDoiDonHang.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9uaXRvckludm9pY2VcVGhlb0RvaURvbkhhbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Views/Personal/ThongTinCaNhan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYWxcVGhvbmdUaW5DYU5oYW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAn/ShopOnline/ShopOnline/Views/Shared/Components/DanhmucMenu/Default.cshtml]

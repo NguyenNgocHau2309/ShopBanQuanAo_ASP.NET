@@ -1,0 +1,175 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ShopOnline.Areas.Admin.ViewModels.SanPhamViewModel
+
+@{
+    ViewData["Title"] = "Thêm Sản phẩm";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+
+<h1>Thêm Sản phẩm</h1>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" asp-action="AddSanPham" enctype="multipart/form-data" id="product-form">
+            @Html.AntiForgeryToken()
+            <!-- Tên sản phẩm -->
+            <div class="form-group">
+                <label asp-for="TenSP" class="control-label"></label>
+                <input asp-for="TenSP" class="form-control" placeholder="Nhập tên sản phẩm" required />
+                <span asp-validation-for="TenSP" class="text-danger"></span>
+            </div>
+
+            <!-- Hình ảnh sản phẩm -->
+            <div class="form-group">
+                <label asp-for="HinhanhDD" class="control-label"></label>
+                <input asp-for="HinhanhDD" type="file" class="form-control" accept="image/*" required />
+                <span asp-validation-for="HinhanhDD" class="text-danger"></span>
+            </div>
+
+            <!-- Mô tả sản phẩm -->
+            <div class="form-group">
+                <label asp-for="MoTa" class="control-label"></label>
+                <textarea asp-for="MoTa" class="form-control" placeholder="Nhập mô tả sản phẩm" required></textarea>
+                <span asp-validation-for="MoTa" class="text-danger"></span>
+            </div>
+
+            <!-- Danh mục sản phẩm -->
+            <div class="form-group">
+                <label asp-for="Madm" class="control-label"></label>
+                <select asp-for="Madm" class="form-control" required>
+                    <option value="">Chọn danh mục</option>
+                    @foreach (var dm in Model.DanhMucs)
+                    {
+                        <option value="@dm">@dm</option>
+                    }
+                </select>
+                <span asp-validation-for="Madm" class="text-danger"></span>
+            </div>
+
+            <div class="product-details">
+                <h2>Chi tiết sản phẩm</h2>
+                <div class="detail-card">
+                    <form method="post" asp-action="CTSPTam" enctype="multipart/form-data" id="ctsp-form">
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label for="color" class="control-label">Màu sắc</label>
+                            <select id="color" name="MauSac" class="form-control" required>
+                                <option value="">Chọn màu sắc</option>
+                                @foreach (var color in Model.Colors)
+                                {
+                                    <option value="@color">@color</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image" class="control-label">Chọn hình ảnh</label>
+                            <input type="file" id="image" name="HinhAnh" class="form-control" accept="image/*" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="size" class="control-label">Kích thước</label>
+                            <select id="size" name="Size" class="form-control" required>
+                                <option value="">Chọn kích thước</option>
+                                @foreach (var size in Model.Kichthuocs)
+                                {
+                                    <option value="@size">@size</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price" class="control-label">Giá</label>
+                            <input type="number" id="price" name="Gia" class="form-control" placeholder="Nhập giá" min="0" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantity" class="control-label">Số lượng</label>
+                            <input type="number" id="quantity" name="SoLuongTon" class="form-control" min="1" required />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="add-item">Thêm vào danh sách</button>
+                    </form>
+
+
+
+                    <h3>Danh sách đã thêm</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Màu sắc</th>
+                                <th>Kích thước</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Hình ảnh</th>
+                            </tr>
+                        </thead>
+                        <tbody id="item-list">
+                            @if (Model.Ctsp != null && Model.Ctsp.Any())
+                            {
+                                @foreach (var item in Model.Ctsp)
+                                {
+                                    <tr class="table-danger">
+                                        <td>@Html.DisplayFor(modelItem => item.MauSac)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Size)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Gia)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.SoLuongTon)</td>
+                                        <td><img src="@item.HinhAnh" alt="Hình ảnh sản phẩm" style="width: 50px; height: auto;" /></td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center">Chưa có dữ liệu</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Nút gửi -->
+            <div class="form-group">
+                <input type="submit" value="Thêm Sản phẩm" class="btn btn-primary" />
+                <a href="/admin/homeadmin/sanpham?page=1" class="btn btn-secondary">Trở về danh sách</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add custom CSS for better styling -->
+<style>
+    .product-details {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .detail-card {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 15px;
+        margin-top: 10px;
+        background-color: #fff;
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    h3 {
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        margin-top: 10px;
+    }
+</style>

@@ -5,15 +5,16 @@ namespace ShopOnline.Models;
 
 public partial class DanhGia
 {
-    public string MaDg { get; set; } = null!;
+    public string MaDg { get; set; }
 
-    public string? MaDh { get; set; }
+    public string MaDh { get; set; }
 
-    public string? MaCtspSize { get; set; }
+    public string MaCtspSize { get; set; }
 
-    public string? NoiDung { get; set; }
+    public string NoiDung { get; set; }
 
-    public string? DiemSao { get; set; }
+    public int DiemSao { get; set; }
+    public DateOnly NgayDg { get; set; }
 
     public virtual ICollection<HinhAnhDanhGium> HinhAnhDanhGia { get; set; } = new List<HinhAnhDanhGium>();
 

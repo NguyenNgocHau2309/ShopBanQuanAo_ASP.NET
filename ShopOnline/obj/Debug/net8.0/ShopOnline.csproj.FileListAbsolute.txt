@@ -254,3 +254,5 @@ D:\DoAn\ShopOnline\ShopOnline\obj\Debug\net8.0\refint\ShopOnline.dll
 D:\DoAn\ShopOnline\ShopOnline\obj\Debug\net8.0\ShopOnline.pdb
 D:\DoAn\ShopOnline\ShopOnline\obj\Debug\net8.0\ShopOnline.genruntimeconfig.cache
 D:\DoAn\ShopOnline\ShopOnline\obj\Debug\net8.0\ref\ShopOnline.dll
+D:\DoAn\ShopOnline\ShopOnline\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\DoAn\ShopOnline\ShopOnline\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll

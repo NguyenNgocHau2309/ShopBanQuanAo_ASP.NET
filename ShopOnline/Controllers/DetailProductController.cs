@@ -34,8 +34,9 @@ namespace ShopOnline.Controllers
             }
             return NotFound();
         }
-        public IActionResult ChiTietSP(string masp)
+        public IActionResult ChiTietSP(string masp, string activeTab)
         {
+            ViewData["ActiveTab"] = activeTab ?? "tab-pane-1";
             if (string.IsNullOrEmpty(masp))
             {
                 return RedirectToAction("Index");
@@ -85,9 +86,55 @@ namespace ShopOnline.Controllers
                 GiaCaoNhat = chiTietSize.Max(s => s.Gia)
             };
 
-            return View(homeDetailViewModel);
-        }
+            var listDanhGia = new List<DetailProductDGViewModel>();
+            var danhgia = db.DanhGia.ToList();
+            foreach (var item in danhgia)
+            {
+                if (GetMaSP(item.MaCtspSize) == masp) // Kiểm tra nếu đánh giá thuộc về sản phẩm hiện tại
+                {
+                    string makh = db.DonHangs.FirstOrDefault(x => x.MaDh == item.MaDh).MaKh; // Lấy mã khách hàng từ đơn hàng
+                    string tenkh = db.KhachHangs.FirstOrDefault(x => x.MaKh == makh).Username; // Lấy tên khách hàng
 
-        
+                    // Lấy danh sách hình ảnh liên quan đến đánh giá
+                    var hinhanh = db.HinhAnhDanhGia
+                                    .Where(h => h.MaDg == item.MaDg)
+                                    .Select(h => h.DuongDan)
+                                    .ToList();
+
+                    // Lấy danh sách video liên quan đến đánh giá
+                    var videodg = db.VideoDanhGia
+                                    .Where(h => h.MaDg == item.MaDg)
+                                    .Select(h => h.DuongDan)
+                                    .ToList();
+
+                    // Tạo mới đối tượng đánh giá để hiển thị
+                    var newdanhgia = new DetailProductDGViewModel
+                    {
+                        madg = item.MaDg,
+                        tenkh = tenkh,
+                        noidung = item.NoiDung,
+                        diem = item.DiemSao,
+                        ngaydg = item.NgayDg,
+                        hinhanh = hinhanh,
+                        video = videodg
+                    };
+
+                    // Thêm vào danh sách
+                    listDanhGia.Add(newdanhgia);
+                }
+            }
+
+            var DetailEvaluateProductViewModel = new DetailEvaluateProductViewModel
+            {
+                DetailViewModel = homeDetailViewModel,
+                DanhGia = listDanhGia 
+            };
+            return View(DetailEvaluateProductViewModel);
+        }
+        private string GetMaSP(string macts)
+        {
+            string mact = db.CtspSizes.FirstOrDefault(x => x.MaCtspSize == macts).MaCtsp;
+            return db.Ctsps.FirstOrDefault(x => x.MaCtsp == mact).MaSp;
+        }
     }
 }

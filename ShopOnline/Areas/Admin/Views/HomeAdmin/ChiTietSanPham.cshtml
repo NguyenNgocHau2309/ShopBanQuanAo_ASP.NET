@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "DanhMucSanPham";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@using ShopOnline.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<ShopOnline.Models.Ctsp>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Chi tiết Sản phẩm</h1>
+<hr />
+<div class="row">
+    <div>
+        <form method="get" asp-action="ChiTietSanPham">
+
+            <!-- Danh mục sản phẩm -->
+            <div class="form-group">
+                <label for="Madm" class="control-label">Màu sắc</label>
+                <div class="custom-select">
+                    <select id="Madm" name="Madm" class="form-control" required>
+                        <option value="">Chọn màu sắc</option>
+                        <option value="DM1">Danh mục 1</option>
+                        <option value="DM2">Danh mục 2</option>
+                        <option value="DM3">Danh mục 3</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="display:flex">
+                <div class="product-details" style="margin-right:10px">
+                    <!-- Hình ảnh sản phẩm -->
+                    <div>
+                        <h3>Chi tiết màu sắc</h3>
+                        <div class="form-group">
+                            <label for="HinhanhDD" class="control-label">Hình ảnh sản phẩm</label>
+                            <input id="HinhanhDD" name="HinhanhDD" type="file" class="form-control" accept="image/*" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="TenSP" class="control-label">Màu sắc</label>
+                            <input id="TenSP" name="TenSP" class="form-control" placeholder="Nhập màu sắc sản phẩm" required />
+                        </div>
+                        <!-- Nút gửi -->
+                        <div class="form-group">
+                            <input type="submit" value="Thêm" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-details">
+                    <h3>Chi tiết size</h3>
+                    <div class="detail-card">
+                        <div style=" display:flex">
+                            <div class="form-group" style="padding:5px">
+                                <label for="TenSP" class="control-label">Size</label>
+                                <input id="TenSP" name="TenSP" class="form-control" placeholder="Nhập size sản phẩm" required />
+                            </div>
+                            <div class="form-group" style="padding:5px">
+                                <label for="TenSP" class="control-label">Giá bán</label>
+                                <input id="TenSP" name="TenSP" class="form-control" placeholder="Nhập giá bán" required />
+                            </div>
+                            <div class="form-group" style="padding:5px">
+                                <label for="TenSP" class="control-label">Số lượng tồn</label>
+                                <input id="TenSP" name="TenSP" class="form-control" placeholder="Nhập số lượng tồn" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Thêm" class="btn btn-primary" />
+                        </div>
+                        <h3>Danh sách</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Kích thước</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>
+                                        <a>Edit</a> |
+                                        <a>Details</a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="item-list">
+                                <!-- Items will be added here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="/admin/homeadmin/sanpham?page=1">Trở về danh sách</a>
+</div>
+
+<!-- Add custom CSS for better styling -->
+<style>
+    .product-details {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .detail-card {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 15px;
+        margin-top: 10px;
+        background-color: #fff;
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    h3 {
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        margin-top: 10px;
+    }
+</style>

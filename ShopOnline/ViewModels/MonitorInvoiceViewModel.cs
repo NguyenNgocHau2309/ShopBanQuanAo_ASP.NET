@@ -2,6 +2,9 @@
 {
     public class ProductInVoiceViewModel
     {
+        public bool IsDanhGia { get; set; }
+        public string MaCTSPS { get; set; }
+        public string MaSP {  get; set; }   
         public string AnhSP { get; set; }
         public string TenSP { get; set; }
         public string Mausac { get; set; }

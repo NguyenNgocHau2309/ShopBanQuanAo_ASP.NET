@@ -6,13 +6,14 @@ using System.Drawing;
 using ShopOnline.Extensions;
 using System.Drawing.Imaging;
 using Microsoft.EntityFrameworkCore;
+using ShopOnline.Models.Authentication;
 
 namespace ShopOnline.Controllers
 {
     public class CheckoutController : Controller
     {
         QuanLyShopOnlineContext db = new QuanLyShopOnlineContext();
-
+        [Authentication]
         [HttpGet]
         public IActionResult ThanhToan()
         {
@@ -25,7 +26,7 @@ namespace ShopOnline.Controllers
                 TempData["ErrorMessage"] = "Giỏ hàng của bạn chưa có sản phẩm nào. Không thể tiến hành thanh toán.";
                 return RedirectToAction("GioHang", "Cart");
             }
-            var tongTienResult = hoadon(makh, 20);
+            var tongTienResult = hoadon(20);
 
             var summaryModel = new CheckOutViewModel
             {
@@ -40,6 +41,7 @@ namespace ShopOnline.Controllers
             // Nếu có lỗi, trả về model để hiển thị lại thông tin
             return View(summaryModel);
         }
+        [Authentication]
         [HttpPost]
         public IActionResult ThanhToan(InvoiceViewModel model)
         {
@@ -63,7 +65,9 @@ namespace ShopOnline.Controllers
                 return View();
             }
 
-            var tongTienResult = hoadon(makh, model.TienShip);
+            HttpContext.Session.Remove("ctkmTam");
+
+            var tongTienResult = hoadon(model.TienShip);
             decimal TongTien = tongTienResult.TongTien;
             decimal TienGiam = tongTienResult.GiamGia;
             decimal TienShip = tongTienResult.TienShip;
@@ -82,15 +86,14 @@ namespace ShopOnline.Controllers
             string newInvoiceCode = GenerateUniqueInvoiceCode();
 
             string newcode = GenerateUniqueCode();
-            string newstatus = GenerateStatus();
 
             var invoice = new DonHang
             {
                 MaKh = makh,
                 MaDh = newInvoiceCode,
                 MaCode = newcode,
-                NgayDh = DateOnly.Parse("10/05/2024")/*DateOnly.FromDateTime(DateTime.Today)*/,
-                TrangThai = newstatus,
+                NgayDh = DateOnly.FromDateTime(DateTime.Today),
+                TrangThai = "Đang xử lý",
                 TenNguoiNhan = model.TenNguoiNhan ,
                 SoDienThoai = model.SoDienThoai,
                 Pttt = model.PTTT,
@@ -136,8 +139,8 @@ namespace ShopOnline.Controllers
                                 {
                                     MaDh = newInvoiceCode,
                                     MaKm = ctkmItem.MaKm, // Lấy mã khuyến mãi từ danh sách tạm
-                                    NgaySd = DateOnly.Parse("10/05/2024") /*DateOnly.FromDateTime(DateTime.Today)*/,
-                                    TienGiam = (decimal)ctkmItem.GiamGia/2, // Lấy số tiền giảm giá từ danh sách tạm
+                                    NgaySd = DateOnly.FromDateTime(DateTime.Today),
+                                    TienGiam = (decimal)ctkmItem.GiamGia, // Lấy số tiền giảm giá từ danh sách tạm
                                     Khac = ctkmItem.Khac
                                 };
                                 db.Ctkms.Add(ctkm);
@@ -188,9 +191,10 @@ namespace ShopOnline.Controllers
             }
             else
             {
+                string magh = db.GioHangs.FirstOrDefault(x => x.MaKH == makh).MaGH;
                 // Nếu mã khách hàng có giá trị, xóa các mục giỏ hàng trong database
-                var cartItems = db.GioHangs.Where(c => c.MaKH == makh).ToList();
-                db.GioHangs.RemoveRange(cartItems);
+                var cartItems = db.Ctghs.Where(c => c.MaGH == magh).ToList();
+                db.Ctghs.RemoveRange(cartItems);
                 db.SaveChanges();
             }
         }
@@ -203,21 +207,42 @@ namespace ShopOnline.Controllers
             string macts = db.CtspSizes.Where(c => c.MaCtsp == mactsp && c.MaSize == mas).Select(c => c.MaCtspSize).FirstOrDefault();
             return macts;
         }
+        private string GetProductID(string mactsps)
+        {
+            string mactsp = db.CtspSizes.FirstOrDefault(x => x.MaCtspSize == mactsps).MaCtsp;
+            return db.Ctsps.FirstOrDefault(p => p.MaCtsp == mactsp).MaSp;
+        }
+        private string GetColorID(string mactsps)
+        {
+            string mactsp = db.CtspSizes.FirstOrDefault(x => x.MaCtspSize == mactsps).MaCtsp;
+            return db.Ctsps.FirstOrDefault(p => p.MaCtsp == mactsp).MaMs;
+        }
+        private string GetSizeID(string mactsps)
+        {
+            return db.CtspSizes.FirstOrDefault(p => p.MaCtspSize == mactsps)?.MaSize ?? "No id Product";
+        }
+        private decimal Gia(string mactsps)
+        {
+            var ctspSize = db.CtspSizes.FirstOrDefault(p => p.MaCtspSize == mactsps);
+            return ctspSize?.Gia ?? 0;
+        }
         private List<CheckoutTempViewModel> GetCartItems(string customerID)
         {
             var cartItems = new List<CheckoutTempViewModel>();
 
             if (customerID != null)
             {
-                var giohang = db.GioHangs.Where(c => c.MaKH == customerID).ToList();
+                string magh = db.GioHangs.FirstOrDefault(x => x.MaKH == customerID).MaGH;
+                var giohang = db.Ctghs.Where(x => x.MaGH == magh).ToList();
                 foreach (var g in giohang)
                 {
+
                     cartItems.Add(new CheckoutTempViewModel
                     {
-                        Masp = g.MaSP,
-                        Mams = g.MaMS,
-                        Masize = g.MaS,
-                        Gia = g.Gia,
+                        Masp = GetProductID(g.MaCTSP_Size),
+                        Mams = GetColorID(g.MaCTSP_Size),
+                        Masize = GetSizeID(g.MaCTSP_Size),
+                        Gia = Gia(g.MaCTSP_Size),
                         Soluong = g.SoLuong
                     });
                 }
@@ -240,9 +265,13 @@ namespace ShopOnline.Controllers
 
             return cartItems;
         }
+
         // Xử lý mục hóa đơn trong view 
-        public CheckOutViewModel hoadon(string customerID, decimal ship)
+        [HttpPost]
+        public CheckOutViewModel hoadon(decimal ship)
         {
+            var username = HttpContext.Session.GetString("Username");
+            var customerID = db.KhachHangs.Where(c => c.Username == username).Select(c => c.MaKh).FirstOrDefault();
             decimal totalAmount = 0;
             decimal dicount = 0;
             List<string> gifts = new List<string>();
@@ -274,9 +303,9 @@ namespace ShopOnline.Controllers
             var invoiceDiscount = CheckDiscountInvoice(totalAmount, ship);
             totalAmount = invoiceDiscount.TongTien;
             dicount += invoiceDiscount.GiamGia;
-            if (!string.IsNullOrEmpty(invoiceDiscount.QuaTang)) // Kiểm tra QuaTang không phải là null hoặc empty
+            if (invoiceDiscount.QuaTang != null && invoiceDiscount.QuaTang.Any()) // Kiểm tra QuaTang có phần tử không
             {
-                gifts.Add(invoiceDiscount.QuaTang);
+                gifts.AddRange(invoiceDiscount.QuaTang); // Thêm tất cả các phần tử của QuaTang vào gifts
             }
             ship = invoiceDiscount.TienShip;
 
@@ -296,7 +325,7 @@ namespace ShopOnline.Controllers
         public (decimal Dicount, string Gift) CheckDiscountProduct(string masp, decimal Gia, decimal sl)
         {
             string madm = db.DanhMucs.Where(dm => dm.SanPhams.Any(sp => sp.MaSp == masp)).Select(dm => dm.MaDm).FirstOrDefault();
-            var currentDate = new DateOnly(2024, 5, 10);/*DateOnly.FromDateTime(DateTime.Today)*/;
+            var currentDate = DateOnly.FromDateTime(DateTime.Today);
 
             var khuyenMais = db.KhuyenMais
             .Where(c => (c.MaSp == masp || c.MaDm == madm)
@@ -335,7 +364,6 @@ namespace ShopOnline.Controllers
                 {
                     gift = khuyenMai.MoTa;
                 }
-
                 // Kiểm tra nếu trùng masp
                 var existingCtkm = ctkm.FirstOrDefault(k => k.MaKm == khuyenMai.MaKm);
 
@@ -364,32 +392,52 @@ namespace ShopOnline.Controllers
 
         public CartSummaryViewModel CheckDiscountInvoice(decimal total, decimal ship)
         {
-            var currentDate = DateOnly.Parse("10/05/2024")/* DateOnly.FromDateTime(DateTime.Today)*/;
+            var currentDate = DateOnly.FromDateTime(DateTime.Today);
             var khuyenMai = db.KhuyenMais
                .Where(c => c.MaSp == null && c.MaDm == null && currentDate >= c.NgayBd && currentDate <= c.NgayKt && c.TienToiThieu <= total)
-               .Select(x => new { x.LoaiKm, x.MoTa, x.SoTienPhanTram, x.TienToiThieu })
-               .FirstOrDefault();
-            string gift = null;
+               .Select(x => new { x.MaKm, x.LoaiKm, x.MoTa, x.SoTienPhanTram, x.TienToiThieu })
+               .ToList();
+            List<string> gift = new List<string>(); ;
             decimal dicount = 0;
-            if (khuyenMai != null)
+            var ctkm = HttpContext.Session.GetObjectFromJson<List<CtkmViewModel>>("ctkmTam") ?? new List<CtkmViewModel>();
+            foreach ( var c in khuyenMai)
             {
-                if (khuyenMai.LoaiKm == "%") // Nếu là khuyến mãi theo phần trăm
+                decimal tamGiam = 0;
+                string gifttam = "";
+                decimal phantram = (decimal)c.SoTienPhanTram;
+                if (c != null)
                 {
-                    dicount = (decimal)(total * (khuyenMai.SoTienPhanTram / 100));
+                    if (c.LoaiKm == "%" && c.SoTienPhanTram > 0) // Nếu là khuyến mãi theo phần trăm
+                    {
+                        dicount += (decimal)(total * (phantram / 100));
+                        tamGiam += (decimal)(total * (phantram / 100));
+                    }
+                    else if (c.LoaiKm == "Tiền" && c.SoTienPhanTram > 0) // Nếu là khuyến mãi theo tiền
+                    {
+                        dicount += (decimal)(c.SoTienPhanTram * total);
+                        tamGiam += (decimal)(c.SoTienPhanTram * total);
+                    }
+                    else if (c.LoaiKm == "Quà tặng")
+                    {
+                        gift.Add(c.MoTa);
+                        gifttam = c.MoTa;
+                    }
+                    else if (c.LoaiKm == "Free ship")
+                    {
+                        ship = 0;
+                    }
                 }
-                else if (khuyenMai.LoaiKm == "Tiền") // Nếu là khuyến mãi theo tiền
+                // Nếu chưa tồn tại, tạo đối tượng CtkmViewModel mới và thêm vào danh sách
+                var newCtkm = new CtkmViewModel
                 {
-                    dicount = (decimal)(khuyenMai.SoTienPhanTram * total);
-                }
-                else if (khuyenMai.LoaiKm == "Quà tặng")
-                {
-                    gift = khuyenMai.MoTa;
-                }
-                if (khuyenMai.LoaiKm == "free ship")
-                {
-                    ship = 0;
-                }
+                    MaKm = c.MaKm,
+                    GiamGia = tamGiam,
+                    Khac = gifttam
+                };
+                ctkm.Add(newCtkm);
+                
             }
+            HttpContext.Session.SetObjectAsJson("ctkmTam", ctkm);
             return new CartSummaryViewModel
             {
                 TongTien = total,
@@ -441,17 +489,5 @@ namespace ShopOnline.Controllers
             return code;
         }
 
-        //Xử lý trạng thái đơn hàng ngẫu nhiên 
-        private string GenerateStatus()
-        {
-            Random random = new Random();
-
-            // Tạo danh sách các trạng thái
-            List<string> trangThaiList = new List<string> { "Đang giao hàng", "Đã hủy", "Đã giao" };
-
-            // Chọn ngẫu nhiên một trạng thái từ danh sách
-            string trangThaiNgauNhien = trangThaiList[random.Next(trangThaiList.Count)];
-            return trangThaiNgauNhien;
-        }
     }
 }

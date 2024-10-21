@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ShopOnline.Models;
 
 public partial class KhuyenMai
 {
-    public string MaKm { get; set; } = null!;
+    [Key]
+    [Required(ErrorMessage = "Mã khuyến mãi là bắt buộc")]
+    public string MaKm { get; set; }
 
     public string? MaSp { get; set; }
 
@@ -15,7 +18,7 @@ public partial class KhuyenMai
 
     public string LoaiKm { get; set; } = null!;
 
-    public int? SoTienPhanTram { get; set; }
+    public int SoTienPhanTram { get; set; }
 
     public DateOnly NgayBd { get; set; }
 

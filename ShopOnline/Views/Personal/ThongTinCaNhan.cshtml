@@ -1,0 +1,431 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    Layout = null;
+    ViewBag.Title = "NHShop - Trang cá nhân";
+}
+@model ShopOnline.ViewModels.InformationViewModel;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="../LayoutShop/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="~/LayoutShop/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/LayoutShop/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid">
+        <div class="row bg-secondary py-2 px-xl-5">
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-dark" href="">FAQs</a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark" href="">Help</a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark" href="">Support</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="text-dark pl-2" href="">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center py-3 px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">NH</span>Shop</h1>
+                </a>
+            </div>
+            <div class="col-lg-6 col-6 text-left">
+                <form action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for products">
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-transparent text-primary">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3 col-6 text-right">
+                <a href="" class="btn border">
+                    <i class="fas fa-heart text-primary"></i>
+                    <span class="badge">0</span>
+                </a>
+                <a class="btn border" asp-area="Cart" asp-controller="Cart" asp-action="GioHang" class="btn border">
+                    <i class="fas fa-shopping-cart text-primary"></i>
+                    <span class="badge">0</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+    <!-- Navbar Start -->
+    <div class="container-fluid">
+        <div class="row border-top px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
+                    <h6 class="m-0">Categories</h6>
+                    <i class="fa fa-angle-down text-dark"></i>
+                </a>
+                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
+                    <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link" data-toggle="dropdown">Dresses <i class="fa fa-angle-down float-right mt-1"></i></a>
+                            <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+                                <a href="" class="dropdown-item">Men's Dresses</a>
+                                <a href="" class="dropdown-item">Women's Dresses</a>
+                                <a href="" class="dropdown-item">Baby's Dresses</a>
+                            </div>
+                        </div>
+                        <a href="" class="nav-item nav-link">Shirts</a>
+                        <a href="" class="nav-item nav-link">Jeans</a>
+                        <a href="" class="nav-item nav-link">Swimwear</a>
+                        <a href="" class="nav-item nav-link">Sleepwear</a>
+                        <a href="" class="nav-item nav-link">Sportswear</a>
+                        <a href="" class="nav-item nav-link">Jumpsuits</a>
+                        <a href="" class="nav-item nav-link">Blazers</a>
+                        <a href="" class="nav-item nav-link">Jackets</a>
+                        <a href="" class="nav-item nav-link">Shoes</a>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">NH</span>Shop</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a asp-area="Home" asp-controller="Home" asp-action="Index" class="nav-item nav-link">
+                                Trang chủ
+                            </a>
+                           @*  <a asp-area="MonitorInvoice" asp-controller="MonitorInvoice" asp-action="TheoDoiDonHang" class="nav-item nav-link">Theo dõi đơn hàng</a> *@
+                        </div>
+                        <div class="navbar-nav ml-auto py-0">
+                            @if (HttpContextAccessor.HttpContext.Session.GetString("Username") != null)
+                            {
+                                <a class="nav-item nav-link" asp-controller="Personal" asp-action="ThongTinCaNhan">Trang cá nhân</a>
+                                <a class="nav-item nav-link" asp-controller="Access" asp-action="Logout">Đăng xuất</a>
+                            }
+                            else
+                            {
+                                <!-- Hiển thị Login và Register khi chưa đăng nhập -->
+                                <a class="nav-item nav-link" asp-area="Access" asp-controller="Access" asp-action="Login">Đăng nhập</a>
+                                <a class="nav-item nav-link" asp-area="Access" asp-controller="Access" asp-action="Register">Đăng ký</a>
+                            }
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar End -->
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Trang cá nhân</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="">Trang Chủ</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Thông tin cá nhân</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <div class="container mt-5">
+
+        <!-- Tab navigation -->
+        <ul class="nav nav-pills mb-4 justify-content-center" id="profileTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="personal-info-tab" data-toggle="pill" href="#personal-info" role="tab" aria-controls="personal-info" aria-selected="true">Thông Tin Cá Nhân</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="orders-tab" data-toggle="pill" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Đơn Hàng</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="reviews-tab" data-toggle="pill" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Đánh Giá</a>
+            </li>
+        </ul>
+
+        <!-- Tab content -->
+        <div class="tab-content" id="profileTabsContent">
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-success">@TempData["Message"]</div>
+            }
+            <!-- Thông tin cá nhân -->
+            <div class="tab-pane fade show active" id="personal-info" role="tabpanel" aria-labelledby="personal-info-tab">
+                <h4>Thông Tin Cá Nhân</h4>
+                <form asp-controller="Personal" asp-action="ThongTinCaNhan" method="post">
+                    <input type="hidden" name="MaKh" value="@Model.KhachHang.MaKh" />
+                    <div class="form-group">
+                        <label for="name">Họ và Tên</label>
+                        <input type="text" class="form-control" id="name" name="HovaTen" value="@Model.KhachHang.HovaTen">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Giới Tính</label>
+                        <select class="form-control" id="gender" name="GioiTinh">
+                            <option value="M" selected="@(Model.KhachHang.GioiTinh == "M" ? "selected" : "")">Nam</option>
+                            <option value="F" selected="@(Model.KhachHang.GioiTinh == "F" ? "selected" : "")">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Ngày Sinh</label>
+                        <input type="date" class="form-control" id="dob" name="NgaySinh" value="@Model.KhachHang.NgaySinh?.ToString("yyyy-MM-dd")">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Số Điện Thoại</label>
+                        <input type="text" class="form-control" id="phone" name="Sdt" value="@Model.KhachHang.Sdt">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Địa chỉ Email</label>
+                        <input type="email" class="form-control" id="email" name="Email" value="@Model.KhachHang.Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Địa Chỉ</label>
+                        <input type="text" class="form-control" id="address" name="DiaChi" value="@Model.KhachHang.DiaChi">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Tên Đăng Nhập</label>
+                        <input type="text" class="form-control" id="username" name="Username" value="@Model.KhachHang.Username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Mật Khẩu Mới (nếu có)</label>
+                        <input type="password" class="form-control" id="password" name="Password" placeholder="Nhập mật khẩu mới (nếu cần)" value="@Model.KhachHang.Password">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Cập nhật thông tin</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Đơn hàng -->
+            <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover order-table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Mã Đơn Hàng</th>
+                                <th>Ngày Đặt</th>
+                                <th>Tổng Tiền</th>
+                                <th>Phương thức giao hàng</th>
+                                <th>Địa chỉ giao hàng</th>
+                                <th >Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var donHang in Model.donHangs)
+                            {
+                                <tr onclick="location.href='@Url.Action("TheoDoiDonHang", "MonitorInvoice", new { macode = donHang.MaCode })'" style="cursor: pointer;">
+                                    <td>@donHang.MaDh</td>
+                                    <td>@donHang.NgayDh</td>
+                                    <td>₫@String.Format("{0:#,0.000}", donHang.TienThu)</td>
+                                    <td>@donHang.Ptgh</td>
+                                    <td>@donHang.Dcgh</td>
+                                    <td>@donHang.TrangThai</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Đánh giá -->
+            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                <div class="review-section">
+                    <p><strong>Đánh giá sản phẩm:</strong></p>
+                    <ul class="list-group">
+                        @foreach (var item in Model.danhgias)
+                        {
+                            <li class="list-group-item">
+                                <!-- Hiển thị hình ảnh sản phẩm -->
+                                <strong>Ngày đánh giá:</strong> @item.ngaydg.ToShortDateString()<br>
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <img src="@item.HaSP" alt="Hình ảnh sản phẩm" style="max-width: 50px; margin-right: 10px;" />
+                                    <span>@item.TenSp</span>
+                                </div>
+                                <strong>Đánh giá:</strong>
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= @item.diem)
+                                    {
+                                        <span style="color: gold;">&#9733;</span> <!-- Ngôi sao đầy màu vàng -->
+                                    }
+                                    else
+                                    {
+                                        <span style="color: lightgray;">&#9733;</span> <!-- Ngôi sao nhạt cho phần đánh giá thấp -->
+                                    }
+                                }
+                                <br>
+                                <strong>Nội dung:</strong> @item.noidung<br>
+                               
+                                @if (item.ha != null && item.ha.Count > 0)
+                                {
+                                    <strong>Hình ảnh đánh giá:</strong>
+
+                                    <br>
+                                    @foreach (var image in item.ha)
+                                    {
+                                        <img src="@image" alt="Hình ảnh đánh giá" style="max-width: 150px; margin-right: 10px;" />
+                                    }
+                                }
+
+                                @if (item.vd != null && item.vd.Count > 0)
+                                {
+                                    <strong>Video đánh giá:</strong>
+
+                                    <br>
+                                    @foreach (var video in item.vd)
+                                    {
+                                        <video width="100" controls>
+                                            <source src="@video" type="video/mp4">
+                                            Trình duyệt của bạn không hỗ trợ video.
+                                        </video>
+                                    }
+                                }
+                                <!-- Thêm nút Chỉnh sửa và Xóa -->
+                                <div style="text-align: right; margin-top: 10px;">
+                                    <a href="@Url.Action("ChiTietSP","DetailProduct", new { masp = item.masp, activeTab = "tab-pane-3" }) " class="btn btn-primary btn-sm">Xem</a>
+                                    <a href="@Url.Action("EditDanhGia", "Evaluate", new { madg = item.madg })" class="btn btn-primary btn-sm">Chỉnh sửa</a>
+                                    <a href="@Url.Action("DeleteDanhGia", new { id = item.madg })" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa đánh giá này không?');">Xóa</a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <a href="" class="text-decoration-none">
+                    <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">NH</span>Shop</h1>
+                </a>
+                <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
+                        <form action="">
+                            <div class="form-group">
+                                <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
+                                       required="required" />
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-top border-light mx-xl-5 py-4">
+            <div class="col-md-6 px-xl-0">
+                <p class="mb-md-0 text-center text-md-left text-dark">
+                    &copy; <a class="text-dark font-weight-semi-bold" href="#">Your Site Name</a>. All Rights Reserved. Designed
+                    by
+                    <a class="text-dark font-weight-semi-bold" href="https://htmlcodex.com">HTML Codex</a><br>
+                    Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                </p>
+            </div>
+            <div class="col-md-6 px-xl-0 text-center text-md-right">
+                <img class="img-fluid" src="../LayoutShop/img/payments.png" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+     <!-- Footer End -->
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="../LayoutShop/lib/easing/easing.min.js"></script>
+    <script src="../LayoutShop/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="~/LayoutShop/mail/jqBootstrapValidation.min.js"></script>
+    <script src="~/LayoutShop/mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="~/LayoutShop/js/main.js"></script>
+</body>
+</html>
+

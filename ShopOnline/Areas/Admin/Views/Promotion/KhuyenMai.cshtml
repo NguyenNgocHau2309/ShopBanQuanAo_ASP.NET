@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewData["Title"] = "KhuyenMai";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@using ShopOnline.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<ShopOnline.Models.KhuyenMai>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h2>Danh sách khuyến mãi</h2>
+
+<p>
+    <a asp-action="AddKhuyenMai">Create New</a>
+</p>
+<p style="color:red">@TempData["Message"]</p>
+
+<div class="table-responsive" style="overflow-x: auto;">
+    <table class="table" style="width: 100%; table-layout: fixed;">
+        <thead>
+            <tr class="table-success">
+                <th style="width: 5%;">MaDM</th>
+                <th style="width: 5%;">MaSP</th>
+                <th style="width: 25%;">Mô tả</th>
+                <th style="width: 10%;">Loại</th>
+                <th style="width: 9%;">Tiền & %</th>
+                <th style="width: 10%;">Ngày BD</th>
+                <th style="width: 10%;">Ngày KT</th>
+                <th style="width: 10%;">Số tiền tối thiểu</th>
+                <th style="width: 16%;">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="table-danger">
+                    <td>@Html.DisplayFor(modelItem => item.MaDm)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MaSp)</td>
+                    <td style="word-wrap: break-word; white-space: normal;">@Html.DisplayFor(modelItem => item.MoTa)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LoaiKm)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SoTienPhanTram)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NgayBd)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NgayKt)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TienToiThieu)</td>
+                    <td>
+                        <a asp-action="EditKhuyenMai" asp-route-MaKm="@item.MaKm">Edit</a> |
+                        <a asp-action="DeleteKhuyenMai" asp-route-MaKm="@item.MaKm">Delete</a> |
+                        <a asp-action="DetailKhuyenMai" asp-route-MaKm="@item.MaKm">Detail</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<ul class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("KhuyenMai", new { page = page }),
+            new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 3,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+        LinkToPreviousPageFormat = "Previous",
+        LinkToNextPageFormat = "Next",
+        LinkToIndividualPageFormat = "{0}",
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+</ul>
