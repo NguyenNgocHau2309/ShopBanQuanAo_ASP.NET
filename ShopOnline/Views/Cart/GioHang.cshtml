@@ -145,7 +145,7 @@
                         <div class="navbar-nav ml-auto py-0">
                             @if (HttpContextAccessor.HttpContext.Session.GetString("Username") != null)
                             {
-                                <a class="nav-item nav-link" asp-area="" asp-controller="" asp-action="">Trang cá nhân</a>
+                                <a class="nav-item nav-link" asp-controller="Personal" asp-action="ThongTinCaNhan">Trang cá nhân</a>
                                 <a class="nav-item nav-link" asp-controller="Access" asp-action="Logout">Đăng xuất</a>
                             }
                             else

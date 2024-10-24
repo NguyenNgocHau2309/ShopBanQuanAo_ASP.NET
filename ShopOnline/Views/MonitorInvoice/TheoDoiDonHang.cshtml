@@ -212,7 +212,7 @@
                                     <th style="padding: 10px; border-bottom: 1px solid #ddd;">Số Lượng</th>
                                     <th style="padding: 10px; border-bottom: 1px solid #ddd;">Giá</th>
                                     <th style="padding: 10px; border-bottom: 1px solid #ddd;">Tổng</th>
-                                    @if (donhang.TrangThai == "Đã giao hàng")
+                                    @if (donhang.TrangThai.Trim().ToLower().Contains("giao hàng"))
                                     {
                                         <th style="padding: 10px; border-bottom: 1px solid #ddd;">Đánh Giá</th> <!-- Cột mới cho nút Đánh giá -->
                                     }
@@ -231,7 +231,7 @@
                                         <td style="padding: 10px; border-bottom: 1px solid #ddd;">@item.Soluong</td>
                                         <td style="padding: 10px; border-bottom: 1px solid #ddd;">₫@String.Format("{0:#,0.000}", item.Gia)</td>
                                         <td style="padding: 10px; border-bottom: 1px solid #ddd;">₫@String.Format("{0:#,0.000}", item.Tong)</td>
-                                        @if (donhang.TrangThai == "Đã giao hàng" && !item.IsDanhGia) // Kiểm tra nếu sản phẩm chưa được đánh giá
+                                        @if (donhang.TrangThai.Trim().ToLower().Contains("giao hàng") && !item.IsDanhGia) // Kiểm tra nếu sản phẩm chưa được đánh giá
                                         {
                                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
                                                 <a href="@Url.Action("DanhGia", "Evaluate", new { macts = item.MaCTSPS, madh = donhang.MaDH})"

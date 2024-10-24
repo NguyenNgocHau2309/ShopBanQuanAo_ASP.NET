@@ -181,22 +181,26 @@
                 <h2 class="mb-4">Chỉnh sửa đánh giá của bạn</h2>
             <form asp-controller="Evaluate" asp-action="EditDanhGia" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="rating-stars">Đánh giá của bạn:</label>
-                        <div id="rating-stars">
-                            @for (int i = 1; i <= 5; i++)
-                            {
-                                <i class="@(Model.diem >= i ? "fas" : "far") fa-star" data-index="@i"></i>
-                            }
-                        </div>
-                        <input type="hidden" id="rating-value" name="rating" value="@Model.diem" />
+                    <p class="mb-0 mr-2">Đánh giá của bạn * :</p>
+                    <div class="text-primary" id="rating-stars">
+                        <i class="far fa-star" data-index="1"></i>
+                        <i class="far fa-star" data-index="2"></i>
+                        <i class="far fa-star" data-index="3"></i>
+                        <i class="far fa-star" data-index="4"></i>
+                        <i class="far fa-star" data-index="5"></i>
+                    </div>
+                    <input type="hidden" id="rating-value" name="diem" value="@Model.diem" />
+                    <input type="hidden" id="madg" name="madg" value="@Model.madg">
+                    <input type="hidden" id="macts" name="macts" value="@Model.macts">
+                    <input type="hidden" id="madh" name="madh" value="@Model.madh">
                     </div>
                     <div class="form-group">
                         <label for="message">Nội dung đánh giá:</label>
-                        <textarea class="form-control" id="message" name="content" rows="4" required>@Model.noidung</textarea>
+                        <textarea class="form-control" id="message" name="noidung" rows="4" required>@Model.noidung</textarea>
                     </div>
                     <div class="form-group">
                         <label for="image">Hình ảnh (tuỳ chọn):</label>
-                        <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
+                        <input type="file" class="form-control-file" id="image" name="anh" accept="image/*">
                     </div>
                     <div class="form-group">
                         <label for="video">Video (tuỳ chọn):</label>
@@ -256,43 +260,74 @@
     <!-- Footer End -->
 
     <script>
-        // Star rating functionality
-        const stars = document.querySelectorAll('#rating-stars i');
-        stars.forEach(star => {
-            star.addEventListener('click', function () {
-                const index = this.getAttribute('data-index');
-                document.getElementById('rating-value').value = index; // Store the rating
-                stars.forEach(s => {
-                    s.classList.remove('fas', 'text-primary'); // Remove filled classes
-                    s.classList.add('far'); // Add empty class
-                });
-                for (let i = 0; i < index; i++) {
-                    stars[i].classList.add('fas', 'text-primary'); // Fill the stars
-                }
-            });
-        });
-
-        // Form validation
-        const form = document.querySelector('form');
-        form.addEventListener('submit', function (e) {
-            const message = document.getElementById('message').value;
-            if (message.trim().length < 10) { // Minimum 10 characters
-                e.preventDefault(); // Prevent form submission
-                alert("Đánh giá của bạn phải chứa ít nhất 10 ký tự."); // Alert message
-            }
-        });
-
-        // Image preview
+        // Lắng nghe sự kiện thay đổi cho input hình ảnh
         document.getElementById('image').addEventListener('change', function (event) {
-            const previewContainer = document.createElement('div');
-            previewContainer.classList.add('image-preview');
-            Array.from(event.target.files).forEach(file => {
-                const img = document.createElement('img');
-                img.src = URL.createObjectURL(file);
-                img.style.width = '100px'; // Set desired width for the preview
-                previewContainer.appendChild(img);
+            const files = event.target.files; // Lấy danh sách tệp đã chọn
+            const fileList = [];
+
+            // Duyệt qua các tệp đã chọn và lấy tên
+            for (let i = 0; i < files.length; i++) {
+                fileList.push(files[i].name);
+            }
+
+            // Console ra danh sách tên tệp
+            console.log('Danh sách hình ảnh đã chọn:', fileList);
+        });
+        // Lấy tất cả các ngôi sao
+        const stars = document.querySelectorAll('#rating-stars i');
+
+        // Thêm sự kiện click cho mỗi ngôi sao
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                // Đặt lại tất cả các ngôi sao thành trạng thái ban đầu (rỗng)
+                stars.forEach(s => {
+                    s.classList.remove('selected');
+                    s.classList.replace('fas', 'far'); // Chuyển thành sao rỗng
+                });
+
+                // Thêm lớp 'selected' và chuyển thành sao đặc cho ngôi sao được chọn và các ngôi sao trước đó
+                for (let i = 0; i <= index; i++) {
+                    stars[i].classList.add('selected');
+                    stars[i].classList.replace('far', 'fas'); // Chuyển thành sao đặc
+                }
+
+                // Lưu giá trị đánh giá vào input ẩn
+                document.getElementById('rating-value').value = index + 1;
+
+                // Log giá trị đánh giá
+                console.log("Rating: " + (index + 1));
             });
-            document.body.appendChild(previewContainer); // Append to the body or desired container
+        });
+    </script>
+    <script>
+        document.getElementById('evaluationForm').addEventListener('submit', function (event) {
+            // Lấy các input file
+            var imageInput = document.getElementById('image');
+            var videoInput = document.getElementById('video');
+
+            // Kiểm tra nếu cả hai input file đều rỗng
+            if (!imageInput.files.length && !videoInput.files.length) {
+                // Ngăn không cho form submit
+                event.preventDefault();
+
+                // Tạo các input ẩn với giá trị rỗng
+                var hiddenImageInput = document.createElement('input');
+                hiddenImageInput.type = 'hidden';
+                hiddenImageInput.name = 'anh'; // Tên của input
+                hiddenImageInput.value = '@Model.anh'; // Giá trị rỗng
+
+                var hiddenVideoInput = document.createElement('input');
+                hiddenVideoInput.type = 'hidden';
+                hiddenVideoInput.name = 'video'; // Tên của input
+                hiddenVideoInput.value = '@Model.video'; // Giá trị rỗng
+
+                // Thêm các input ẩn vào form
+                this.appendChild(hiddenImageInput);
+                this.appendChild(hiddenVideoInput);
+
+                // Submit lại form
+                this.submit();
+            }
         });
     </script>
 </body>

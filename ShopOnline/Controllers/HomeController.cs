@@ -39,7 +39,8 @@ namespace ShopOnline.Controllers
             int pageSize = 12;
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
 
-            var ListSanPham = db.SanPhams.AsQueryable();
+
+            var ListSanPham = db.SanPhams.Where(sp => sp.MinGia > 0).OrderBy(sp => sp.MaSp);
 
             var sanPhamList = ListSanPham.ToList();
 

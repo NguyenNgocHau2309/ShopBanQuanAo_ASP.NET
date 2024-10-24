@@ -129,7 +129,7 @@
                         <div class="navbar-nav ml-auto py-0">
                             @if (HttpContextAccessor.HttpContext.Session.GetString("Username") != null)
                             {
-                                <a class="nav-item nav-link" asp-area="Personal" asp-controller="ThongTinCaNhan" asp-action="">Trang cá nhân</a>
+                                <a class="nav-item nav-link" asp-controller="Personal" asp-action="ThongTinCaNhan">Trang cá nhân</a>
                                 <a class="nav-item nav-link" asp-controller="Access" asp-action="Logout">Đăng xuất</a>
                             }
                             else
@@ -310,7 +310,7 @@
                     </div>
                     <div class="tab-pane fade @(ViewData["ActiveTab"].ToString() == "tab-pane-3" ? "show active" : "")" id="tab-pane-3">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div>
                                 @if (Model.DanhGia != null && Model.DanhGia.Count > 0)
                                 {
                                     <h4 class="mb-4">@Model.DanhGia.Count đánh giá cho sản phẩm</h4>
@@ -318,7 +318,7 @@
                                     @foreach (var review in Model.DanhGia)
                                     {
                                         <div class="media mb-4">
-                                            <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                            <img src="~/LayoutShop/img/user1.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                             <div class="media-body">
                                                 <h6>@review.tenkh<small> - <i>@review.ngaydg.ToString("dd MMM yyyy")</i></small></h6>
                                                 <div class="text-primary mb-2">
@@ -336,30 +336,31 @@
                                                 </div>
                                                 <p>@review.noidung</p>
 
-                                                @if (review.hinhanh != null && review.hinhanh.Count > 0)
-                                                {
-                                                    <strong>Hình ảnh đánh giá:</strong>
-
-                                                    <br>
-                                                    @foreach (var image in review.hinhanh)
+                                                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                                    <!-- flexbox và khoảng cách -->
+                                                    @if (review.hinhanh != null && review.hinhanh.Count > 0)
                                                     {
-                                                        <img src="@image" alt="Hình ảnh đánh giá" style="max-width: 100px; margin-right: 10px;" />
+                                                        @foreach (var image in review.hinhanh)
+                                                        {
+                                                            <img src="@image" alt="Hình ảnh đánh giá"
+                                                                 style="width: 150px; height: 100px; object-fit: cover; border-radius: 5px;" /> <!-- object-fit để không bị biến dạng -->
+                                                        }
                                                     }
-                                                }
 
-                                                @if (review.video != null && review.video.Count > 0)
-                                                {
-                                                    <strong>Video đánh giá:</strong>
-
-                                                    <br>
-                                                    @foreach (var video in review.video)
+                                                    @if (review.video != null && review.video.Count > 0)
                                                     {
-                                                        <video width="200" controls>
-                                                            <source src="@video" type="video/mp4">
-                                                            Trình duyệt của bạn không hỗ trợ video.
-                                                        </video>
+                                                        @foreach (var video in review.video)
+                                                        {
+                                                            <video width="150" height="100" controls style="object-fit: cover; border-radius: 5px;">
+                                                                <!-- object-fit cho video -->
+                                                                <source src="@video" type="video/mp4">
+                                                                Trình duyệt của bạn không hỗ trợ video.
+                                                            </video>
+                                                        }
                                                     }
-                                                }
+                                                </div>
+
+
                                             </div>
                                         </div>
                                     }

@@ -1,8 +1,75 @@
-﻿
-@{
-    ViewData["Title"] = "HoaDon";
+﻿@{
+    ViewData["Title"] = "Danh Sách Đơn Hàng";
     Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
 }
+@using ShopOnline.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<ShopOnline.Models.DonHang>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<h1>HoaDon</h1>
+<h2>Danh sách đơn hàng</h2>
 
+<p style="color:red">@TempData["Message"]</p>
+
+<!-- Tạo một container để có thể cuộn ngang -->
+<div class="table-responsive">
+    <table class="table table-bordered" style="width: 150%; table-layout: fixed;">
+        <thead>
+            <tr class="table-success">
+                <th style ="width: 10%;">MaDH</th>
+                <th style="width: 10%;">MaKH</th>
+                <th style="width: 10%;">MaCode</th>
+                <th style="width: 10%;">Ngày ĐH</th>
+                <th style="width: 10%;">Trạng thái</th>
+                <th style ="width: 10%;">PTTT</th>
+                <th style="width: 15%;">Tên người nhận</th>
+                <th style="width: 10%;">SĐT</th>
+                <th style="width: 10%;">PTGH</th>
+                <th style="width: 15%;">Địa chỉ</th>
+                <th style="width: 10%;">Tiền giảm</th>
+                <th style="width: 10%;">Tiền ship</th>
+                <th style="width: 10%;">Tổng tiền</th>
+                <th style="width: 10%;">Tiền thu</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="table-danger" onclick="location.href='@Url.Action("ChiTietHoaDon", "Order", new { madh = item.MaDh })'">
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.MaDh)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.MaKh)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.MaCode)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.NgayDh)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.TrangThai)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.Pttt)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.TenNguoiNhan)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.SoDienThoai)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.Ptgh)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.Dcgh)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.TienGiam)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.TienShip)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.TongTien)</td>
+                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">@Html.DisplayFor(modelItem => item.TienThu)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Phân trang -->
+<ul class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("KhuyenMai", new { page = page }),
+            new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 3,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+        LinkToPreviousPageFormat = "Previous",
+        LinkToNextPageFormat = "Next",
+        LinkToIndividualPageFormat = "{0}",
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+</ul>

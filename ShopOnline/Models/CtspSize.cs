@@ -12,7 +12,7 @@ public partial class CtspSize
 
     public string MaSize { get; set; } 
 
-    public decimal? Gia { get; set; }
+    public decimal Gia { get; set; }
 
     public int SoLuongTon { get; set; }
 

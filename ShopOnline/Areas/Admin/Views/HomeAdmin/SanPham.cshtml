@@ -41,8 +41,8 @@
                     <td>@String.Format("{0:#,0.000} ₫", item.MinGia)</td>
                     <td>@String.Format("{0:#,0.000} ₫", item.MaxGia)</td>
                     <td>
-                        <a asp-action="ChiTietSanPham" asp-route-id="@item.MaDm">Edit</a> |
-                        <a asp-action="DeleteDanhMuc" asp-route-MaDM="@item.MaDm">Delete</a>
+                        <a asp-action="ChiTietSanPham" asp-route-MaSP="@item.MaSp">Edit</a> |
+                        <a asp-action="DeleteSanPham" asp-route-MaSP="@item.MaSp">Delete</a>
                     </td>
                 </tr>
             }

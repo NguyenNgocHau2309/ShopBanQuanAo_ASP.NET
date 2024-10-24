@@ -536,9 +536,15 @@ public partial class QuanLyShopOnlineContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("MaDM");
-            entity.Property(e => e.MoTa).HasColumnType("text");
+            entity.Property(e => e.MoTa)
+             .HasMaxLength(1000)
+                .IsUnicode(true)
+                .IsFixedLength()
+                .HasColumnName("MoTa"); ;
             entity.Property(e => e.TenSp)
-                .HasColumnType("text")
+                 .HasMaxLength(255)
+                .IsUnicode(true)
+                .IsFixedLength()
                 .HasColumnName("TenSP");
             // Cấu hình cho MinGia và MaxGia
             entity.Property(e => e.MinGia)  // Giả sử bạn đã thêm thuộc tính này vào lớp SanPham

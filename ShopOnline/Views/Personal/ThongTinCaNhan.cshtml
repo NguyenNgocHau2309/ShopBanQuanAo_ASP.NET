@@ -175,17 +175,19 @@
     <div class="container mt-5">
 
         <!-- Tab navigation -->
+        <!-- Tab navigation -->
         <ul class="nav nav-pills mb-4 justify-content-center" id="profileTabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="personal-info-tab" data-toggle="pill" href="#personal-info" role="tab" aria-controls="personal-info" aria-selected="true">Thông Tin Cá Nhân</a>
+                <a class="nav-link @(ViewData["ActiveTab"].ToString() == "personal-info" ? "active" : "")" id="personal-info-tab" data-toggle="pill" href="#personal-info" role="tab" aria-controls="personal-info" aria-selected="@(ViewData["ActiveTab"].ToString() == "personal-info" ? "true" : "false")">Thông Tin Cá Nhân</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="orders-tab" data-toggle="pill" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Đơn Hàng</a>
+                <a class="nav-link @(ViewData["ActiveTab"].ToString() == "orders" ? "active" : "")" id="orders-tab" data-toggle="pill" href="#orders" role="tab" aria-controls="orders" aria-selected="@(ViewData["ActiveTab"].ToString() == "orders" ? "true" : "false")">Đơn Hàng</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="reviews-tab" data-toggle="pill" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Đánh Giá</a>
+                <a class="nav-link @(ViewData["ActiveTab"].ToString() == "reviews" ? "active" : "")" id="reviews-tab" data-toggle="pill" href="#reviews" role="tab" aria-controls="reviews" aria-selected="@(ViewData["ActiveTab"].ToString() == "reviews" ? "true" : "false")">Đánh Giá</a>
             </li>
         </ul>
+
 
         <!-- Tab content -->
         <div class="tab-content" id="profileTabsContent">
@@ -194,7 +196,7 @@
                 <div class="alert alert-success">@TempData["Message"]</div>
             }
             <!-- Thông tin cá nhân -->
-            <div class="tab-pane fade show active" id="personal-info" role="tabpanel" aria-labelledby="personal-info-tab">
+            <div class="tab-pane fade @(ViewData["ActiveTab"].ToString() == "personal-info" ? "show active" : "")" id="personal-info" role="tabpanel" aria-labelledby="personal-info-tab">
                 <h4>Thông Tin Cá Nhân</h4>
                 <form asp-controller="Personal" asp-action="ThongTinCaNhan" method="post">
                     <input type="hidden" name="MaKh" value="@Model.KhachHang.MaKh" />
@@ -241,7 +243,7 @@
             </div>
 
             <!-- Đơn hàng -->
-            <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+            <div class="tab-pane fade @(ViewData["ActiveTab"].ToString() == "orders" ? "show active" : "")" id="orders" role="tabpanel" aria-labelledby="orders-tab">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover order-table">
                         <thead class="thead-dark">
@@ -273,7 +275,7 @@
             </div>
 
             <!-- Đánh giá -->
-            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+            <div class="tab-pane fade @(ViewData["ActiveTab"].ToString() == "reviews" ? "show active" : "")" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                 <div class="review-section">
                     <p><strong>Đánh giá sản phẩm:</strong></p>
                     <ul class="list-group">
@@ -314,7 +316,7 @@
 
                                 @if (item.vd != null && item.vd.Count > 0)
                                 {
-                                    <strong>Video đánh giá:</strong>
+                                    <strong style="display:block;">Video đánh giá:</strong>
 
                                     <br>
                                     @foreach (var video in item.vd)
@@ -329,7 +331,7 @@
                                 <div style="text-align: right; margin-top: 10px;">
                                     <a href="@Url.Action("ChiTietSP","DetailProduct", new { masp = item.masp, activeTab = "tab-pane-3" }) " class="btn btn-primary btn-sm">Xem</a>
                                     <a href="@Url.Action("EditDanhGia", "Evaluate", new { madg = item.madg })" class="btn btn-primary btn-sm">Chỉnh sửa</a>
-                                    <a href="@Url.Action("DeleteDanhGia", new { id = item.madg })" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa đánh giá này không?');">Xóa</a>
+                                    <a href="@Url.Action("DeleteDanhGia", "Evaluate", new { madg = item.madg})" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa đánh giá này không?');">Xóa</a>
                                 </div>
                             </li>
                         }

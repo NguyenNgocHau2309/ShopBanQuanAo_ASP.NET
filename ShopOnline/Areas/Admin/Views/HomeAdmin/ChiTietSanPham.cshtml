@@ -1,96 +1,98 @@
 ﻿@{
-    ViewData["Title"] = "DanhMucSanPham";
+    ViewData["Title"] = "ChiTietSanPham";
     Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
 }
-@using ShopOnline.Models;
-@using X.PagedList.Mvc.Core;
-@model X.PagedList.IPagedList<ShopOnline.Models.Ctsp>
+@model ShopOnline.Areas.Admin.ViewModels.ChiTietSPViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <h1>Chi tiết Sản phẩm</h1>
+<p>
+    <a asp-action="AddMauSacSP" asp-route-MaSP="@Model.MaSP">Create New</a>
+</p>
 <hr />
 <div class="row">
-    <div>
-        <form method="get" asp-action="ChiTietSanPham">
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th style="width: 10%"></th>
+                <th style="width: 20%">Hình ảnh</th>
+                <th style="width: 10%">Màu sắc</th>
+                <th style="width: 15%">Size</th>
+                <th style="width: 15%">Giá</th>
+                <th style="width: 15%">Số lượng tồn</th>
+                <th style="width: 15%">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model == null || Model.MauSacs == null || !Model.MauSacs.Any())
+            {
+                <tr>
+                    <td colspan="7" style="text-align:center;">Chưa có dữ liệu cho sản phẩm này.</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var mau in Model.MauSacs)
+                {
+                    bool isFirstRow = true;
+                    var sizes = mau.Sizes;
 
-            <!-- Danh mục sản phẩm -->
-            <div class="form-group">
-                <label for="Madm" class="control-label">Màu sắc</label>
-                <div class="custom-select">
-                    <select id="Madm" name="Madm" class="form-control" required>
-                        <option value="">Chọn màu sắc</option>
-                        <option value="DM1">Danh mục 1</option>
-                        <option value="DM2">Danh mục 2</option>
-                        <option value="DM3">Danh mục 3</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div style="display:flex">
-                <div class="product-details" style="margin-right:10px">
-                    <!-- Hình ảnh sản phẩm -->
-                    <div>
-                        <h3>Chi tiết màu sắc</h3>
-                        <div class="form-group">
-                            <label for="HinhanhDD" class="control-label">Hình ảnh sản phẩm</label>
-                            <input id="HinhanhDD" name="HinhanhDD" type="file" class="form-control" accept="image/*" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="TenSP" class="control-label">Màu sắc</label>
-                            <input id="TenSP" name="TenSP" class="form-control" placeholder="Nhập màu sắc sản phẩm" required />
-                        </div>
-                        <!-- Nút gửi -->
-                        <div class="form-group">
-                            <input type="submit" value="Thêm" class="btn btn-primary" />
-                        </div>
-                    </div>
-                </div>
+                    @if (sizes == null || !sizes.Any())
+                    {
+                        <tr>
+                            <td>
+                                <a asp-action="EditMauSacSP" asp-route-MaSP="@Model.MaSP" asp-route-MaCTSP="@mau.MaCTSP">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                |
+                                <a asp-action="ChiTietSanPham" asp-route-MaSP="@Model.MaSP">
+                                    <i style="color:red" class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                            <td style="text-align:center;">
+                                <img src="@mau.HinhAnhDD" alt="Ảnh sản phẩm" class="product-image">
+                            </td>
+                            <td>@mau.TenMS</td>
+                            <td colspan="4" style="text-align:center;">Không có size</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var size in sizes)
+                        {
+                            <tr>
+                                @if (isFirstRow)
+                                {
+                                    <td rowspan="@sizes.Count">
+                                        <i class="fa-solid fa-pen-to-square"></i> |
+                                        <i style="color:red" class="fa-solid fa-trash"></i>
+                                    </td>
+                                    <td rowspan="@sizes.Count" style="text-align:center;">
+                                        <img src="@mau.HinhAnhDD" alt="Ảnh sản phẩm" class="product-image">
+                                    </td>
+                                    <td rowspan="@sizes.Count">@mau.TenMS</td>
+                                    isFirstRow = false;
+                                }
+                                <td>@size.TenSize</td>
+                                <td>@size.Gia</td>
+                                <td>@size.SoLuongTon</td>
+                                <td>
+                                    <a asp-action="ChiTietSanPham" asp-route-MaSP="@Model.MaSP">Create</a> |
+                                    <a asp-action="ChiTietSanPham" asp-route-MaSP="@Model.MaSP">Edit</a> |
+                                    <a style="color:red;" asp-action="DeleteSanPham" asp-route-MaSP="@Model.MaSP">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            }
+        </tbody>
 
-                <div class="product-details">
-                    <h3>Chi tiết size</h3>
-                    <div class="detail-card">
-                        <div style=" display:flex">
-                            <div class="form-group" style="padding:5px">
-                                <label for="TenSP" class="control-label">Size</label>
-                                <input id="TenSP" name="TenSP" class="form-control" placeholder="Nhập size sản phẩm" required />
-                            </div>
-                            <div class="form-group" style="padding:5px">
-                                <label for="TenSP" class="control-label">Giá bán</label>
-                                <input id="TenSP" name="TenSP" class="form-control" placeholder="Nhập giá bán" required />
-                            </div>
-                            <div class="form-group" style="padding:5px">
-                                <label for="TenSP" class="control-label">Số lượng tồn</label>
-                                <input id="TenSP" name="TenSP" class="form-control" placeholder="Nhập số lượng tồn" required />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Thêm" class="btn btn-primary" />
-                        </div>
-                        <h3>Danh sách</h3>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Kích thước</th>
-                                    <th>Giá</th>
-                                    <th>Số lượng</th>
-                                    <th>
-                                        <a>Edit</a> |
-                                        <a>Details</a>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="item-list">
-                                <!-- Items will be added here dynamically -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+    </table>
 </div>
 
-<div>
+<div style="margin-top: 20px;">
     <a href="/admin/homeadmin/sanpham?page=1">Trở về danh sách</a>
 </div>
 
@@ -128,4 +130,34 @@
     .btn {
         margin-top: 10px;
     }
+
+    /* Ensure the product images are square and large */
+    .product-image {
+        margin: 5px;
+        width: 100px;
+        height: 100px;
+        object-fit: cover; /* Ensures the image covers the square without distortion */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    /* Style for table and borders */
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .styled-table th, .styled-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .styled-table th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        .styled-table tr:hover {
+            background-color: #f1f1f1;
+        }
 </style>

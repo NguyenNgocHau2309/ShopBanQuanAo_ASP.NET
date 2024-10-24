@@ -633,6 +633,38 @@
       "PackagePath": "staticwebassets\\LayoutShop\\css\\style.min.css"
     },
     {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\22eb1274-7405-450a-adef-fcfe47c6edf8.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\22eb1274-7405-450a-adef-fcfe47c6edf8.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\39572b92-4b60-42f0-8e1d-21d0c5e982e5.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\39572b92-4b60-42f0-8e1d-21d0c5e982e5.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\6a155e49-8002-466a-b00a-b64b9b4d4aad.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\6a155e49-8002-466a-b00a-b64b9b4d4aad.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\6b7e606b-79e1-43cd-9477-4778ebc2b8ec.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\6b7e606b-79e1-43cd-9477-4778ebc2b8ec.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\77e24b79-d0ca-4911-8ddf-1718d79486de.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\77e24b79-d0ca-4911-8ddf-1718d79486de.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\932e1fd5-a0c2-42ce-bbae-37bc48e3441d.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\932e1fd5-a0c2-42ce-bbae-37bc48e3441d.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\9d032306-a57d-48d1-8ac2-5c6cbbc23066.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\9d032306-a57d-48d1-8ac2-5c6cbbc23066.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\LogoShop.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\LogoShop.png"
+    },
+    {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\Screenshot 2024-07-28 231324.png",
       "PackagePath": "staticwebassets\\LayoutShop\\img\\Screenshot 2024-07-28 231324.png"
     },
@@ -655,6 +687,10 @@
     {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\Screenshot 2024-08-12 001312.png",
       "PackagePath": "staticwebassets\\LayoutShop\\img\\Screenshot 2024-08-12 001312.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\b879c237-a8ab-4060-a94e-278327d878ee.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\b879c237-a8ab-4060-a94e-278327d878ee.png"
     },
     {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\carousel-1.jpg",
@@ -687,6 +723,26 @@
     {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\cat-6.jpg",
       "PackagePath": "staticwebassets\\LayoutShop\\img\\cat-6.jpg"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\df6f402f-96fa-415f-bbb7-25be04e74d03.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\df6f402f-96fa-415f-bbb7-25be04e74d03.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\dfbc4e16-c8d5-4d10-8d84-02865fbc1357.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\dfbc4e16-c8d5-4d10-8d84-02865fbc1357.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\e4da4adc-53ff-4d0f-94c9-ccc5fdb41a0c.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\e4da4adc-53ff-4d0f-94c9-ccc5fdb41a0c.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\f0c9351f-588c-46f5-a676-223b97a1324d.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\f0c9351f-588c-46f5-a676-223b97a1324d.png"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\f51c6e85-4664-49be-96a8-52873fdc6aca.png",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\f51c6e85-4664-49be-96a8-52873fdc6aca.png"
     },
     {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\offer-1.png",
@@ -737,6 +793,10 @@
       "PackagePath": "staticwebassets\\LayoutShop\\img\\user.jpg"
     },
     {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\user1.jpg",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\user1.jpg"
+    },
+    {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\vendor-1.jpg",
       "PackagePath": "staticwebassets\\LayoutShop\\img\\vendor-1.jpg"
     },
@@ -767,6 +827,10 @@
     {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\vendor-8.jpg",
       "PackagePath": "staticwebassets\\LayoutShop\\img\\vendor-8.jpg"
+    },
+    {
+      "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\img\\video1.mp4",
+      "PackagePath": "staticwebassets\\LayoutShop\\img\\video1.mp4"
     },
     {
       "Id": "D:\\DoAn\\ShopOnline\\ShopOnline\\wwwroot\\LayoutShop\\js\\main.js",

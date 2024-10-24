@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Chi Tiết Đánh Giá";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@using X.PagedList.Mvc.Core;
+@model ShopOnline.Areas.Admin.ViewModels.ChiTietDGViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h2 style="text-align: center; margin-bottom: 20px;">Chi Tiết Đánh Giá Sản Phẩm</h2>
+
+<div style="overflow-x: auto;">
+    <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background-color: #f9f9f9;">
+        @if (Model != null)
+        {
+            <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+                <img src="~/LayoutShop/img/user1.jpg" alt="Image" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                <div style="flex-grow: 1;">
+                    <h6 style="margin: 0;">@Model.tenkh <small style="font-size: 12px; color: gray;">- <i>@Model.ngaydg.ToString("dd MMM yyyy")</i></small></h6>
+                    <div style="margin-bottom: 10px;">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= Model.diem)
+                            {
+                                <span style="color: gold;">&#9733;</span> <!-- Ngôi sao đầy màu vàng -->
+                            }
+                            else
+                            {
+                                <span style="color: lightgray;">&#9733;</span> <!-- Ngôi sao rỗng -->
+                            }
+                        }
+                    </div>
+                    <p style="margin: 0;">@Model.noidung</p>
+
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                        @if (Model.ha != null && Model.ha.Count > 0)
+                        {
+                            @foreach (var image in Model.ha)
+                            {
+                                <img src="@image" alt="Hình ảnh đánh giá" style="width: 150px; height: 100px; object-fit: cover; border-radius: 5px; border: 1px solid #ddd;" />
+                            }
+                        }
+
+                        @if (Model.vd != null && Model.vd.Count > 0)
+                        {
+                            @foreach (var video in Model.vd)
+                            {
+                                <video width="150" height="100" controls style="border-radius: 5px; border: 1px solid #ddd;">
+                                    <source src="@video" type="video/mp4">
+                                    Trình duyệt của bạn không hỗ trợ video.
+                                </video>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <h4 style="color: gray;">Chưa có đánh giá nào cho sản phẩm này.</h4>
+        }
+    </div>
+</div>

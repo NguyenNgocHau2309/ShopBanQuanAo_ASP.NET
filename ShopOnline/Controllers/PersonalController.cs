@@ -8,8 +8,9 @@ namespace ShopOnline.Controllers
     {
         QuanLyShopOnlineContext db = new QuanLyShopOnlineContext();
         [HttpGet]
-        public IActionResult ThongTinCaNhan()
+        public IActionResult ThongTinCaNhan(string activeTab)
         {
+            ViewData["ActiveTab"] = activeTab ?? "personal-info";
             var username = HttpContext.Session.GetString("Username");
 
             var khachHang = db.KhachHangs.FirstOrDefault(c => c.Username == username);
@@ -88,24 +89,6 @@ namespace ShopOnline.Controllers
             // Nếu không hợp lệ, thông báo lỗi và chuyển hướng về trang thông tin cá nhân
             TempData["Message"] = "Có lỗi xảy ra khi cập nhật thông tin. Vui lòng kiểm tra lại.";
             return RedirectToAction("ThongTinCaNhan"); // Chuyển hướng về trang thông tin cá nhân
-        }
-        [HttpPost]
-        public IActionResult Edit(DanhGiaCaNhanViewModel danhgia)
-        {
-            return RedirectToAction("ThongTinCaNhan", new { activeTab = "reviews" });
-        }
-        public IActionResult DeleteDanhGia (string madg)
-        {
-            var danhGia = db.DanhGia.FirstOrDefault(d => d.MaDg == madg);
-
-            if (danhGia == null)
-            {
-                return NotFound();
-            }
-            db.DanhGia.Remove(danhGia);
-            db.SaveChanges();
-
-            return RedirectToAction("ThongTinCaNhan", new { activeTab = "reviews" });
         }
     }
 }

@@ -174,7 +174,7 @@ namespace ShopOnline.Areas.Admin.Controllers
             int pageNumber = page == null || page < 1 ? 1 : page.Value;
 
             // Lấy dữ liệu từ database và sắp xếp trước khi phân trang
-            var listSanPham = db.SanPhams.OrderByDescending(sp => sp.MaSp).AsQueryable();
+            var listSanPham = db.SanPhams.OrderByDescending(sp => sp.MaSp);
 
             // Tạo PagedList dựa trên dữ liệu
             var pagedList = listSanPham.ToPagedList(pageNumber, pageSize);
@@ -186,193 +186,300 @@ namespace ShopOnline.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AddSanPham()
         {
-            var danhMucList = db.DanhMucs.Select(x => x.TenDm).ToList(); // Lấy danh sách danh mục từ CSDL
-            var mauSacList = db.MauSacs.Select(x => x.TenMs).ToList(); // Lấy danh sách màu sắc từ CSDL
-            var kichThuocList = db.Sizes.Select(x => x.TenSize).ToList(); // Lấy danh sách kích thước từ CSDL
-
-            var viewModel = new SanPhamViewModel
+            var DanhMuc = db.DanhMucs.Select(x => x.TenDm).ToList();
+            var model = new SanPhamViewModel
             {
-                DanhMucs = danhMucList,
-                Colors = mauSacList,
-                Kichthuocs = kichThuocList
+                listTenDM = DanhMuc
             };
-
-            return View(viewModel);
+            return View(model);
         }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CTSPTam(ChiTietSPTamViewModel Temctsp)
-        {
-            // Kiểm tra nếu Temctsp là null hoặc không hợp lệ
-            if (Temctsp == null || !ModelState.IsValid)
-            {
-                // Bạn có thể thêm thông báo lỗi ở đây nếu cần
-                return BadRequest("Dữ liệu không hợp lệ."); // Trả về lỗi nếu Temctsp là null hoặc không hợp lệ
-            }
-
-            // Lấy danh sách ctsp từ session, nếu không có thì khởi tạo mới
-            var ctsp = HttpContext.Session.GetObjectFromJson<List<ChiTietSPTamViewModel>>("ctspTam") ?? new List<ChiTietSPTamViewModel>();
-
-            // Tạo một đối tượng mới từ dữ liệu nhận được
-            var newCtsp = new ChiTietSPTamViewModel
-            {
-                MauSac = Temctsp.MauSac,
-                HinhAnh = Temctsp.HinhAnh,
-                Size = Temctsp.Size,
-                Gia = Temctsp.Gia,
-                SoLuongTon = Temctsp.SoLuongTon
-            };
-
-            // Thêm vào danh sách
-            ctsp.Add(newCtsp);
-
-            // Lưu danh sách vào session
-            HttpContext.Session.SetObjectAsJson("ctspTam", ctsp);
-
-            // Chuyển hướng tới một action khác sau khi thêm thành công
-            return RedirectToAction("AddSanPham"); // Hoặc action bạn muốn chuyển hướng đến
-        }
-
-
 
         [Route("AddSanPham")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddSanPham(SanPhamViewModel model)
         {
-            if (model == null || model.Ctsp == null || model.Ctsp.Count == 0)
-            {
-                var danhMucList = db.DanhMucs.Select(x => x.TenDm).ToList();
-                var mauSacList = db.MauSacs.Select(x => x.TenMs).ToList();
-                var kichThuocList = db.Sizes.Select(x => x.TenSize).ToList();
-
-                var viewModel = new SanPhamViewModel
-                {
-                    DanhMucs = danhMucList,
-                    Colors = mauSacList,
-                    Kichthuocs = kichThuocList
-                };
-                return View(viewModel);
-            }
-
-            var ChitietSPTam = HttpContext.Session.GetObjectFromJson<List<ChiTietSPTamViewModel>>("ctspTam") ?? new List<ChiTietSPTamViewModel>();
-
-            decimal minPrice = decimal.MaxValue;
-            decimal maxPrice = decimal.MinValue;
-
-            string newCodeProduct = GenerateUniqueProductCode();
-            List<CtspSize> ctspSizes = new List<CtspSize>();
-            List<Ctsp> ctsps = new List<Ctsp>();
-
-            SanPham sanpham = null; // Để lưu trữ sản phẩm
-
-            string mausac = "";
-            string NewMaCtsp = "";
-
-            foreach (var item in ChitietSPTam)
-            {
-                if (item.MauSac == mausac)
-                {
-                    CtspSize ctspSize = new CtspSize
-                    {
-                        MaCtspSize = GenerateUniqueCtspsCode(),
-                        MaCtsp = NewMaCtsp,
-                        MaSize = db.Sizes.FirstOrDefault(x => x.TenSize == item.Size).MaSize,
-                        Gia = item.Gia,
-                        SoLuongTon = item.SoLuongTon
-                    };
-                    ctspSizes.Add(ctspSize);
-                }
-                else
-                {
-                    mausac = item.MauSac;
-                    NewMaCtsp = GenerateUniqueCtspCode();
-                    Ctsp ctsp = new Ctsp
-                    {
-                        MaCtsp = NewMaCtsp,
-                        MaSp = newCodeProduct,
-                        MaMs = db.MauSacs.FirstOrDefault(x => x.TenMs == item.MauSac).MaMs,
-                        HinhAnh = item.HinhAnh
-                    };
-                    ctsps.Add(ctsp);
-                }
-
-                // Cập nhật giá min và max
-                if (item.Gia < minPrice)
-                {
-                    minPrice = item.Gia;
-                }
-
-                if (item.Gia > maxPrice)
-                {
-                    maxPrice = item.Gia;
-                }
-            }
-
-            HttpContext.Session.Remove("ctspTam");
+            var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "LayoutShop", "img");
+            string ha = "";
 
             if (model.HinhanhDD != null && model.HinhanhDD.Length > 0)
             {
-                // Lưu hình ảnh vào hệ thống tập tin và lấy đường dẫn hình ảnh
-                string hinhAnhDuocLuu = SaveImageToFileSystem(model.HinhanhDD);
-                sanpham = new SanPham
-                {
-                    MaSp = newCodeProduct,
-                    HinhAnhDd = hinhAnhDuocLuu,
-                    TenSp = model.TenSP,
-                    MoTa = model.MoTa,
-                    MaDm = model.Madm,
-                    MinGia = minPrice,
-                    MaxGia = maxPrice
-                };
-            }
+                string fileName = Guid.NewGuid() + Path.GetExtension(model.HinhanhDD.FileName); // Generate a unique filename
+                string filePath = Path.Combine(uploadFolder, fileName);
 
-            try
-            {
-                // Lưu sản phẩm vào cơ sở dữ liệu
-                if (sanpham != null)
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    db.SanPhams.Add(sanpham); // Thêm sản phẩm duy nhất
+                    model.HinhanhDD.CopyTo(stream);
                 }
 
-                db.Ctsps.AddRange(ctsps);
-                db.CtspSizes.AddRange(ctspSizes);
-                db.SaveChanges();
-
-                TempData["SuccessMessage"] = "Sản phẩm đã được thêm thành công!";
+                ha = "/LayoutShop/img/" + fileName; // Save the path to the database
             }
-            catch (Exception ex)
+            else
             {
-                TempData["ErrorMessage"] = "Đã xảy ra lỗi: " + ex.Message;
+                TempData["ErrorMessage"] = "Hình ảnh không hợp lệ.";
+                model.listTenDM = db.DanhMucs.Select(x => x.TenDm).ToList();
+                return View(model);
             }
 
+            string newMaSP = GenerateUniqueProductCode();
+            string madm = db.DanhMucs.FirstOrDefault(x => x.TenDm == model.Tendm)?.MaDm;
+
+            if (madm == null)
+            {
+                ModelState.AddModelError("Tendm", "Danh mục không tồn tại.");
+                model.listTenDM = db.DanhMucs.Select(x => x.TenDm).ToList();
+                return View(model);
+            }
+
+            var SanPham = new SanPham
+            {
+                MaDm = madm,
+                MaSp = newMaSP,
+                TenSp = model.TenSP,
+                MoTa = model.MoTa,
+                HinhAnhDd = ha,
+                MaxGia = 0,
+                MinGia = 0
+            };
+
+            db.SanPhams.Add(SanPham);
+            db.SaveChanges();
             return RedirectToAction("SanPham");
         }
 
-
-        private string SaveImageToFileSystem(IFormFile file)
+        [Route("DeleteSanPham")]
+        [HttpGet]
+        public IActionResult DeleteSanPham(string MaSP)
         {
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "../../LayoutAdmin/assets/images");
-            Directory.CreateDirectory(uploadsFolder); // Tạo thư mục nếu chưa có
-
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            var filePath = Path.Combine(uploadsFolder, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            var sanPham = db.SanPhams.FirstOrDefault(x => x.MaSp == MaSP);
+            if (sanPham == null)
             {
-                file.CopyTo(stream);
+                TempData["Message"] = "Sản phẩm không tồn tại.";
+                return RedirectToAction("SanPham"); 
             }
 
-            return $"/images/{fileName}"; // Đường dẫn tương đối
+            var ctspList = db.Ctsps.Where(x => x.MaSp == MaSP).ToList();
+
+            bool canDelete = true;
+
+            foreach (var ctsp in ctspList)
+            {
+                var ctspSizes = db.CtspSizes.Where(x => x.MaCtsp == ctsp.MaCtsp).ToList();
+
+                foreach (var ctspSize in ctspSizes)
+                {
+                    var ctdhList = db.Ctdhs.Where(x => x.MaCtspSize == ctspSize.MaCtspSize).ToList();
+                    foreach (var ctdh in ctdhList)
+                    {
+                        var donHang = db.DonHangs.FirstOrDefault(x => x.MaDh == ctdh.MaDh);
+                        if (donHang != null)
+                        {
+                            canDelete = false;
+                            break; 
+                        }
+                    }
+                    if (!canDelete) break; 
+                }
+                if (!canDelete) break; 
+            }
+
+            if (!canDelete)
+            {
+                TempData["Message"] = "Không thể xóa sản phẩm này vì có đơn hàng liên quan.";
+                return RedirectToAction("SanPham"); 
+            }
+
+            foreach (var ctsp in ctspList)
+            {
+                var ctspSizes = db.CtspSizes.Where(x => x.MaCtsp == ctsp.MaCtsp).ToList();
+                foreach (var ctspSize in ctspSizes)
+                {
+                    var ctdhList = db.Ctdhs.Where(x => x.MaCtspSize == ctspSize.MaCtspSize).ToList();
+                    db.Ctdhs.RemoveRange(ctdhList); 
+                }
+
+                db.CtspSizes.RemoveRange(ctspSizes);
+            }
+
+            db.Ctsps.RemoveRange(ctspList); 
+            db.SanPhams.Remove(sanPham);
+            db.SaveChanges(); 
+
+            TempData["Message"] = "Sản phẩm đã được xóa thành công.";
+            return RedirectToAction("SanPham"); 
         }
 
         [Route("ChiTietSanPham")]
         [HttpGet]
-        public IActionResult ChiTietSanPham()
+        public IActionResult ChiTietSanPham(string MaSP)
         {
-            return View();
+            var CTSP = db.Ctsps.Where(x => x.MaSp == MaSP).ToList();
+            List<CTMauSacViewModel> ListMS = new List<CTMauSacViewModel>(); // Khởi tạo danh sách
+            if (CTSP.Any())
+            {
+                foreach (var ctsp in CTSP)
+                {
+                    List<CTSizeViewModel> ListSize = new List<CTSizeViewModel>(); // Khởi tạo danh sách trong mỗi vòng lặp
+                    var CTSP_Size = db.CtspSizes.Where(x => x.MaCtsp == ctsp.MaCtsp).ToList();
+                    if (CTSP_Size.Any())
+                    {
+                        foreach (var ctspSize in CTSP_Size)
+                        {
+                            var Size = new CTSizeViewModel
+                            {
+                                MaCTSP_Size = ctspSize.MaCtspSize,
+                                TenSize = db.Sizes.FirstOrDefault(x => x.MaSize == ctspSize.MaSize).TenSize,
+                                Gia = ctspSize.Gia,
+                                SoLuongTon = ctspSize.SoLuongTon
+                            };
+                            ListSize.Add(Size);
+                        }
+                    }
+                    var MauSac = new CTMauSacViewModel
+                    {
+                        MaCTSP = ctsp.MaCtsp,
+                        TenMS = db.MauSacs.FirstOrDefault(x => x.MaMs == ctsp.MaMs).TenMs,
+                        HinhAnhDD = ctsp.HinhAnh,
+                        Sizes = ListSize.Any() ? ListSize : null
+                    };
+
+                    ListMS.Add(MauSac);
+                }
+            }
+
+            var ChiTietSP = new ChiTietSPViewModel
+            {
+                MaSP = MaSP,
+                MauSacs = ListMS
+            };
+
+            return View(ChiTietSP); 
+        }
+        //Thêm màu sắc
+        [Route("AddMauSacSP")]
+        [HttpGet]
+        public IActionResult AddMauSacSP(string MaSP)
+        {
+            List<string> Colors = db.MauSacs.Select(x => x.TenMs).ToList();
+            var mauSac = new MauSacSPViewModel
+            {
+                MaSP = MaSP,
+                ListMS = Colors
+            };
+            return View(mauSac);
+        }
+        [Route("AddMauSacSP")]
+        [HttpPost]
+        public IActionResult AddMauSacSP(MauSacSPViewModel model)
+        {
+            string mams = db.MauSacs.FirstOrDefault(x => x.TenMs == model.TenMS)?.MaMs;
+
+            if (mams == null && !string.IsNullOrEmpty(model.TenMS))
+            {
+                var CreateMS = new MauSac
+                {
+                    MaMs = GenerateUniqueColorCode(),
+                    TenMs = model.TenMS
+                };
+
+                db.MauSacs.Add(CreateMS);
+                db.SaveChanges(); 
+                mams = CreateMS.MaMs;
+            }
+
+            var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "LayoutShop", "img");
+            string ha = "";
+
+            if (model.HinhAnhDD != null && model.HinhAnhDD.Length > 0)
+            {
+                string fileName = Guid.NewGuid() + Path.GetExtension(model.HinhAnhDD.FileName);
+                string filePath = Path.Combine(uploadFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.HinhAnhDD.CopyTo(stream); 
+                }
+                ha = "/LayoutShop/img/" + fileName;
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Hình ảnh không hợp lệ.";
+                return View(model);
+            }
+
+            var CTSP = new Ctsp
+            {
+                MaCtsp = GenerateUniqueCtspCode(),
+                MaSp = model.MaSP,
+                MaMs = mams,
+                HinhAnh = ha
+            };
+
+            db.Ctsps.Add(CTSP);
+            db.SaveChanges();
+            return RedirectToAction("ChiTietSanPham", new { MaSP = model.MaSP });
+        }
+        //Thêm màu sắc
+        [Route("EditMauSacSP")]
+        [HttpGet]
+        public IActionResult EditMauSacSP(string MaSP, string MaCTSP)
+        {
+            List<string> Colors = db.MauSacs.Select(x => x.TenMs).ToList();
+            string mams = db.Ctsps.FirstOrDefault(x => x.MaCtsp == MaCTSP).MaMs;
+            string tenms = db.MauSacs.FirstOrDefault(x => x.MaMs == mams).TenMs;
+            var mauSac = new MauSacSPViewModel
+            {
+                MaCTSP = MaCTSP,
+                MaSP = MaSP,
+                TenMS = tenms,
+                ListMS = Colors
+            };
+            return View(mauSac);
+        }
+        [Route("EditMauSacSP")]
+        [HttpPost]
+        public IActionResult EditMauSacSP(MauSacSPViewModel model)
+        {
+            string mams = db.MauSacs.FirstOrDefault(x => x.TenMs == model.TenMS)?.MaMs;
+
+            if (mams == null && !string.IsNullOrEmpty(model.TenMS))
+            {
+                var CreateMS = new MauSac
+                {
+                    MaMs = GenerateUniqueColorCode(),
+                    TenMs = model.TenMS
+                };
+
+                db.MauSacs.Add(CreateMS);
+                db.SaveChanges();
+                mams = CreateMS.MaMs;
+            }
+
+            var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "LayoutShop", "img");
+            string ha = "";
+
+            if (model.HinhAnhDD != null && model.HinhAnhDD.Length > 0)
+            {
+                string fileName = Guid.NewGuid() + Path.GetExtension(model.HinhAnhDD.FileName);
+                string filePath = Path.Combine(uploadFolder, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.HinhAnhDD.CopyTo(stream);
+                }
+                ha = "/LayoutShop/img/" + fileName;
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Hình ảnh không hợp lệ.";
+                return View(model);
+            }
+
+            var CTSP = db.Ctsps.FirstOrDefault(x => x.MaCtsp == model.MaCTSP);
+            CTSP.MaMs = mams;
+            CTSP.HinhAnh = ha;
+            db.SaveChanges();
+            return RedirectToAction("ChiTietSanPham", new { MaSP = model.MaSP });
         }
         //Xử lý mã sản phẩm
         [Route("GetMaxProductCode")]
@@ -430,7 +537,7 @@ namespace ShopOnline.Areas.Admin.Controllers
             }
 
             // Lấy phần số từ mã đơn hàng lớn nhất
-            string numericPart = maxCtspsCode.Substring(2);
+            string numericPart = maxCtspsCode.Substring(5);
             int newNumber = int.Parse(numericPart) + 1;
 
             return "CTSPS" + newNumber.ToString().PadLeft(4, '0');
@@ -460,10 +567,41 @@ namespace ShopOnline.Areas.Admin.Controllers
             }
 
             // Lấy phần số từ mã đơn hàng lớn nhất
-            string numericPart = maxCtspCode.Substring(2);
+            string numericPart = maxCtspCode.Substring(4);
             int newNumber = int.Parse(numericPart) + 1;
 
             return "CTSP" + newNumber.ToString().PadLeft(4, '0');
+        }
+        //Xử lý mã màu sắc
+        [Route("GetMaxColorCode")]
+        [HttpGet]
+        public string GetMaxColorCode()
+        {
+            // Lấy mã khách hàng lớn nhất, nếu không có sẽ trả về null
+            var maxColorCode = db.MauSacs
+                .OrderByDescending(c => c.MaMs)
+                .Select(c => c.MaMs)
+                .FirstOrDefault();
+
+            return maxColorCode;
+        }
+
+
+        private string GenerateUniqueColorCode()
+        {
+            var maxColorCode = GetMaxColorCode();
+
+            if (maxColorCode == null)
+            {
+                // Nếu không có mã nào, bắt đầu từ DH001
+                return "MS01";
+            }
+
+            // Lấy phần số từ mã đơn hàng lớn nhất
+            string numericPart = maxColorCode.Substring(2);
+            int newNumber = int.Parse(numericPart) + 1;
+
+            return "SP" + newNumber.ToString().PadLeft(2, '0');
         }
     }
 }

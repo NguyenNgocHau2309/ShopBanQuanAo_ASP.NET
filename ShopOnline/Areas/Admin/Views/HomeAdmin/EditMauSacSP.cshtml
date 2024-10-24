@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "AddMauSacSP";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@model ShopOnline.Areas.Admin.ViewModels.MauSacSPViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Thêm màu sắc của sản phẩm</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<hr />
+<form asp-action="EditMauSacSP" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="MaCTSP" value="@Model.MaCTSP" />
+    <input type="hidden" name="MaSP" value="@Model.MaSP" />
+    <div class="form-group" style="width:30%">
+        <label for="TenMS">Tên Màu Sắc</label>
+        <!-- Sử dụng input với datalist để vừa chọn vừa nhập -->
+        <input list="colors" class="form-control" id="TenMS" name="TenMS" value="@Model.TenMS" required />
+
+        <datalist id="colors">
+            @foreach (var item in Model.ListMS)
+            {
+                <option value="@item">@item</option>
+            }
+        </datalist>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="HinhAnhDD">Hình ảnh đại diện</label>
+        <input asp-for="HinhAnhDD" type="file" class="form-control" accept="image/*" required />
+        <span asp-validation-for="HinhAnhDD" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+</form>
+

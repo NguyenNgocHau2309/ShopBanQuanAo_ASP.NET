@@ -313,6 +313,38 @@ namespace ShopOnline.Controllers
             string masp = db.Ctsps.FirstOrDefault(x => x.MaCtsp == mact).MaSp;
             return RedirectToAction("ChiTietSP", "DetailProduct", new { masp = masp, activeTab = "tab-pane-3" });
         }
+        public IActionResult DeleteDanhGia(string madg)
+        {
+            var danhGia = db.DanhGia.FirstOrDefault(d => d.MaDg == madg);
+
+            if (danhGia == null)
+            {
+                return NotFound();
+            }
+
+            // Lấy danh sách hình ảnh và video liên quan đến đánh giá
+            var hinhAnhs = db.HinhAnhDanhGia.Where(x => x.MaDg == danhGia.MaDg).ToList();
+            var videos = db.VideoDanhGia.Where(x => x.MaDg == danhGia.MaDg).ToList();
+
+            // Xóa tất cả hình ảnh liên quan
+            foreach (var hinhAnh in hinhAnhs)
+            {
+                db.HinhAnhDanhGia.Remove(hinhAnh);
+            }
+
+            // Xóa tất cả video liên quan
+            foreach (var video in videos)
+            {
+                db.VideoDanhGia.Remove(video);
+            }
+
+            // Xóa đánh giá khỏi cơ sở dữ liệu
+            db.DanhGia.Remove(danhGia);
+            db.SaveChanges();
+
+            return RedirectToAction("ThongTinCaNhan", "Personal", new { activeTab = "reviews" });
+        }
+
 
     }
 }

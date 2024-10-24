@@ -30,6 +30,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEFkZERhbmhNdWMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/AddMauSacSP.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEFkZE1hdVNhY1NQLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/AddSanPham.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEFkZFNhblBoYW0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -46,12 +50,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEVkaXREYW5oTXVjLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/EditMauSacSP.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEVkaXRNYXVTYWNTUC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/SanPham.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXFNhblBoYW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/Order/ChiTietDanhGia.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJcQ2hpVGlldERhbmhHaWEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/Order/ChiTietHoaDon.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcT3JkZXJcQ2hpVGlldEhvYURvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/Order/DanhGia.cshtml]
