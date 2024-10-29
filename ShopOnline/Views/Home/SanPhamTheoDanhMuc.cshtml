@@ -6,7 +6,24 @@
 }
 @using X.PagedList.Mvc.Core;
 @model X.PagedList.IPagedList<ShopOnline.Models.SanPham>
+@{
+    var allProducts = ViewBag.AllProducts as List<ShopOnline.Models.SanPham>; // Assuming this is how you get all products
 
+    // Calculate total counts
+    var totalCount = allProducts.Count;
+    var countUnder100 = allProducts.Count(x => x.MaxGia < 100);
+    var countBetween100And200 = allProducts.Count(x => x.MinGia >= 100 && x.MaxGia <= 200);
+    var countBetween200And300 = allProducts.Count(x => x.MinGia >= 200 && x.MaxGia <= 300);
+    var countBetween300And400 = allProducts.Count(x => x.MinGia >= 300 && x.MaxGia <= 400);
+    var countAbove400 = allProducts.Count(x => x.MinGia > 400);
+
+    ViewBag.TotalCount = totalCount;
+    ViewBag.CountUnder100 = countUnder100;
+    ViewBag.CountBetween100And200 = countBetween100And200;
+    ViewBag.CountBetween200And300 = countBetween200And300;
+    ViewBag.CountBetween300And400 = countBetween300And400;
+    ViewBag.CountAbove400 = countAbove400;
+}
 <div class="row px-xl-5">
     <!-- Shop Sidebar Start -->
     <div class="col-lg-3 col-md-12" style="max-width: 22%">
@@ -22,32 +39,32 @@
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" checked="" id="price-all">
                     <label class="custom-control-label" for="price-all">Tất cả</label>
-                    <span class="badge border font-weight-normal">1000</span>
+                    <span class="badge border font-weight-normal">@ViewBag.TotalCount</span> <!-- Replace Model.Count() with ViewBag -->
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" id="price-1">
                     <label class="custom-control-label" for="price-1">Dưới 100.000₫</label>
-                    <span class="badge border font-weight-normal">150</span>
+                    <span class="badge border font-weight-normal">@ViewBag.CountUnder100</span> <!-- Count of products under 100.000₫ -->
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" id="price-2">
                     <label class="custom-control-label" for="price-2">100.000₫ - 200.000₫</label>
-                    <span class="badge border font-weight-normal">295</span>
+                    <span class="badge border font-weight-normal">@ViewBag.CountBetween100And200</span> <!-- Count for 100.000₫ - 200.000₫ -->
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" id="price-3">
                     <label class="custom-control-label" for="price-3">200.000₫ - 300.000₫</label>
-                    <span class="badge border font-weight-normal">246</span>
+                    <span class="badge border font-weight-normal">@ViewBag.CountBetween200And300</span>
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" id="price-4">
                     <label class="custom-control-label" for="price-4">300.000₫ - 400.000₫</label>
-                    <span class="badge border font-weight-normal">145</span>
+                    <span class="badge border font-weight-normal">@ViewBag.CountBetween300And400</span>
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
                     <input type="checkbox" class="custom-control-input" id="price-5">
                     <label class="custom-control-label" for="price-5">Trên 400.000₫</label>
-                    <span class="badge border font-weight-normal">168</span>
+                    <span class="badge border font-weight-normal">@ViewBag.CountAbove400</span>
                 </div>
 
                 <button type="submit" style="display: none;" id="submitBtn">Submit</button>
@@ -66,32 +83,32 @@
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" checked="" id="color-all">
                     <label class="custom-control-label" for="price-all">Tất cả</label>
-                    <span class="badge border font-weight-normal">1000</span>
+                    <span class="badge border font-weight-normal">@ViewBag.TotalCount</span>
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" id="color-1">
                     <label class="custom-control-label" for="color-1">Đen</label>
-                    <span class="badge border font-weight-normal">150</span>
+                    <span class="badge border font-weight-normal">@ViewBag.MauDen</span>
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" id="color-2">
                     <label class="custom-control-label" for="color-2">Trắng</label>
-                    <span class="badge border font-weight-normal">295</span>
+                    <span class="badge border font-weight-normal">@ViewBag.MauTrang</span>
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" id="color-3">
                     <label class="custom-control-label" for="color-3">Đỏ</label>
-                    <span class="badge border font-weight-normal">246</span>
+                    <span class="badge border font-weight-normal">@ViewBag.MauDo</span>
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" id="color-4">
                     <label class="custom-control-label" for="color-4">Xanh</label>
-                    <span class="badge border font-weight-normal">145</span>
+                    <span class="badge border font-weight-normal">@ViewBag.MauXanh</span>
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
                     <input type="checkbox" class="custom-control-input" id="color-5">
                     <label class="custom-control-label" for="color-5">Nâu</label>
-                    <span class="badge border font-weight-normal">168</span>
+                    <span class="badge border font-weight-normal">@ViewBag.MauNau</span>
                 </div>
 
                 <button type="submit" style="display: none;" id="submitBtn">Submit</button>
@@ -110,37 +127,32 @@
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" checked="" id="size-all">
                     <label class="custom-control-label" for="size-all">Tất cả</label>
-                    <span class="badge border font-weight-normal">1000</span>
+                    <span class="badge border font-weight-normal">@ViewBag.TotalCount</span>
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" id="size-1">
                     <label class="custom-control-label" for="size-1">XS</label>
-                    <span class="badge border font-weight-normal">150</span>
+                    <span class="badge border font-weight-normal">@ViewBag.SizeXS</span>
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" id="size-2">
                     <label class="custom-control-label" for="size-2">S</label>
-                    <span class="badge border font-weight-normal">295</span>
+                    <span class="badge border font-weight-normal">@ViewBag.SizeS</span>
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" id="size-3">
                     <label class="custom-control-label" for="size-3">M</label>
-                    <span class="badge border font-weight-normal">246</span>
+                    <span class="badge border font-weight-normal">@ViewBag.SizeM</span>
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                     <input type="checkbox" class="custom-control-input" id="size-4">
                     <label class="custom-control-label" for="size-4">L</label>
-                    <span class="badge border font-weight-normal">145</span>
+                    <span class="badge border font-weight-normal">@ViewBag.SizeL</span>
                 </div>
                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
                     <input type="checkbox" class="custom-control-input" id="size-5">
-                    <label class="custom-control-label" for="size-5">XL</label>
-                    <span class="badge border font-weight-normal">168</span>
-                </div>
-                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                    <input type="checkbox" class="custom-control-input" id="size-6">
-                    <label class="custom-control-label" for="size-6">Freesize</label>
-                    <span class="badge border font-weight-normal">168</span>
+                    <label class="custom-control-label" for="size-5">Freesize</label>
+                    <span class="badge border font-weight-normal">@ViewBag.FreeSize</span>
                 </div>
 
                 <button type="submit" style="display: none;" id="submitBtn">Submit</button>

@@ -3,116 +3,76 @@
   "WorkspaceRootPath": "D:\\DoAn\\ShopOnline\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\controllers\\homeadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\controllers\\homeadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\views\\homeadmin\\editmausacsp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\views\\homeadmin\\editmausacsp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\views\\homeadmin\\addmausacsp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\views\\homeadmin\\addmausacsp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\views\\homeadmin\\chitietsanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\views\\homeadmin\\chitietsanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\viewmodels\\mausacspviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\viewmodels\\mausacspviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\views\\checkout\\thanhtoan.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\views\\checkout\\thanhtoan.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\models\\danhgia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\models\\danhgia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\controllers\\evaluatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\controllers\\evaluatecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\views\\order\\danhgia.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\views\\order\\danhgia.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\views\\order\\chitietdanhgia.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\views\\order\\chitietdanhgia.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\models\\khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\models\\khachhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\views\\detailproduct\\chitietsp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\views\\detailproduct\\chitietsp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\viewmodels\\evaluateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\viewmodels\\evaluateviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\views\\evaluate\\editdanhgia.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\views\\evaluate\\editdanhgia.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\controllers\\promotioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\controllers\\promotioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\views\\promotion\\khuyenmai.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\views\\promotion\\khuyenmai.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\controllers\\detailproductcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\controllers\\detailproductcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\viewmodels\\monitorinvoiceviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\viewmodels\\monitorinvoiceviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\viewmodels\\invoiceviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\viewmodels\\invoiceviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\models\\videodanhgium.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\models\\videodanhgium.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\models\\hinhanhdanhgium.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\models\\hinhanhdanhgium.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\viewmodels\\detailviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\viewmodels\\detailviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\views\\cart\\giohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\views\\cart\\giohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\views\\detailproduct\\chitietsp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\views\\detailproduct\\chitietsp.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\viewmodels\\detailproductdgviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\viewmodels\\detailproductdgviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\controllers\\accesscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\controllers\\accesscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\views\\share\\_layoutadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\views\\share\\_layoutadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\controllers\\homeadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\controllers\\homeadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\views\\promotion\\detailkhuyenmai.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\views\\promotion\\detailkhuyenmai.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\controllers\\checkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\controllers\\checkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\viewmodels\\checkoutviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\viewmodels\\checkoutviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\views\\checkout\\thanhtoan.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\views\\checkout\\thanhtoan.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\models\\khuyenmai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\models\\khuyenmai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\views\\colorsize\\addmausac.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\views\\colorsize\\addmausac.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\areas\\admin\\views\\homeadmin\\danhmucsanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\areas\\admin\\views\\homeadmin\\danhmucsanpham.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\controllers\\detailproductcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\controllers\\detailproductcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\views\\home\\sanphamtheodanhmuc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\views\\home\\sanphamtheodanhmuc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\controllers\\personalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\controllers\\personalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|d:\\doan\\shoponline\\shoponline\\views\\access\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E42BAB5F-29D1-4C31-849C-43F205DC52E9}|ShopOnline\\ShopOnline.csproj|solutionrelative:shoponline\\views\\access\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -122,124 +82,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MauSacSPViewModel.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\ViewModels\\MauSacSPViewModel.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\ViewModels\\MauSacSPViewModel.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\ViewModels\\MauSacSPViewModel.cs",
-              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\ViewModels\\MauSacSPViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAqAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "DanhGia.cs",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Models\\DanhGia.cs",
+              "RelativeDocumentMoniker": "ShopOnline\\Models\\DanhGia.cs",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Models\\DanhGia.cs*",
+              "RelativeToolTip": "ShopOnline\\Models\\DanhGia.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-23T11:10:01.448Z",
+              "WhenOpened": "2024-10-29T17:12:34.079Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AddMauSacSP.cshtml",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\AddMauSacSP.cshtml",
-              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\AddMauSacSP.cshtml",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\AddMauSacSP.cshtml",
-              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\AddMauSacSP.cshtml",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAkwCgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-23T10:53:23.685Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "HomeAdminController.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Controllers\\HomeAdminController.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Controllers\\HomeAdminController.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Controllers\\HomeAdminController.cs",
-              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Controllers\\HomeAdminController.cs",
-              "ViewState": "AgIAAC8BAAAAAAAAAADgvzsBAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T21:38:13.82Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EditMauSacSP.cshtml",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\EditMauSacSP.cshtml",
-              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\EditMauSacSP.cshtml",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\EditMauSacSP.cshtml",
-              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\EditMauSacSP.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-23T17:57:12.569Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ChiTietSanPham.cshtml",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\ChiTietSanPham.cshtml",
-              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\ChiTietSanPham.cshtml",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\ChiTietSanPham.cshtml",
-              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\ChiTietSanPham.cshtml",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACwAAAB3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-23T16:41:30.583Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ThanhToan.cshtml",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Checkout\\ThanhToan.cshtml",
-              "RelativeDocumentMoniker": "ShopOnline\\Views\\Checkout\\ThanhToan.cshtml",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Checkout\\ThanhToan.cshtml",
-              "RelativeToolTip": "ShopOnline\\Views\\Checkout\\ThanhToan.cshtml",
-              "ViewState": "AgIAAGcCAAAAAAAAAAAAAIECAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-23T03:32:17.173Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "EvaluateController.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\EvaluateController.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\Controllers\\EvaluateController.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\EvaluateController.cs",
-              "RelativeToolTip": "ShopOnline\\Controllers\\EvaluateController.cs",
-              "ViewState": "AgIAAP4AAAAAAAAAAAAgwPUAAABtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T17:31:06.02Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "DanhGia.cshtml",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\Order\\DanhGia.cshtml",
-              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Views\\Order\\DanhGia.cshtml",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\Order\\DanhGia.cshtml",
-              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Views\\Order\\DanhGia.cshtml",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAkwB4AAAB+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-21T18:47:46.39Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ChiTietDanhGia.cshtml",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\Order\\ChiTietDanhGia.cshtml",
-              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Views\\Order\\ChiTietDanhGia.cshtml",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\Order\\ChiTietDanhGia.cshtml",
-              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Views\\Order\\ChiTietDanhGia.cshtml",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-21T19:17:35.895Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
               "Title": "EvaluateViewModel.cs",
               "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\ViewModels\\EvaluateViewModel.cs",
               "RelativeDocumentMoniker": "ShopOnline\\ViewModels\\EvaluateViewModel.cs",
@@ -247,224 +107,205 @@
               "RelativeToolTip": "ShopOnline\\ViewModels\\EvaluateViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T19:06:54.107Z"
+              "WhenOpened": "2024-10-29T17:12:21.504Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "KhachHang.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Models\\KhachHang.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\Models\\KhachHang.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Models\\KhachHang.cs",
-              "RelativeToolTip": "ShopOnline\\Models\\KhachHang.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAEwBkAAABBAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "EvaluateController.cs",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\EvaluateController.cs",
+              "RelativeDocumentMoniker": "ShopOnline\\Controllers\\EvaluateController.cs",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\EvaluateController.cs",
+              "RelativeToolTip": "ShopOnline\\Controllers\\EvaluateController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwCYAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-19T16:43:31.58Z"
+              "WhenOpened": "2024-10-29T17:08:29.872Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 6,
+              "Title": "DetailProductDGViewModel.cs",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\ViewModels\\DetailProductDGViewModel.cs",
+              "RelativeDocumentMoniker": "ShopOnline\\ViewModels\\DetailProductDGViewModel.cs",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\ViewModels\\DetailProductDGViewModel.cs",
+              "RelativeToolTip": "ShopOnline\\ViewModels\\DetailProductDGViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T16:46:30.38Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "ChiTietSP.cshtml",
               "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\DetailProduct\\ChiTietSP.cshtml",
               "RelativeDocumentMoniker": "ShopOnline\\Views\\DetailProduct\\ChiTietSP.cshtml",
               "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\DetailProduct\\ChiTietSP.cshtml",
               "RelativeToolTip": "ShopOnline\\Views\\DetailProduct\\ChiTietSP.cshtml",
-              "ViewState": "AgIAAH0BAAAAAAAAAAAAANABAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAAANMAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-21T19:21:30.918Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "EditDanhGia.cshtml",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Evaluate\\EditDanhGia.cshtml",
-              "RelativeDocumentMoniker": "ShopOnline\\Views\\Evaluate\\EditDanhGia.cshtml",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Evaluate\\EditDanhGia.cshtml",
-              "RelativeToolTip": "ShopOnline\\Views\\Evaluate\\EditDanhGia.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEEBAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-20T20:34:36.211Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "PromotionController.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Controllers\\PromotionController.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Controllers\\PromotionController.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Controllers\\PromotionController.cs",
-              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Controllers\\PromotionController.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T19:18:57.305Z",
+              "WhenOpened": "2024-10-29T16:38:40.055Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "KhuyenMai.cshtml",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\Promotion\\KhuyenMai.cshtml",
-              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Views\\Promotion\\KhuyenMai.cshtml",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\Promotion\\KhuyenMai.cshtml",
-              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Views\\Promotion\\KhuyenMai.cshtml",
-              "ViewState": "AgIAABoAAAAAAAAAAAAkwCgAAABKAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "GioHang.cshtml",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Cart\\GioHang.cshtml",
+              "RelativeDocumentMoniker": "ShopOnline\\Views\\Cart\\GioHang.cshtml",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Cart\\GioHang.cshtml",
+              "RelativeToolTip": "ShopOnline\\Views\\Cart\\GioHang.cshtml",
+              "ViewState": "AgIAAJIBAAAAAAAAAAAAAJYBAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-16T11:19:12.369Z"
+              "WhenOpened": "2024-10-28T15:49:50.066Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "DetailProductController.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\DetailProductController.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\Controllers\\DetailProductController.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\DetailProductController.cs",
-              "RelativeToolTip": "ShopOnline\\Controllers\\DetailProductController.cs",
-              "ViewState": "AgIAAGsAAAAAAAAAAAAgwCYAAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T10:41:07.777Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "MonitorInvoiceViewModel.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\ViewModels\\MonitorInvoiceViewModel.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\ViewModels\\MonitorInvoiceViewModel.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\ViewModels\\MonitorInvoiceViewModel.cs",
-              "RelativeToolTip": "ShopOnline\\ViewModels\\MonitorInvoiceViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T20:20:38.928Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "InvoiceViewModel.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\ViewModels\\InvoiceViewModel.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\ViewModels\\InvoiceViewModel.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\ViewModels\\InvoiceViewModel.cs",
-              "RelativeToolTip": "ShopOnline\\ViewModels\\InvoiceViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T19:26:53.663Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "VideoDanhGium.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Models\\VideoDanhGium.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\Models\\VideoDanhGium.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Models\\VideoDanhGium.cs",
-              "RelativeToolTip": "ShopOnline\\Models\\VideoDanhGium.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-19T21:25:58.813Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "HinhAnhDanhGium.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Models\\HinhAnhDanhGium.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\Models\\HinhAnhDanhGium.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Models\\HinhAnhDanhGium.cs",
-              "RelativeToolTip": "ShopOnline\\Models\\HinhAnhDanhGium.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAsAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-19T21:23:33.364Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "DetailViewModel.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\ViewModels\\DetailViewModel.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\ViewModels\\DetailViewModel.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\ViewModels\\DetailViewModel.cs",
-              "RelativeToolTip": "ShopOnline\\ViewModels\\DetailViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-19T18:46:44.139Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 3,
               "Title": "CartController.cs",
               "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\CartController.cs",
               "RelativeDocumentMoniker": "ShopOnline\\Controllers\\CartController.cs",
               "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\CartController.cs",
               "RelativeToolTip": "ShopOnline\\Controllers\\CartController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAYwOcAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAkwHEAAABiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T19:17:00.579Z"
+              "WhenOpened": "2024-10-28T12:17:54.354Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 8,
+              "Title": "HomeAdminController.cs",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Controllers\\HomeAdminController.cs",
+              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Controllers\\HomeAdminController.cs",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Controllers\\HomeAdminController.cs",
+              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Controllers\\HomeAdminController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T09:50:59.926Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "AccessController.cs",
               "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\AccessController.cs",
               "RelativeDocumentMoniker": "ShopOnline\\Controllers\\AccessController.cs",
               "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\AccessController.cs",
               "RelativeToolTip": "ShopOnline\\Controllers\\AccessController.cs",
-              "ViewState": "AgIAAFwAAAAAAAAAAAAswAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAYwHAAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-19T18:14:26.232Z"
+              "WhenOpened": "2024-10-24T21:58:04.045Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "_LayoutAdmin.cshtml",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\Share\\_LayoutAdmin.cshtml",
-              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Views\\Share\\_LayoutAdmin.cshtml",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\Share\\_LayoutAdmin.cshtml",
-              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Views\\Share\\_LayoutAdmin.cshtml",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAAAHwAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-15T10:04:33.089Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "DetailKhuyenMai.cshtml",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\Promotion\\DetailKhuyenMai.cshtml",
-              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Views\\Promotion\\DetailKhuyenMai.cshtml",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\Promotion\\DetailKhuyenMai.cshtml",
-              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Views\\Promotion\\DetailKhuyenMai.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-16T10:55:19.352Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "CheckOutViewModel.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\ViewModels\\CheckOutViewModel.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\ViewModels\\CheckOutViewModel.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\ViewModels\\CheckOutViewModel.cs",
-              "RelativeToolTip": "ShopOnline\\ViewModels\\CheckOutViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAArAAAAAAAAAA==",
+              "DocumentIndex": 9,
+              "Title": "CheckoutController.cs",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\CheckoutController.cs",
+              "RelativeDocumentMoniker": "ShopOnline\\Controllers\\CheckoutController.cs",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\CheckoutController.cs",
+              "RelativeToolTip": "ShopOnline\\Controllers\\CheckoutController.cs",
+              "ViewState": "AgIAADABAAAAAAAAAAAqwEUBAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T13:34:57.858Z"
+              "WhenOpened": "2024-10-28T15:29:23.28Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "KhuyenMai.cs",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Models\\KhuyenMai.cs",
-              "RelativeDocumentMoniker": "ShopOnline\\Models\\KhuyenMai.cs",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Models\\KhuyenMai.cs",
-              "RelativeToolTip": "ShopOnline\\Models\\KhuyenMai.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T22:54:50.87Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "DanhMucSanPham.cshtml",
-              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\DanhMucSanPham.cshtml",
-              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\DanhMucSanPham.cshtml",
-              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\DanhMucSanPham.cshtml",
-              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Views\\HomeAdmin\\DanhMucSanPham.cshtml",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAAB0AAAARAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "ThanhToan.cshtml",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Checkout\\ThanhToan.cshtml",
+              "RelativeDocumentMoniker": "ShopOnline\\Views\\Checkout\\ThanhToan.cshtml",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Checkout\\ThanhToan.cshtml",
+              "RelativeToolTip": "ShopOnline\\Views\\Checkout\\ThanhToan.cshtml",
+              "ViewState": "AgIAACMBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-14T19:19:30.478Z"
+              "WhenOpened": "2024-10-28T16:09:35.762Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AddMauSac.cshtml",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\ColorSize\\AddMauSac.cshtml",
+              "RelativeDocumentMoniker": "ShopOnline\\Areas\\Admin\\Views\\ColorSize\\AddMauSac.cshtml",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Areas\\Admin\\Views\\ColorSize\\AddMauSac.cshtml",
+              "RelativeToolTip": "ShopOnline\\Areas\\Admin\\Views\\ColorSize\\AddMauSac.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-28T15:55:38.869Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DetailProductController.cs",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\DetailProductController.cs",
+              "RelativeDocumentMoniker": "ShopOnline\\Controllers\\DetailProductController.cs",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\DetailProductController.cs",
+              "RelativeToolTip": "ShopOnline\\Controllers\\DetailProductController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAqwCQAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:00:18.964Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "SanPhamTheoDanhMuc.cshtml",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Home\\SanPhamTheoDanhMuc.cshtml",
+              "RelativeDocumentMoniker": "ShopOnline\\Views\\Home\\SanPhamTheoDanhMuc.cshtml",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Home\\SanPhamTheoDanhMuc.cshtml",
+              "RelativeToolTip": "ShopOnline\\Views\\Home\\SanPhamTheoDanhMuc.cshtml",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAAAJkAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-27T16:04:12.983Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "ShopOnline\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "ShopOnline\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAGQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-27T15:33:58.808Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "ShopOnline\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "ShopOnline\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAGgBAAAAAAAAAAAgwN4BAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T21:38:05.941Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Access\\Login.cshtml",
+              "RelativeDocumentMoniker": "ShopOnline\\Views\\Access\\Login.cshtml",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Views\\Access\\Login.cshtml",
+              "RelativeToolTip": "ShopOnline\\Views\\Access\\Login.cshtml",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAADcAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-24T21:42:07.058Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PersonalController.cs",
+              "DocumentMoniker": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\PersonalController.cs",
+              "RelativeDocumentMoniker": "ShopOnline\\Controllers\\PersonalController.cs",
+              "ToolTip": "D:\\DoAn\\ShopOnline\\ShopOnline\\Controllers\\PersonalController.cs",
+              "RelativeToolTip": "ShopOnline\\Controllers\\PersonalController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T21:40:23.191Z"
             }
           ]
         }

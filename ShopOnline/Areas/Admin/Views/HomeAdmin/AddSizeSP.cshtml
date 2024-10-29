@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "AddSizeSP";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@model ShopOnline.Areas.Admin.ViewModels.SizeSPViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Thêm size của loại sản phẩm</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<hr />
+<form asp-action="AddSizeSP" method="post">
+    <input type="hidden" name="MaCTSP" value="@Model.MaCTSP" />
+    <div class="form-group" style="width:30%">
+        <label for="TenMS">Tên Size</label>
+        <!-- Sử dụng input với datalist để vừa chọn vừa nhập -->
+        <input list="sizes" class="form-control" id="TenSize" name="TenSize" value="@Model.TenSize" required />
+
+        <datalist id="sizes">
+            @foreach (var item in Model.Sizes)
+            {
+                <option value="@item"></option>
+            }
+        </datalist>
+    </div>
+    <!-- Ô nhập giá -->
+    <div class="form-group" style="width:30%">
+        <label for="Gia">Giá</label>
+        <input type="number" class="form-control" id="Gia" name="Gia" value="@Model.Gia" step="0.01" required />
+    </div>
+
+    <!-- Ô nhập số lượng -->
+    <div class="form-group" style="width:30%">
+        <label for="SoLuong">Số lượng</label>
+        <input type="number" class="form-control" id="SoLuongTon" name="SoLuongTon" value="@Model.SoLuongTon" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Thêm</button>
+</form>

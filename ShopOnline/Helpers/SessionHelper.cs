@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 public static class SessionHelper
@@ -14,5 +16,11 @@ public static class SessionHelper
     {
         var value = session.GetString(key);
         return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
+    }
+    // Tạo URL sử dụng IUrlHelper
+    public static string GenerateUrl(this IUrlHelperFactory urlHelperFactory, ActionContext actionContext, string actionName, string controllerName)
+    {
+        var urlHelper = urlHelperFactory.GetUrlHelper(actionContext);
+        return urlHelper.Action(actionName, controllerName);
     }
 }

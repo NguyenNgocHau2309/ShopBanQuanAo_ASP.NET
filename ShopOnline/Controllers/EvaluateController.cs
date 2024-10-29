@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopOnline.Models;
+using ShopOnline.Models.Authentication;
 using ShopOnline.ViewModels;
 using System;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -9,6 +10,7 @@ namespace ShopOnline.Controllers
     public class EvaluateController : Controller
     {
         QuanLyShopOnlineContext db = new QuanLyShopOnlineContext();
+        [Authentication]
         [HttpGet]
         public IActionResult DanhGia(string macts, string madh)
         {
@@ -205,6 +207,7 @@ namespace ShopOnline.Controllers
         }
         //Sửa đánh giá
         [HttpGet]
+        [Authentication]
         public IActionResult EditDanhGia(string madg)
         {
             // Tìm đánh giá theo mã

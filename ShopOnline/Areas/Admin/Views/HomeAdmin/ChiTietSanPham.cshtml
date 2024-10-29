@@ -9,15 +9,23 @@
 <h1>Chi tiết Sản phẩm</h1>
 <p>
     <a asp-action="AddMauSacSP" asp-route-MaSP="@Model.MaSP">Create New</a>
+    <p></p>
+    <a asp-action="EditSanPham" asp-route-MaSP="@Model.MaSP">Edit sản phẩm</a>
 </p>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @TempData["ErrorMessage"]
+    </div>
+}
 <hr />
 <div class="row">
     <table class="styled-table">
         <thead>
             <tr>
-                <th style="width: 10%"></th>
-                <th style="width: 20%">Hình ảnh</th>
-                <th style="width: 10%">Màu sắc</th>
+                <th style="width: 7%"></th>
+                <th style="width: 17%">Hình ảnh</th>
+                <th style="width: 16%">Màu sắc</th>
                 <th style="width: 15%">Size</th>
                 <th style="width: 15%">Giá</th>
                 <th style="width: 15%">Số lượng tồn</th>
@@ -46,7 +54,7 @@
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                                 |
-                                <a asp-action="ChiTietSanPham" asp-route-MaSP="@Model.MaSP">
+                                <a asp-action="DeleteMauSacSP" asp-route-MaCTSP="@mau.MaCTSP">
                                     <i style="color:red" class="fa-solid fa-trash"></i>
                                 </a>
                             </td>
@@ -54,7 +62,10 @@
                                 <img src="@mau.HinhAnhDD" alt="Ảnh sản phẩm" class="product-image">
                             </td>
                             <td>@mau.TenMS</td>
-                            <td colspan="4" style="text-align:center;">Không có size</td>
+                            <td colspan="3" style="text-align:center;">Không có size</td>
+                            <td>
+                                <a asp-action="AddSizeSP" asp-route-MaCTSP="@mau.MaCTSP">Create</a>
+                            </td>
                         </tr>
                     }
                     else
@@ -65,8 +76,13 @@
                                 @if (isFirstRow)
                                 {
                                     <td rowspan="@sizes.Count">
-                                        <i class="fa-solid fa-pen-to-square"></i> |
-                                        <i style="color:red" class="fa-solid fa-trash"></i>
+                                        <a asp-action="EditMauSacSP" asp-route-MaSP="@Model.MaSP" asp-route-MaCTSP="@mau.MaCTSP">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        |
+                                        <a asp-action="DeleteMauSacSP" asp-route-MaCTSP="@mau.MaCTSP">
+                                            <i style="color:red" class="fa-solid fa-trash"></i>
+                                        </a>
                                     </td>
                                     <td rowspan="@sizes.Count" style="text-align:center;">
                                         <img src="@mau.HinhAnhDD" alt="Ảnh sản phẩm" class="product-image">
@@ -78,9 +94,9 @@
                                 <td>@size.Gia</td>
                                 <td>@size.SoLuongTon</td>
                                 <td>
-                                    <a asp-action="ChiTietSanPham" asp-route-MaSP="@Model.MaSP">Create</a> |
-                                    <a asp-action="ChiTietSanPham" asp-route-MaSP="@Model.MaSP">Edit</a> |
-                                    <a style="color:red;" asp-action="DeleteSanPham" asp-route-MaSP="@Model.MaSP">Delete</a>
+                                    <a asp-action="AddSizeSP" asp-route-MaCTSP="@mau.MaCTSP">Create</a> |
+                                    <a asp-action="EditSizeSP" asp-route-MaCTSPS="@size.MaCTSP_Size">Edit</a> |
+                                    <a style="color:red;" asp-action="DeleteSizeSP" asp-route-MaCTSPS="@size.MaCTSP_Size">Delete</a>
                                 </td>
                             </tr>
                         }

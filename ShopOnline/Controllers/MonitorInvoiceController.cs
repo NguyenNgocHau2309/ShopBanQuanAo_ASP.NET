@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopOnline.Models;
+using ShopOnline.Models.Authentication;
 using ShopOnline.ViewModels;
 
 namespace ShopOnline.Controllers
@@ -9,6 +10,7 @@ namespace ShopOnline.Controllers
         private readonly ILogger<HomeController> _logger;
         QuanLyShopOnlineContext db = new QuanLyShopOnlineContext();
         private readonly IHttpContextAccessor _httpContextAccessor;
+        [Authentication]
         public IActionResult TheoDoiDonHang(string macode = null)
         {
             List<MonitorInvoiceViewModel> invoiceList = new List<MonitorInvoiceViewModel>();
@@ -47,37 +49,18 @@ namespace ShopOnline.Controllers
             }
             else
             {
-                if (makh != null)
+                bool check = CheckMacode(macode, makh);
+                if (check)
                 {
-                    bool check = CheckMacode(macode, makh);
-                    if (check)
+                    var result = ItemDonHang(macode) as ViewResult; // Gọi ItemDonHang với mã code
+                    if (result != null && result.Model is MonitorInvoiceViewModel model)
                     {
-                        var result = ItemDonHang(macode) as ViewResult; // Gọi ItemDonHang với mã code
-                        if (result != null && result.Model is MonitorInvoiceViewModel model)
-                        {
-                            invoiceList.Add(model); // Thêm vào danh sách nếu kết quả không null
-                        }
-                    }
-                    else
-                    {
-                        TempData["ErrorMessage"] = "Mã đơn hàng không phải của khách hàng.";
+                        invoiceList.Add(model); // Thêm vào danh sách nếu kết quả không null
                     }
                 }
                 else
                 {
-                    bool check = CheckMacode(macode, null);
-                    if (check)
-                    {
-                        var result = ItemDonHang(macode) as ViewResult; // Gọi ItemDonHang với mã code
-                        if (result != null && result.Model is MonitorInvoiceViewModel model)
-                        {
-                            invoiceList.Add(model); // Thêm vào danh sách nếu kết quả không null
-                        }
-                    }
-                    else
-                    {
-                        TempData["ErrorMessage"] = "Mã đơn hàng không phải của khách hàng.";
-                    }
+                    TempData["ErrorMessage"] = "Mã đơn hàng không phải của khách hàng.";
                 }
             }
 
@@ -119,6 +102,7 @@ namespace ShopOnline.Controllers
                     IsDanhGia = isDanhGia,
                     AnhSP = GetAnhSp(item.MaCtspSize),  
                     TenSP = GetTenSp(item.MaCtspSize),  
+                    Size = GetSizeSp(item.MaCtspSize),
                     Mausac = GetMauSacSp(item.MaCtspSize),  
                     Soluong = item.SoLuong, 
                     Gia = item.GiaBan, 
@@ -139,6 +123,32 @@ namespace ShopOnline.Controllers
             return View(monitor);
         }
 
+        public IActionResult HuyDonHang(string madh)
+        {
+            var DonHang = db.DonHangs.FirstOrDefault(x => x.MaDh == madh);
+            if (DonHang.TrangThai == "Đang xử lý")
+            {
+                DonHang.TrangThai = "Hủy";
+                var ctdh = db.Ctdhs.Where(x => x.MaDh == madh).ToList();
+                foreach (var item in ctdh)
+                {
+                    var ctspSize = db.CtspSizes.FirstOrDefault(x => x.MaCtspSize == item.MaCtspSize);
+                    if (ctspSize != null)
+                    {
+                        ctspSize.SoLuongTon += item.SoLuong;
+                    }
+                }
+
+                db.SaveChanges();
+                TempData["Message"] = "Hủy thành công";
+                return RedirectToAction("ThongTinCaNhan", "Personal", new { activeTab = "orders" });
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Đơn hàng không hủy được vì trạng thái không còn đang xử lý nữa!";
+                return RedirectToAction("TheoDoiDonHang", "MonitorInvoice", new { macode = DonHang.MaCode});
+            }
+        }
         public bool CheckMacode(string MaCode, string makh)
         {
             bool exitCustomer = false;

@@ -11,7 +11,7 @@ public partial class DanhGia
 
     public string MaCtspSize { get; set; }
 
-    public string NoiDung { get; set; }
+    public string? NoiDung { get; set; }
 
     public int DiemSao { get; set; }
     public DateOnly NgayDg { get; set; }

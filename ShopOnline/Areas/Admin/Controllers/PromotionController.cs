@@ -16,7 +16,7 @@ namespace ShopOnline.Areas.Admin.Controllers
             int pageSize = 10; 
             int pageNumber = page ?? 1;
 
-            var khuyenMais = db.KhuyenMais.OrderBy(km => km.MaKm);
+            var khuyenMais = db.KhuyenMais.OrderByDescending(km => km.MaKm);
             var pagedList = khuyenMais.ToPagedList(pageNumber, pageSize);
 
             return View(pagedList);

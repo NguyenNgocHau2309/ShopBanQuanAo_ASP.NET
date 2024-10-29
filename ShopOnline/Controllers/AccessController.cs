@@ -9,42 +9,30 @@ namespace ShopOnline.Controllers
     {
         QuanLyShopOnlineContext db = new QuanLyShopOnlineContext();
         [HttpGet]
-        public IActionResult Login(string returnUrl)
+        public IActionResult Login()
         {
-            if (HttpContext.Session.GetString("Username") == null)
-            {
-                ViewBag.ReturnUrl = returnUrl; // Lưu returnUrl để dùng sau khi đăng nhập thành công
-                return View();
-            }
-            else
-            {
-                // Nếu đã đăng nhập, chuyển hướng về trang chủ
-                return RedirectToAction("Index", "Home");
-            }
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Login(KhachHang user, string returnUrl)
+        public IActionResult Login(KhachHang user)
         {
-            if (HttpContext.Session.GetString("Username") == null)
+            if (user.Username == "admin" && user.Password == "111")
+            {
+                HttpContext.Session.SetString("Username", user.Username.ToString());
+                return RedirectToAction("Index", "HomeAdmin", new { area = "Admin" });
+            }
+            else
             {
                 var u = db.KhachHangs.SingleOrDefault(x => x.Username == user.Username && x.Password == user.Password);
                 if (u != null)
                 {
                     // Lưu username vào session sau khi đăng nhập thành công
                     HttpContext.Session.SetString("Username", u.Username.ToString());
-
-                    // Nếu có returnUrl, chuyển hướng về trang trước đó, nếu không thì về trang chủ
-                    if (!string.IsNullOrEmpty(returnUrl))
-                    {
-                        return Redirect(returnUrl);
-                    }
-
                     return RedirectToAction("Index", "Home");
                 }
             }
             TempData["ErrorMessage"] = "Tên đăng nhập hoặc mật khẩu không đúng.";
-            // Đăng nhập thất bại, hiển thị lại form đăng nhập
             return View();
         }
 

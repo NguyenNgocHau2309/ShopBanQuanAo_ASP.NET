@@ -26,6 +26,30 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\DoAn\ShopOnline\ShopOnline
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/ColorSize/AddMauSac.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29sb3JTaXplXEFkZE1hdVNhYy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/ColorSize/AddSize.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29sb3JTaXplXEFkZFNpemUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/ColorSize/EditMauSac.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29sb3JTaXplXEVkaXRNYXVTYWMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/ColorSize/EditSize.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29sb3JTaXplXEVkaXRTaXplLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/ColorSize/MauSac.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29sb3JTaXplXE1hdVNhYy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/ColorSize/Size.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ29sb3JTaXplXFNpemUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/AddDanhMuc.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEFkZERhbmhNdWMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -36,6 +60,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/AddSanPham.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEFkZFNhblBoYW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/AddSizeSP.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEFkZFNpemVTUC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/ChiTietSanPham.cshtml]
@@ -52,6 +80,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/EditMauSacSP.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEVkaXRNYXVTYWNTUC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/EditSanPham.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEVkaXRTYW5QaGFtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/EditSizeSP.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEVkaXRTaXplU1AuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/DoAn/ShopOnline/ShopOnline/Areas/Admin/Views/HomeAdmin/Index.cshtml]

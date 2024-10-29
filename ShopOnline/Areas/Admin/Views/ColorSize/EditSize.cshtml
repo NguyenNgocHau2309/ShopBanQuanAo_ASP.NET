@@ -1,0 +1,35 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ShopOnline.Models.Size
+
+@{
+    ViewData["Title"] = "EditSize";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+<h1>Chỉnh sửa kích thước</h1>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="EditSize">
+            <input type="hidden" asp-for="MaSize" />
+            <div class="form-group">
+                <label class="control-label">Tên SP</label>
+                <input asp-for="TenSize" class="form-control" placeholder="Nhập tên size" required value="@Model.TenSize" />
+                <span asp-validation-for="TenSize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Chỉnh Sửa" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Size">Back to List</a>
+</div>
+

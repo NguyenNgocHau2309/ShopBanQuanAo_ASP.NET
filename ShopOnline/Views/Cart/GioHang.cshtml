@@ -4,6 +4,9 @@
     Layout = null;
     ViewBag.Title = "NHShop - Giỏ Hàng";
 }
+@{
+    var gifts = ViewBag.QuaTang as List<string>;
+}
 @model List<ShopOnline.ViewModels.CartItemViewModel>
 
 <!DOCTYPE html>
@@ -85,10 +88,6 @@
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
-                </a>
                 <a class="btn border" asp-area="Cart" asp-controller="Cart" asp-action="GioHang" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge" id="cartQuantity">0</span>
@@ -179,6 +178,12 @@
             @TempData["ErrorMessage"]
         </div>
     }
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["Message"]
+        </div>
+    }
     <!-- Page Header End -->
     <!-- Cart Start -->
     <div class="container-fluid pt-5">
@@ -242,12 +247,16 @@
                                         </div>
                                     </td>
                                     <td class="align-middle">
-                                        <button class="btn btn-sm btn-danger delete-cart"
-                                                data-product-id="@item.ProductId"
-                                                data-mams="@item.Color"
-                                                data-masize="@item.Size">
-                                            <i class="fa fa-times"></i>
-                                        </button>
+                                        <form method="post" asp-action="DeleteToCart">
+                                            <!-- Hidden inputs to store ProductId, Color (mams), and Size (masize) -->
+                                            <input type="hidden" name="productId" value="@item.ProductId" />
+                                            <input type="hidden" name="mams" value="@item.Color" />
+                                            <input type="hidden" name="masize" value="@item.Size" />
+
+                                            <button class="btn btn-sm btn-danger delete-cart">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             }
@@ -256,14 +265,6 @@
                 </table>
             </div>
             <div class="col-lg-4">
-                <form class="mb-5" action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control p-4" placeholder="Coupon Code">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary">Apply Coupon</button>
-                        </div>
-                    </div>
-                </form>
                 <div class="card border-secondary mb-5">
                     <div class="card-header bg-secondary border-0">
                         <h4 class="font-weight-semi-bold m-0">Thanh Toán Tạm</h4>
@@ -275,17 +276,23 @@
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Giảm giá</h6>
-                            <h6 class="font-weight-medium" id="discountValue">0₫</h6> <!-- Thêm id để dễ dàng cập nhật -->
+                            <h6 class="font-weight-medium" id="discountValue">@String.Format("{0:#,0.000}₫", ViewBag.GiamGia)</h6> <!-- Thêm id để dễ dàng cập nhật -->
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Quà Tặng</h6>
-                            <h6 class="font-weight-medium" id="giftValue">Không có</h6> <!-- Thêm id để dễ dàng cập nhật -->
+                            <div style="margin: 10px; text-align: center;">
+                                <h6 style="color: blue; font-weight: normal; font-size: 0.85rem;" id="giftValue">
+                                    @(gifts != null && gifts.Count > 0 
+                                    ? string.Join(", ", gifts) 
+                                    : "Không có")
+                                </h6>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Tổng cộng</h5>
-                            <h5 class="font-weight-bold" id="finalTotal">0₫</h5>
+                            <h5 class="font-weight-bold" id="finalTotal">@String.Format("{0:#,0.000}₫", Model.Sum(item => item.Quantity * item.UnitPrice) - ViewBag.GiamGia)</h5>
                         </div>
                         <form asp-area="Checkout" asp-controller="Checkout" asp-action="ThanhToan" method="get">
                             <button type="submit" class="btn btn-block btn-primary my-3 py-3">Tiến hành thanh toán</button>
@@ -383,29 +390,7 @@
     <script src="~/LayoutShop/js/main.js"></script>
     <script>
         $(document).ready(function () {
-            const ship = 0; // Đặt giá trị ship cố định là 0
-
-            // Gọi hàm AJAX để cập nhật khuyến mãi và tổng tiền khi trang được tải
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("Checkout", "hoadon")', // Đường dẫn chính xác tới action trong controller
-                data: {
-                    ship: ship
-                },
-                success: function (data) {
-                    // Hiển thị thông tin giảm giá
-                    $('#discountValue').text(data.GiamGia.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
-
-                    // Hiển thị thông tin quà tặng
-                    $('#giftValue').text(data.QuaTang.length > 0 ? data.QuaTang.join(', ') : 'Không có');
-
-                    // Cập nhật tổng tiền khi trang được tải
-                    updateTotalPay(data.GiamGia);
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error:", error); // Hiển thị lỗi trong console
-                }
-            });
+            
 
             // Tăng/giảm số lượng sản phẩm trong giỏ hàng
             $('.btn-minus').click(function () {
@@ -419,6 +404,7 @@
                     quantity -= 1;
                     quantityInput.val(quantity);
                     updateQuantity(productId, mams, masize, quantity);
+                    loadCart();
                 }
             });
 
@@ -432,7 +418,21 @@
                 quantity += 1;
                 quantityInput.val(quantity);
                 updateQuantity(productId, mams, masize, quantity);
+                loadCart();
             });
+             // Hàm tải lại giỏ hàng
+            function loadCart() {
+                $.ajax({
+                    url: '@Url.Action("GioHang", "Cart")', // Gọi đến action giohang trong controller Cart
+                    type: 'GET',
+                    success: function (data) {
+                        $('#cartContent').html(data); // Cập nhật nội dung giỏ hàng
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Lỗi khi tải lại giỏ hàng: ', error);
+                    }
+                });
+            }
 
             // Hàm cập nhật số lượng sản phẩm trong giỏ hàng
             function updateQuantity(productId, mams, masize, quantity) {
@@ -455,30 +455,6 @@
                 });
             }
 
-            // Xóa sản phẩm khỏi giỏ hàng
-            $('.delete-cart').click(function (e) {
-                e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit
-
-                const productId = $(this).data('product-id');
-                const mams = $(this).data('color');
-                const masize = $(this).data('size');
-
-                $.ajax({
-                    url: '@Url.Action("DeleteFromCart", "Cart")',
-                    type: 'POST',
-                    data: {
-                        productId: productId,
-                        mams: mams,
-                        masize: masize
-                    },
-                    success: function (response) {
-                        location.reload(); // Tải lại trang sau khi xóa thành công
-                    },
-                    error: function () {
-                        alert('Có lỗi xảy ra, vui lòng thử lại.'); // Thông báo khi có lỗi
-                    }
-                });
-            });
 
             // Cập nhật số lượng giỏ hàng khi trang được tải
             $.ajax({

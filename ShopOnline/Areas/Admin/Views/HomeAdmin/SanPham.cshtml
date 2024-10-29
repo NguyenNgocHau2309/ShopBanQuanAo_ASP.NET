@@ -7,7 +7,21 @@
 @model X.PagedList.IPagedList<ShopOnline.Models.SanPham>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<h2>Sản phẩm</h2>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2 style="margin: 0;">Sản phẩm</h2>
+    <div class="search-field" style="flex-shrink: 0;">
+        <form class="d-flex align-items-center h-100" method="get" action="/admin/homeadmin/sanpham">
+            <div class="input-group">
+                <input type="text" class="form-control border" style="padding: 10px 20px;" name="search" placeholder="Tìm kiếm sản phẩm..." />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit" style="padding: 10px 20px;">
+                        <i class="mdi mdi-magnify"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 <p>
     <a asp-action="AddSanPham">Create New</a>

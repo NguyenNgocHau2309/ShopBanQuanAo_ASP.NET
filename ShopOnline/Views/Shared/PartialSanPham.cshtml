@@ -2,39 +2,6 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-@* <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-    <div class="card product-item border-0 mb-4">
-        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="height: 300px;">
-            <img class="img-fluid w-100" src="@Model.HinhAnhDD" alt="@Model.TenSP" style="height: 100%; object-fit: cover;">
-        </div>
-        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-            <h6 class="text-truncate mb-3">@Model.TenSP</h6>
-            <div class="d-flex justify-content-center">
-                @if (Model.GiaThapNhat == Model.GiaCaoNhat)
-                {
-                    <h6>₫@String.Format("{0:#,0}", Model.GiaThapNhat)</h6>
-                }
-                else
-                {
-                    <h6>
-                        <span>₫@String.Format("{0:#,0}", Model.GiaThapNhat)</span>
-                        <span> - </span> <!-- Khoảng trắng giữa hai giá -->
-                        <span>₫@String.Format("{0:#,0}", Model.GiaCaoNhat)</span>
-                    </h6>
-                }
-
-            </div>
-        </div>
-        <div class="card-footer d-flex justify-content-between bg-light border">
-            <a asp-controller="Home" asp-action="ChiTietSanPham" asp-route-masp="@Model.MaSP" class="btn btn-sm text-dark p-0">
-                <i class="fa-solid fa-eye"></i>Chi tiết
-            </a>
-            <a href="/GioHang/ThemSanPham/@Model.MaSP" class="btn btn-sm text-dark p-0">
-                <i class="fa-solid fa-cart-shopping"></i>Giỏ hàng
-            </a>
-        </div>
-    </div>
-</div> *@
 <div class="col-lg-3 col-md-6 col-sm-12 pb-1" style="max-width:33.33%">
     <div class="card product-item border-0 mb-4">
         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="height: 300px;">

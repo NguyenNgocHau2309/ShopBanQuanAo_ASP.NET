@@ -127,6 +127,8 @@ namespace ShopOnline.Controllers
                             TongTien = item.Gia * item.Soluong
                         };
                         db.Ctdhs.Add(ctdh);
+                        //Cập nhập số lượng
+                        db.CtspSizes.FirstOrDefault(x => x.MaCtspSize == ctdh.MaCtspSize).SoLuongTon -= ctdh.SoLuong;
                     }
                     if (TienGiam > 0) // Giả định rằng item có thuộc tính Dicount để kiểm tra
                     {
@@ -148,7 +150,7 @@ namespace ShopOnline.Controllers
                             HttpContext.Session.Remove("ctkmTam");
                         }
                     }
-
+                    
                     db.SaveChanges();
                     // Xóa giỏ hàng sau khi thanh toán thành công
                     ClearCart(makh);
@@ -178,25 +180,25 @@ namespace ShopOnline.Controllers
         //Xử lý giỏ hàng 
         public void ClearCart(string makh)
         {
-            if (string.IsNullOrEmpty(makh))
-            {
-                // Nếu mã khách hàng null, có thể xử lý giỏ hàng tạm thời bằng session
-                var tempCart = HttpContext.Session.GetObjectFromJson<List<CartItemViewModel>>("TempCart");
-                if (tempCart != null)
-                {
-                    // Xóa giỏ hàng tạm trong session
-                    HttpContext.Session.Remove("TempCart");
-                    Console.WriteLine("Giỏ hàng tạm đã được xóa.");
-                }
-            }
-            else
-            {
-                string magh = db.GioHangs.FirstOrDefault(x => x.MaKH == makh).MaGH;
-                // Nếu mã khách hàng có giá trị, xóa các mục giỏ hàng trong database
-                var cartItems = db.Ctghs.Where(c => c.MaGH == magh).ToList();
-                db.Ctghs.RemoveRange(cartItems);
-                db.SaveChanges();
-            }
+            //if (string.IsNullOrEmpty(makh))
+            //{
+            //    // Nếu mã khách hàng null, có thể xử lý giỏ hàng tạm thời bằng session
+            //    var tempCart = HttpContext.Session.GetObjectFromJson<List<CartItemViewModel>>("TempCart");
+            //    if (tempCart != null)
+            //    {
+            //        // Xóa giỏ hàng tạm trong session
+            //        HttpContext.Session.Remove("TempCart");
+            //        Console.WriteLine("Giỏ hàng tạm đã được xóa.");
+            //    }
+            //}
+            //else
+            //{
+            string magh = db.GioHangs.FirstOrDefault(x => x.MaKH == makh).MaGH;
+            // Nếu mã khách hàng có giá trị, xóa các mục giỏ hàng trong database
+            var cartItems = db.Ctghs.Where(c => c.MaGH == magh).ToList();
+            db.Ctghs.RemoveRange(cartItems);
+            db.SaveChanges();
+            //}
         }
 
         //Xử lý lấy chi tiết đơn hàng
@@ -230,38 +232,38 @@ namespace ShopOnline.Controllers
         {
             var cartItems = new List<CheckoutTempViewModel>();
 
-            if (customerID != null)
+            //if (customerID != null)
+            //{
+            string magh = db.GioHangs.FirstOrDefault(x => x.MaKH == customerID).MaGH;
+            var giohang = db.Ctghs.Where(x => x.MaGH == magh).ToList();
+            foreach (var g in giohang)
             {
-                string magh = db.GioHangs.FirstOrDefault(x => x.MaKH == customerID).MaGH;
-                var giohang = db.Ctghs.Where(x => x.MaGH == magh).ToList();
-                foreach (var g in giohang)
-                {
 
-                    cartItems.Add(new CheckoutTempViewModel
-                    {
-                        Masp = GetProductID(g.MaCTSP_Size),
-                        Mams = GetColorID(g.MaCTSP_Size),
-                        Masize = GetSizeID(g.MaCTSP_Size),
-                        Gia = Gia(g.MaCTSP_Size),
-                        Soluong = g.SoLuong
-                    });
-                }
-            }
-            else
-            {
-                var giohang = HttpContext.Session.GetObjectFromJson<List<CartItemViewModel>>("TempCart") ?? new List<CartItemViewModel>();
-                foreach (var g in giohang)
+                cartItems.Add(new CheckoutTempViewModel
                 {
-                    cartItems.Add(new CheckoutTempViewModel
-                    {
-                        Masp = g.ProductId,
-                        Mams = db.MauSacs.Where(c => c.TenMs == g.Color).Select(x => x.MaMs).FirstOrDefault(),
-                        Masize = db.Sizes.Where(c => c.TenSize == g.Size).Select(x => x.MaSize).FirstOrDefault(),
-                        Gia = g.UnitPrice,
-                        Soluong = g.Quantity
-                    });
-                }
+                    Masp = GetProductID(g.MaCTSP_Size),
+                    Mams = GetColorID(g.MaCTSP_Size),
+                    Masize = GetSizeID(g.MaCTSP_Size),
+                    Gia = Gia(g.MaCTSP_Size),
+                    Soluong = g.SoLuong
+                });
             }
+            //}
+            //else
+            //{
+            //    var giohang = HttpContext.Session.GetObjectFromJson<List<CartItemViewModel>>("TempCart") ?? new List<CartItemViewModel>();
+            //    foreach (var g in giohang)
+            //    {
+            //        cartItems.Add(new CheckoutTempViewModel
+            //        {
+            //            Masp = g.ProductId,
+            //            Mams = db.MauSacs.Where(c => c.TenMs == g.Color).Select(x => x.MaMs).FirstOrDefault(),
+            //            Masize = db.Sizes.Where(c => c.TenSize == g.Size).Select(x => x.MaSize).FirstOrDefault(),
+            //            Gia = g.UnitPrice,
+            //            Soluong = g.Quantity
+            //        });
+            //    }
+            //}
 
             return cartItems;
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopOnline.Models;
+using ShopOnline.Models.Authentication;
 using ShopOnline.ViewModels;
 
 namespace ShopOnline.Controllers
@@ -8,6 +9,7 @@ namespace ShopOnline.Controllers
     {
         QuanLyShopOnlineContext db = new QuanLyShopOnlineContext();
         [HttpGet]
+        [Authentication]
         public IActionResult ThongTinCaNhan(string activeTab)
         {
             ViewData["ActiveTab"] = activeTab ?? "personal-info";

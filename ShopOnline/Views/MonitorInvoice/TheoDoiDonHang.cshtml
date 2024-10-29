@@ -85,10 +85,6 @@
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
-                </a>
                 <a class="btn border" asp-area="Cart" asp-controller="Cart" asp-action="GioHang" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge">0</span>
@@ -212,7 +208,7 @@
                                     <th style="padding: 10px; border-bottom: 1px solid #ddd;">Số Lượng</th>
                                     <th style="padding: 10px; border-bottom: 1px solid #ddd;">Giá</th>
                                     <th style="padding: 10px; border-bottom: 1px solid #ddd;">Tổng</th>
-                                    @if (donhang.TrangThai.Trim().ToLower().Contains("giao hàng"))
+                                    @if (donhang.TrangThai.Trim().ToLower().Contains("đã giao hàng"))
                                     {
                                         <th style="padding: 10px; border-bottom: 1px solid #ddd;">Đánh Giá</th> <!-- Cột mới cho nút Đánh giá -->
                                     }
@@ -231,7 +227,7 @@
                                         <td style="padding: 10px; border-bottom: 1px solid #ddd;">@item.Soluong</td>
                                         <td style="padding: 10px; border-bottom: 1px solid #ddd;">₫@String.Format("{0:#,0.000}", item.Gia)</td>
                                         <td style="padding: 10px; border-bottom: 1px solid #ddd;">₫@String.Format("{0:#,0.000}", item.Tong)</td>
-                                        @if (donhang.TrangThai.Trim().ToLower().Contains("giao hàng") && !item.IsDanhGia) // Kiểm tra nếu sản phẩm chưa được đánh giá
+                                        @if (donhang.TrangThai.Trim().ToLower().Contains("đã giao hàng") && !item.IsDanhGia) // Kiểm tra nếu sản phẩm chưa được đánh giá
                                         {
                                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
                                                 <a href="@Url.Action("DanhGia", "Evaluate", new { macts = item.MaCTSPS, madh = donhang.MaDH})"
@@ -260,6 +256,16 @@
                                 <td colspan="6" style="padding: 10px; text-align: right; font-weight: bold; color: #28a745;"><strong>Tổng Cộng:</strong></td>
                                 <td style="padding: 10px; font-weight: bold; color: #28a745;"><strong>₫@String.Format("{0:#,0.000}", donhang.TongCong)</strong></td>
                             </tr>
+                                @if (!donhang.TrangThai.Trim().ToLower().Contains("hủy")) // Only show the cancel button if not already canceled
+                                {
+                                    <tr>
+                                        <td colspan="6" style="padding: 10px;">
+                                            <a asp-action="HuyDonHang" asp-controller="MonitorInvoice" asp-route-madh="@donhang.MaDH">
+                                                <button class="btn btn-danger">Hủy Đơn Hàng</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
                         </tfoot>
                     </table>
                 </div>

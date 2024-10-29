@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "MauSac";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@using ShopOnline.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<ShopOnline.Models.MauSac>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2 style="margin: 0;">Màu Sắc</h2>
+    <div class="search-field" style="flex-shrink: 0;">
+        <form class="d-flex align-items-center h-100" method="get" action="/admin/homeadmin/MauSac">
+            <div class="input-group">
+                <input type="text" class="form-control border" style="padding: 10px 20px;" name="search" placeholder="Tìm kiếm sản phẩm..." />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit" style="padding: 10px 20px;">
+                        <i class="mdi mdi-magnify"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<p>
+    <a asp-action="AddMauSac">Create New</a>
+</p>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @TempData["ErrorMessage"]
+    </div>
+}
+@if (TempData["Message"] != null)
+{
+    <div>
+        @TempData["Message"]
+    </div>
+}
+<hr/>
+<table class="table">
+    <thead>
+        <tr class="table-success">
+            <th>
+                Tên MS
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="table-danger">
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenMs)
+                </td>
+                <td>
+                    <a asp-action="EditMauSac" asp-route-mams="@item.MaMs">Edit</a> |
+                    <a asp-action="DeleteMauSac" asp-route-mams="@item.MaMs">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<ul class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("MauSac", new { page = page }),
+            new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 3,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+        LinkToPreviousPageFormat = "Previous",
+        LinkToNextPageFormat = "Next",
+        LinkToIndividualPageFormat = "{0}",
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+</ul>

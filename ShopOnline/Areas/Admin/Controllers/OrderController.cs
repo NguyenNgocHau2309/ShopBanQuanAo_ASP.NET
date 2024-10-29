@@ -20,7 +20,7 @@ namespace ShopOnline.Areas.Admin.Controllers
             int pageSize = 10;
             int pageNumber = page ?? 1;
 
-            var hoaDons = db.DonHangs.OrderBy(dh => dh.MaDh);
+            var hoaDons = db.DonHangs.OrderByDescending(dh => dh.MaDh);
             var pagedList = hoaDons.ToPagedList(pageNumber, pageSize);
 
             return View(pagedList);
@@ -86,7 +86,7 @@ namespace ShopOnline.Areas.Admin.Controllers
         {
             int pageSize = 10;
             int pageNumber = page ?? 1;
-            var dg = db.DanhGia.ToList();
+            var dg = db.DanhGia.OrderByDescending(x => x.MaDg).ToList();
             List<DanhGiaViewModel> ListDanhGia = new List<DanhGiaViewModel>();
             foreach( var d in dg)
             {

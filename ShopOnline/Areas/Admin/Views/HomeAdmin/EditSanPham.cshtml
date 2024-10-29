@@ -1,0 +1,101 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ShopOnline.Areas.Admin.ViewModels.SanPhamViewModel
+
+@{
+    ViewData["Title"] = "Chỉnh Sửa Sản phẩm";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+
+<h1>Chỉnh Sửa Sản phẩm</h1>
+<hr />
+<div class="alert-container">
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" asp-action="EditSanPham" enctype="multipart/form-data" id="product-form">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="MaSP" value="@Model.MaSP" />
+            
+            <!-- Danh mục sản phẩm -->
+            <div class="form-group">
+                <label class="control-label">Tên DM</label>
+                <select asp-for="Tendm" class="form-control" required>
+                    <option value="">Chọn danh mục</option>
+                    @foreach (var dm in Model.listTenDM)
+                    {
+                        <option value="@dm">@dm</option>
+                    }
+                </select>
+                <span asp-validation-for="Tendm" class="text-danger"></span>
+            </div>
+
+            <!-- Tên sản phẩm -->
+            <div class="form-group">
+                <label class="control-label">Tên SP</label>
+                <input asp-for="TenSP" class="form-control" placeholder="Nhập tên sản phẩm" required value="@Model.TenSP" />
+                <span asp-validation-for="TenSP" class="text-danger"></span>
+            </div>
+
+            <!-- Hình ảnh sản phẩm -->
+            <div class="form-group">
+                <label class="control-label">Hình ảnh đại diện</label>
+                <input asp-for="HinhanhDD" type="file" class="form-control" accept="image/*" required />
+                <span asp-validation-for="HinhanhDD" class="text-danger"></span>
+            </div>
+
+            <!-- Mô tả sản phẩm -->
+            <div class="form-group">
+                <label class="control-label">Mô tả</label>
+                <textarea asp-for="MoTa" class="form-control" placeholder="Nhập mô tả sản phẩm" required>@Model.MoTa</textarea>
+                <span asp-validation-for="MoTa" class="text-danger"></span>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <input type="submit" value="Lưu thay đổi" class="btn btn-primary" />
+                <a href="/admin/homeadmin/sanpham?page=1" class="btn btn-secondary">Trở về danh sách</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .product-details {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .detail-card {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 15px;
+        margin-top: 10px;
+        background-color: #fff;
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    h3 {
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        margin-top: 10px;
+    }
+</style>

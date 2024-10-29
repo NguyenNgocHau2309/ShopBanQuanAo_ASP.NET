@@ -26,7 +26,6 @@ namespace ShopOnline.Controllers
             _logger = logger;
             _httpContextAccessor = httpContextAccessor;
         }
-
         public IActionResult Index(int? page, string search, string selectedColor, string selectedSize, string selectedPrice)
         {
             ViewBag.Search = search;
@@ -88,7 +87,7 @@ namespace ShopOnline.Controllers
                     int maxPrice = int.Parse(priceValues[1]) / 1000;
 
                     // Lọc sản phẩm theo khoảng giá đã tách
-                    sanPhamList = sanPhamList.Where(sp => sp.MinGia >= minPrice && sp.MinGia <= maxPrice).ToList();
+                    sanPhamList = sanPhamList.Where(sp => sp.MinGia > minPrice && sp.MinGia <= maxPrice).ToList();
                 }
                 else if (selectedPrice.Contains("Trên")) // Xử lý trường hợp "Trên 400.000₫"
                 {
@@ -98,10 +97,12 @@ namespace ShopOnline.Controllers
                 else if (selectedPrice.Contains("Dưới")) // Xử lý trường hợp "Dưới 100.000₫"
                 {
                     int maxPrice = int.Parse(selectedPrice.Replace("Dưới", "").Replace("₫", "").Replace(".", "").Trim()) / 1000;
-                    sanPhamList = sanPhamList.Where(sp => sp.MaxGia < maxPrice).ToList();
+                    sanPhamList = sanPhamList.Where(sp => sp.MaxGia <= maxPrice).ToList();
                 }
             }
+
             //Xử lý tìm kiếm theo màu sắc
+            var colorCounts = new Dictionary<string, int>();
             if (!string.IsNullOrEmpty(selectedColor) && !selectedColor.Contains("Tất cả"))
             {
                 var maMauSacs = db.MauSacs.Where(x => x.TenMs.Contains(selectedColor)).Select(x => x.MaMs).ToList();
@@ -156,6 +157,107 @@ namespace ShopOnline.Controllers
             }
 
             var pagedList = sanPhamList.ToPagedList(pageNumber, pageSize);
+
+            ViewBag.AllProducts = sanPhamList;
+
+            //Xử lý số lượng theo màu sắc
+            int mauDen = 0, mauTrang = 0, mauDo = 0, mauXanh = 0, mauNau = 0;
+            int sizeXS = 0, sizeS = 0, sizeM = 0, sizeL = 0, sizeXL = 0, sizeFreeSize = 0;
+
+            foreach (var sp in sanPhamList)
+            {
+                // Flags for each color, initialized to true for each product
+                bool checkMauDen = true, checkMauTrang = true, checkMauDo = true, checkMauXanh = true, checkMauNau = true;
+                bool checkSizeXS = true, checkSizeS = true, checkSizeM = true, checkSizeL = true, checkSizeXL = true, checkSizeFreesize = true;
+
+                var CTSP = db.Ctsps.Where(x => x.MaSp == sp.MaSp).ToList();
+                foreach (var ctsp in CTSP)
+                {
+                    string tenMS = db.MauSacs.FirstOrDefault(x => x.MaMs == ctsp.MaMs)?.TenMs?.Trim();
+
+                    // Count colors once per product
+                    if (tenMS != null)
+                    {
+                        if (checkMauDen && tenMS.Contains("Đen"))
+                        {
+                            mauDen += 1;
+                            checkMauDen = false;
+                        }
+                        else if (checkMauTrang && tenMS.Contains("Trắng"))
+                        {
+                            mauTrang += 1;
+                            checkMauTrang = false;
+                        }
+                        else if (checkMauDo && tenMS.Contains("Đỏ"))
+                        {
+                            mauDo += 1;
+                            checkMauDo = false;
+                        }
+                        else if (checkMauXanh && tenMS.Contains("Xanh"))
+                        {
+                            mauXanh += 1;
+                            checkMauXanh = false;
+                        }
+                        else if (checkMauNau && tenMS.Contains("Nâu"))
+                        {
+                            mauNau += 1;
+                            checkMauNau = false;
+                        }
+                    }
+
+                    // Count sizes once per product
+                    var CTSPSize = db.CtspSizes.Where(x => x.MaCtsp == ctsp.MaCtsp).ToList();
+                    foreach (var ctspSize in CTSPSize)
+                    {
+                        string tenSize = db.Sizes.FirstOrDefault(x => x.MaSize == ctspSize.MaSize)?.TenSize?.Trim();
+
+                        if (checkSizeXS && tenSize == "XS")
+                        {
+                            sizeXS += 1;
+                            checkSizeXS = false;
+                        }
+                        else if (checkSizeS && tenSize == "S")
+                        {
+                            sizeS += 1;
+                            checkSizeS = false;
+                        }
+                        else if (checkSizeM && tenSize == "M")
+                        {
+                            sizeM += 1;
+                            checkSizeM = false;
+                        }
+                        else if (checkSizeL && tenSize == "L")
+                        {
+                            sizeL += 1;
+                            checkSizeL = false;
+                        }
+                        else if (checkSizeXL && tenSize == "XL")
+                        {
+                            sizeXL += 1;
+                            checkSizeXL = false;
+                        }
+                        else if (checkSizeFreesize && tenSize == "FreeSize")
+                        {
+                            sizeFreeSize += 1;
+                            checkSizeFreesize = false;
+                        }
+                    }
+                }
+            }
+            //Viewbag màu sắc
+            ViewBag.MauDen = mauDen;
+            ViewBag.MauTrang = mauTrang;
+            ViewBag.MauDo = mauDo;
+            ViewBag.MauXanh = mauXanh;
+            ViewBag.MauNau = mauNau;
+
+            //Viewbag size
+            ViewBag.SizeXS = sizeXS;
+            ViewBag.SizeS = sizeS;
+            ViewBag.SizeM = sizeM;
+            ViewBag.SizeL = sizeL;
+            ViewBag.SizeXL = sizeXL;
+            ViewBag.FreeSize = sizeFreeSize;
 
             return View(pagedList);
         }
@@ -275,8 +377,106 @@ namespace ShopOnline.Controllers
             // Tạo phân trang
             var pagedList = sanPhamList.ToPagedList(pageNumber, pageSize);
 
-            ViewBag.ListSanPham = pagedList;
+            ViewBag.AllProducts = sanPhamList;
             ViewBag.MadM = madm;
+            //Xử lý số lượng theo màu sắc
+            int mauDen = 0, mauTrang = 0, mauDo = 0, mauXanh = 0, mauNau = 0;
+            int sizeXS = 0, sizeS = 0, sizeM = 0, sizeL = 0, sizeXL = 0, sizeFreeSize = 0;
+
+            foreach (var sp in sanPhamList)
+            {
+                // Flags for each color, initialized to true for each product
+                bool checkMauDen = true, checkMauTrang = true, checkMauDo = true, checkMauXanh = true, checkMauNau = true;
+                bool checkSizeXS = true, checkSizeS = true, checkSizeM = true, checkSizeL = true, checkSizeXL = true, checkSizeFreesize = true;
+
+                var CTSP = db.Ctsps.Where(x => x.MaSp == sp.MaSp).ToList();
+                foreach (var ctsp in CTSP)
+                {
+                    string tenMS = db.MauSacs.FirstOrDefault(x => x.MaMs == ctsp.MaMs)?.TenMs?.Trim();
+
+                    // Count colors once per product
+                    if (tenMS != null)
+                    {
+                        if (checkMauDen && tenMS.Contains("Đen"))
+                        {
+                            mauDen += 1;
+                            checkMauDen = false;
+                        }
+                        else if (checkMauTrang && tenMS.Contains("Trắng"))
+                        {
+                            mauTrang += 1;
+                            checkMauTrang = false;
+                        }
+                        else if (checkMauDo && tenMS.Contains("Đỏ"))
+                        {
+                            mauDo += 1;
+                            checkMauDo = false;
+                        }
+                        else if (checkMauXanh && tenMS.Contains("Xanh"))
+                        {
+                            mauXanh += 1;
+                            checkMauXanh = false;
+                        }
+                        else if (checkMauNau && tenMS.Contains("Nâu"))
+                        {
+                            mauNau += 1;
+                            checkMauNau = false;
+                        }
+                    }
+
+                    // Count sizes once per product
+                    var CTSPSize = db.CtspSizes.Where(x => x.MaCtsp == ctsp.MaCtsp).ToList();
+                    foreach (var ctspSize in CTSPSize)
+                    {
+                        string tenSize = db.Sizes.FirstOrDefault(x => x.MaSize == ctspSize.MaSize)?.TenSize?.Trim();
+
+                        if (checkSizeXS && tenSize == "XS")
+                        {
+                            sizeXS += 1;
+                            checkSizeXS = false;
+                        }
+                        else if (checkSizeS && tenSize == "S")
+                        {
+                            sizeS += 1;
+                            checkSizeS = false;
+                        }
+                        else if (checkSizeM && tenSize == "M")
+                        {
+                            sizeM += 1;
+                            checkSizeM = false;
+                        }
+                        else if (checkSizeL && tenSize == "L")
+                        {
+                            sizeL += 1;
+                            checkSizeL = false;
+                        }
+                        else if (checkSizeXL && tenSize == "XL")
+                        {
+                            sizeXL += 1;
+                            checkSizeXL = false;
+                        }
+                        else if (checkSizeFreesize && tenSize == "FreeSize")
+                        {
+                            sizeFreeSize += 1;
+                            checkSizeFreesize = false;
+                        }
+                    }
+                }
+            }
+            //Viewbag màu sắc
+            ViewBag.MauDen = mauDen;
+            ViewBag.MauTrang = mauTrang;
+            ViewBag.MauDo = mauDo;
+            ViewBag.MauXanh = mauXanh;
+            ViewBag.MauNau = mauNau;
+
+            //Viewbag size
+            ViewBag.SizeXS = sizeXS;
+            ViewBag.SizeS = sizeS;
+            ViewBag.SizeM = sizeM;
+            ViewBag.SizeL = sizeL;
+            ViewBag.SizeXL = sizeXL;
+            ViewBag.FreeSize = sizeFreeSize;
 
             return View(pagedList);
         }

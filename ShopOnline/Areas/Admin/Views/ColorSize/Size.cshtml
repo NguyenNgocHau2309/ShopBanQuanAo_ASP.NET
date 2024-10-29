@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Size";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@using ShopOnline.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<ShopOnline.Models.Size>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h2>Kích thước</h2>
+
+<p>
+    <a asp-action="AddSize">Create New</a>
+</p>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @TempData["ErrorMessage"]
+    </div>
+}
+@if (TempData["Message"] != null)
+{
+    <div>
+        @TempData["Message"]
+    </div>
+}
+<hr />
+<table class="table">
+    <thead>
+        <tr class="table-success">
+            <th>
+                Tên Size
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="table-danger">
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenSize)
+                </td>
+                <td>
+                    <a asp-action="EditSize" asp-route-maSize="@item.MaSize">Edit</a> |
+                    <a asp-action="DeleteSize" asp-route-maSize="@item.MaSize">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<ul class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("Size", new { page = page }),
+            new PagedListRenderOptions
+    {
+        MaximumPageNumbersToDisplay = 3,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+        LinkToPreviousPageFormat = "Previous",
+        LinkToNextPageFormat = "Next",
+        LinkToIndividualPageFormat = "{0}",
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+</ul>

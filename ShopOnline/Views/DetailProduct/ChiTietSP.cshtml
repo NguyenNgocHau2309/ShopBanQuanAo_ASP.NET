@@ -2,11 +2,22 @@
     Layout = null;
     ViewBag.Title = "NHShop - Chi Tiết Sản Phẩm";
 }
-@model ShopOnline.ViewModels.DetailEvaluateProductViewModel
 
+@model ShopOnline.ViewModels.DetailEvaluateProductViewModel
+@* @{
+    var productUrl = Url.Action("ProductDetails", "Products", new { id =   }, Request.Scheme);
+    var imageUrl = Model.DetailViewModel.SanPham.HinhAnhDd; // Đường dẫn đến hình ảnh của sản phẩm
+} *@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    List<int> diemDG = Model.DanhGia.Select(x => x.diem).ToList();
+    int tong = diemDG.Sum();
+    int soLuotDanhGia = diemDG.Count;
 
+    decimal diemTrungBinh = soLuotDanhGia > 0 ? Math.Round((decimal)tong / soLuotDanhGia, 1) : 5;
+    int diemTrungBinhLamTron = (int)Math.Ceiling(diemTrungBinh - 0.5m);
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -87,10 +98,6 @@
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
-                </a>
                 <a class="btn border" asp-area="Cart" asp-controller="Cart" asp-action="GioHang" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge" id="cartQuantity">0</span>
@@ -189,12 +196,20 @@
                 <h3 class="font-weight-semi-bold">@Model.DetailViewModel.SanPham.TenSp</h3>
                 <div class="d-flex mb-3">
                     <div class="text-primary mr-2">
-                        @for (int i = 0; i < 5; i++)
+
+                        @for (int i = 1; i <= 5; i++)
                         {
-                            <small class="fas fa-star"></small>
+                            if (i <= diemTrungBinhLamTron)
+                            {
+                                <i class="fas fa-star"></i> <!-- Ngôi sao đầy màu vàng -->
+                            }
+                            else
+                            {
+                                <i class="far fa-star"></i> <!-- Ngôi sao rỗng -->
+                            }
                         }
                     </div>
-                    <small class="pt-1">(50 Reviews)</small>
+                    <small class="pt-1">(@diemTrungBinh điểm)</small>
                 </div>
                 <h3 class="font-weight-semi-bold mb-4">
                     <div id="product-price">
@@ -271,23 +286,11 @@
                         <button class="btn btn-primary px-3 addtocart"><i class="fa fa-shopping-cart mr-1"></i> Thêm giỏ hàng</button>
                     </div>
                 
-                <div class="d-flex pt-2">
-                    <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
-                    <div class="d-inline-flex">
-                        <a class="text-dark px-2" href="">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a class="text-dark px-2" href="">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a class="text-dark px-2" href="">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a class="text-dark px-2" href="">
-                            <i class="fab fa-pinterest"></i>
-                        </a>
-                    </div>
-                </div>
+                
+
+
+
+
             </div>
         </div>
         <div class="row px-xl-5">

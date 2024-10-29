@@ -4,6 +4,7 @@ namespace ShopOnline.Areas.Admin.ViewModels
 {
     public class SanPhamViewModel
     {
+        public string MaSP { get; set; }
         public string TenSP { get; set; }
         public IFormFile HinhanhDD { get; set; }
         public string MoTa {  get; set; }

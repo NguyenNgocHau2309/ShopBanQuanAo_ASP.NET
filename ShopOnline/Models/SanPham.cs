@@ -8,7 +8,7 @@ public partial class SanPham
 {
     public string MaSp { get; set; } 
 
-    public string? MaDm { get; set; }
+    public string MaDm { get; set; }
 
     public string? TenSp { get; set; }
 
